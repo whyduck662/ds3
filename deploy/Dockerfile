@@ -1,10 +1,9 @@
 FROM node:24.15.0-bookworm-slim
 WORKDIR /app
 COPY package*.json ./
-COPY src/web-ui/package.json src/web-ui/package.json
+COPY src ./src
 RUN npm ci
 COPY tsconfig.json ./
-COPY src ./src
 RUN npx tsc
 USER node
-CMD ["node", "dist/main.js"]
+CMD ["sh", "-c", "exec npm run start --workspace \"$SERVICE_NAME\""]

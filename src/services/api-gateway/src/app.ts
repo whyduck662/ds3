@@ -1,7 +1,7 @@
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import proxy from '@fastify/http-proxy';
-import { authenticate, createApp, fail } from '../common/platform.js';
+import { authenticate, createApp, fail } from '../../../common/src/platform.js';
 
 export function allowed(role: string, method: string, path: string) {
   if (path === '/users/me' || path === '/notifications/me') return method === 'GET';
@@ -31,11 +31,12 @@ export async function gatewayApp() {
     delete req.headers['x-user-id']; delete req.headers['x-user-role']; delete req.headers['x-internal-token'];
     reply.header('X-Correlation-ID', req.id);
   });
+  const authLimit = app.rateLimit({ max: 10, timeWindow: '1 minute' });
   for (const [prefix, service, port] of [ ['/auth','identity',8081], ['/users','identity',8081], ['/drivers','driver',8082], ['/trips','trip',8083], ['/payments','payment',8085], ['/notifications','notification',8086] ] as const) {
     await app.register(proxy, { upstream: process.env[`${service.toUpperCase()}_URL`] ?? `http://${service}-service:${port}`, prefix, rewritePrefix: prefix,
       httpMethods: ['GET','POST','PUT','DELETE','PATCH'],
       replyOptions: { rewriteRequestHeaders: (req, headers) => ({ ...headers, 'x-correlation-id': req.id }) },
-      preHandler: prefix === '/auth' ? app.rateLimit({ max: 10, timeWindow: '1 minute' }) : undefined });
+      preHandler: prefix === '/auth' ? async (req, reply) => { await authLimit.call(app, req, reply); } : undefined });
   }
   return app;
 }

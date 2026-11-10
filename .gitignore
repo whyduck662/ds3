@@ -3,3 +3,4 @@ dist/
 .env
 artifacts/
 *.log
+.npm-cache/

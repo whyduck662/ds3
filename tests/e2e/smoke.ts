@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { api, base, login } from './api.js';
+import { api, base, login } from '../../scripts/demo/api.js';
 const evidence: unknown[] = [];
 try {
   assert.equal((await api('/health')).status, 'ok');

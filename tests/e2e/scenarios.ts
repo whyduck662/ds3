@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { api, login } from './api.js';
+import { api, login } from '../../scripts/demo/api.js';
 const scenario = process.argv[2] ?? 'E01';
 if (!['E01','E02','E03'].includes(scenario)) throw new Error('Dung E01 (happy path), E02 (cancel), E03 (capture recovery)');
 const evidence: unknown[] = [];

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { Pool } from 'pg';
-import { authenticate, createApp } from '../common/platform.js';
+import { authenticate, createApp } from '../../../common/src/platform.js';
 
 // Payload contract bàn giao TV2: passengerId bắt buộc, driverId nếu đã gán.
 export const tripEvent = z.object({

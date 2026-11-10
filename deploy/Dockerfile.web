@@ -1,7 +1,7 @@
 FROM node:24.15.0-bookworm-slim AS build
 WORKDIR /app
 COPY package*.json ./
-COPY src/web-ui/package.json src/web-ui/package.json
+COPY src ./src
 RUN npm ci
 COPY src/web-ui src/web-ui
 RUN npm run build --workspace src/web-ui

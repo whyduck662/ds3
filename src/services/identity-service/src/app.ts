@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import type { Pool } from 'pg';
-import { authenticate, createApp, fail } from '../common/platform.js';
+import { authenticate, createApp, fail } from '../../../common/src/platform.js';
 
 const credentials = z.object({ email: z.email().max(254).transform(v => v.toLowerCase()), password: z.string().min(8).max(72) });
 export async function identityApp(pool: Pool) {
