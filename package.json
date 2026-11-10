@@ -1,0 +1,19 @@
+{
+  "name": "ds03", "private": true, "type": "module",
+  "workspaces": ["src/web-ui"],
+  "engines": {"node": ">=24 <25"},
+  "scripts": {
+    "dev": "tsx watch src/main.ts", "build": "tsc && npm run build --workspace src/web-ui",
+    "typecheck": "tsc --noEmit && npm run typecheck --workspace src/web-ui",
+    "test": "vitest run", "start": "node dist/main.js",
+    "up": "docker compose up --build -d", "seed": "tsx scripts/seed.ts",
+    "smoke": "tsx scripts/smoke.ts", "e2e": "tsx scripts/e2e.ts"
+  },
+  "dependencies": {
+    "fastify": "^5.6.2", "@fastify/cors": "^11.1.0", "@fastify/rate-limit": "^10.3.0",
+    "@fastify/jwt": "^10.0.0", "@fastify/http-proxy": "^11.3.0",
+    "pg": "^8.16.3", "bcryptjs": "^3.0.2", "zod": "^4.1.12",
+    "amqplib": "^0.10.9", "amqp-connection-manager": "^5.0.0"
+  },
+  "devDependencies": {"typescript": "^5.9.3", "tsx": "^4.20.6", "vitest": "^3.2.4", "@types/node": "^24.10.0", "@types/pg": "^8.15.5", "@types/amqplib": "^0.10.7"}
+}

@@ -1,0 +1,10 @@
+FROM node:24.15.0-bookworm-slim AS build
+WORKDIR /app
+COPY package*.json ./
+COPY src/web-ui/package.json src/web-ui/package.json
+RUN npm ci
+COPY src/web-ui src/web-ui
+RUN npm run build --workspace src/web-ui
+FROM nginx:1.28.0-alpine
+COPY --from=build /app/src/web-ui/dist /usr/share/nginx/html
+EXPOSE 80

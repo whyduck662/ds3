@@ -1,0 +1,218 @@
+name: ds03
+x-app: &app
+  build:
+    context: .
+    dockerfile: deploy/Dockerfile
+  restart: unless-stopped
+  networks: [backend]
+  mem_limit: 256m
+  healthcheck:
+    test: [CMD, node, -e, "fetch('http://localhost:'+process.env.PORT+'/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+    interval: 10s
+    timeout: 4s
+    retries: 10
+    start_period: 20s
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.4-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: ride
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?Run scripts/init-env.ps1}
+    ports: ["127.0.0.1:15672:15672"]
+    volumes: ["rabbit-data:/var/lib/rabbitmq"]
+    networks: [backend]
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  identity-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: identity
+      POSTGRES_USER: identity
+      POSTGRES_PASSWORD: ${IDENTITY_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["identity-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U identity -d identity"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  identity-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: identity-service
+      PORT: 8081
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://identity:${IDENTITY_DB_PASSWORD}@identity-db:5432/identity
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      identity-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  driver-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: driver
+      POSTGRES_USER: driver
+      POSTGRES_PASSWORD: ${DRIVER_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["driver-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U driver -d driver"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  driver-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: driver-service
+      PORT: 8082
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://driver:${DRIVER_DB_PASSWORD}@driver-db:5432/driver
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      driver-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  trip-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: trip
+      POSTGRES_USER: trip
+      POSTGRES_PASSWORD: ${TRIP_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["trip-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U trip -d trip"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  trip-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: trip-service
+      PORT: 8083
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://trip:${TRIP_DB_PASSWORD}@trip-db:5432/trip
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      trip-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  matching-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: matching
+      POSTGRES_USER: matching
+      POSTGRES_PASSWORD: ${MATCHING_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["matching-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U matching -d matching"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  matching-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: matching-service
+      PORT: 8084
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://matching:${MATCHING_DB_PASSWORD}@matching-db:5432/matching
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      matching-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  payment-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: payment
+      POSTGRES_USER: payment
+      POSTGRES_PASSWORD: ${PAYMENT_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["payment-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U payment -d payment"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  payment-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: payment-service
+      PORT: 8085
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://payment:${PAYMENT_DB_PASSWORD}@payment-db:5432/payment
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      payment-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  notification-db:
+    image: postgres:16.13-alpine
+    environment:
+      POSTGRES_DB: notification
+      POSTGRES_USER: notification
+      POSTGRES_PASSWORD: ${NOTIFICATION_DB_PASSWORD:?Run scripts/init-env.ps1}
+    volumes: ["notification-data:/var/lib/postgresql/data"]
+    networks: [backend]
+    mem_limit: 192m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U notification -d notification"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  notification-service:
+    <<: *app
+    environment:
+      SERVICE_NAME: notification-service
+      PORT: 8086
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      DATABASE_URL: postgres://notification:${NOTIFICATION_DB_PASSWORD}@notification-db:5432/notification
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      notification-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  matching-service-2:
+    <<: *app
+    environment:
+      SERVICE_NAME: matching-service
+      INSTANCE_ID: matching-service-2
+      PORT: 8084
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgres://matching:${MATCHING_DB_PASSWORD}@matching-db:5432/matching
+      RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
+    depends_on:
+      matching-db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+  api-gateway:
+    <<: *app
+    environment:
+      SERVICE_NAME: api-gateway
+      PORT: 8080
+      JWT_SECRET: ${JWT_SECRET}
+      UI_ORIGIN: http://localhost:3000
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      identity-service: {condition: service_healthy}
+      notification-service: {condition: service_healthy}
+  web-ui:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.web
+    ports: ["127.0.0.1:3000:80"]
+    networks: [backend]
+networks:
+  backend: {}
+volumes:
+  rabbit-data: {}
+  identity-data: {}
+  driver-data: {}
+  trip-data: {}
+  matching-data: {}
+  payment-data: {}
+  notification-data: {}
