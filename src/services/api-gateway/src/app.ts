@@ -18,9 +18,15 @@ export function allowed(role: string, method: string, path: string) {
 export async function gatewayApp() {
   const app = await createApp('api-gateway');
   await app.register(cors, { origin: process.env.UI_ORIGIN ?? 'http://localhost:3000', exposedHeaders: ['X-Correlation-ID'] });
-  await app.register(rateLimit, { max: 120, timeWindow: '1 minute' });
+  await app.register(rateLimit, {
+    max: req => req.url.startsWith('/auth/') ? 10 : req.method === 'POST' && req.url.split('?')[0] === '/trips' ? 30 : 120,
+    keyGenerator: req => `${req.ip}:${req.url.startsWith('/auth/') ? 'auth' : req.method === 'POST' && req.url.split('?')[0] === '/trips' ? 'booking' : 'api'}`,
+    timeWindow: '1 minute'
+  });
   app.addHook('onRequest', async (req, reply) => {
-    const path = decodeURIComponent(req.url.split('?')[0]);
+    let path: string;
+    try { path = decodeURIComponent(req.url.split('?')[0]); }
+    catch { fail(400, 'INVALID_URL', 'URL không hợp lệ'); }
     if (['/health','/ready','/dependencies'].includes(path)) return;
     if (path.startsWith('/internal') || path.includes('..') || path.includes('\\')) fail(403, 'INTERNAL_ROUTE_BLOCKED', 'API nội bộ bị chặn');
     if (req.method === 'OPTIONS') return;
@@ -31,12 +37,19 @@ export async function gatewayApp() {
     delete req.headers['x-user-id']; delete req.headers['x-user-role']; delete req.headers['x-internal-token'];
     reply.header('X-Correlation-ID', req.id);
   });
-  const authLimit = app.rateLimit({ max: 10, timeWindow: '1 minute' });
   for (const [prefix, service, port] of [ ['/auth','identity',8081], ['/users','identity',8081], ['/drivers','driver',8082], ['/trips','trip',8083], ['/payments','payment',8085], ['/notifications','notification',8086] ] as const) {
     await app.register(proxy, { upstream: process.env[`${service.toUpperCase()}_URL`] ?? `http://${service}-service:${port}`, prefix, rewritePrefix: prefix,
+      maxRetriesOn503: 0, retryMethods: ['GET'],
+      http: { requestOptions: { timeout: 2000 } }, destroyAgent: true,
+      proxyPayloads: false, // Parse JSON ở Gateway để bodyLimit 10 KB được áp dụng trước proxy.
       httpMethods: ['GET','POST','PUT','DELETE','PATCH'],
-      replyOptions: { rewriteRequestHeaders: (req, headers) => ({ ...headers, 'x-correlation-id': req.id }) },
-      preHandler: prefix === '/auth' ? async (req, reply) => { await authLimit.call(app, req, reply); } : undefined });
+      replyOptions: { timeout: 2000, retriesCount: 0,
+        onError: (reply) => { reply.code(503).send({ code: 'SERVICE_UNAVAILABLE', message: 'Dịch vụ tạm thời không sẵn sàng', correlationId: reply.request.id }); },
+        rewriteRequestHeaders: (req, headers) => {
+        const safe = { ...headers };
+        delete safe['x-user-id']; delete safe['x-user-role']; delete safe['x-internal-token'];
+        return { ...safe, 'x-correlation-id': req.id };
+      } } });
   }
   return app;
 }

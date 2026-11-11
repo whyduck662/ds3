@@ -13,10 +13,12 @@
   "scripts": {
     "dev": "npm run dev --workspace identity-service",
     "build": "tsc && npm run build --workspace web-ui",
-    "typecheck": "tsc --noEmit && npm run typecheck --workspace web-ui",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.tools.json && npm run typecheck --workspace web-ui",
     "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "demo": "tsx scripts/demo/run.ts",
     "start": "npm run start --workspace identity-service",
-    "up": "docker compose up --build -d",
+    "up": "node scripts/start.mjs",
     "seed": "tsx scripts/demo/seed.ts",
     "smoke": "tsx tests/e2e/smoke.ts",
     "e2e": "tsx tests/e2e/scenarios.ts"

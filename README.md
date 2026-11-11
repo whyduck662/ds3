@@ -34,10 +34,10 @@ Cần Node.js 24, npm, Docker Desktop chạy Linux containers. Trên PowerShell 
 
 ```powershell
 npm.cmd ci
-powershell -ExecutionPolicy Bypass -File scripts/start.ps1
+npm.cmd run up
 ```
 
-Mở UI tại http://localhost:3000, Gateway tại http://localhost:8080. RabbitMQ Management tại http://localhost:15672 (user `ride`, mật khẩu lấy từ `.env`). Mật khẩu DB/broker/JWT được tạo ngẫu nhiên bởi `init-env.ps1`; `.env` không đưa lên Git. Chỉ Gateway/UI/Management được bind vào localhost; DB và backend không public port.
+Mở UI tại http://localhost:3000, Gateway tại http://localhost:8080. RabbitMQ Management tại http://localhost:15672 (user `ride`, mật khẩu lấy từ `.env`). `npm run up` chạy được trên Windows/Linux/macOS, tạo `.env` ngẫu nhiên nếu chưa có, build/start/wait containers rồi seed. `.env` không đưa lên Git. Chỉ Gateway/UI/Management được bind vào localhost; DB và backend không public port. PowerShell vẫn hỗ trợ `scripts/start.ps1`.
 
 Seed tạo `passenger1@demo.local`, `passenger2@demo.local`, `driver@demo.local`, mật khẩu demo `DemoPass123!`. Không dùng các tài khoản này cho triển khai public.
 
@@ -54,13 +54,14 @@ Khi chạy backend ngoài Docker, đặt `JWT_SECRET` giống nhau, `DATABASE_UR
 npm.cmd run typecheck
 npm.cmd run build
 npm.cmd test
+powershell -ExecutionPolicy Bypass -File scripts/test-tv1.ps1
 npm.cmd run smoke
 npm.cmd run e2e -- E01
 ```
 
-Smoke cần Compose và seed. E01–E03 cần TV2/TV3 hoàn tất nghiệp vụ và thống nhất payload trong [hợp đồng](docs/contracts.md); lỗi 501 được ghi FAIL, không giả lập PASS. Kết quả chạy được lưu vào `artifacts/`.
+Smoke cần Compose và seed. Integration TV1 có DB/MQ test riêng, không phụ thuộc TV2/TV3. E01–E03 cần TV2/TV3 hoàn tất nghiệp vụ theo [hợp đồng](docs/contracts.md); lỗi 501 được ghi FAIL, không giả lập PASS. Kết quả chạy được lưu vào `artifacts/`. CI chạy build/typecheck/unit/integration và upload evidence. Xem [kiểm thử](docs/testing.md) và [9 demo](docs/demo.md).
 
-Backend chạy TypeScript qua `tsx` với entrypoint riêng của workspace; `build` kiểm tra biên dịch và build UI. SQL khởi tạo idempotent chạy khi Identity/Notification start, đủ cho schema đầu tiên. Khi đổi schema cần migration phiên bản mới.
+Backend chạy TypeScript qua `tsx` với entrypoint riêng của workspace; `build` kiểm tra biên dịch và build UI. Identity/Notification chạy migration theo tên file có version trong transaction/advisory lock, lưu schema_migrations. Khi đổi schema thêm file SQL đánh số mới, không sửa migration đã áp dụng.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/kill-service.ps1 payment-service

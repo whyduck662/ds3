@@ -2,7 +2,7 @@
 
 > **Học phần:** Distributed Systems · **Nhóm:** 03 thành viên · **Phiên bản:** v5  
 > **Hạn nộp duy nhất:** **22/11/2026** (nộp GitHub repository + báo cáo theo Specification).  
-> **Cơ sở:** `COURSE PROJECT SPECIFICATION.pdf` (mục 4, 7, 9–13) và `plan.md` v2.  
+> **Cơ sở đối chiếu hiện có:** `General_Requirements_and_DS03_English.md` (mục 2, 4, 7, 9–13 và Important Notes); các bản PDF/plan cũ chỉ là nguồn lịch sử.
 > **Trạng thái:** Kế hoạch thiết kế, **chưa phải** bằng chứng đã lập trình / chạy kiểm thử.  
 > **Nguyên tắc:** Đáp ứng đầy đủ yêu cầu bắt buộc trước; kỹ thuật nâng cao chỉ giữ nếu phục vụ trực tiếp độ tin cậy và demo.
 
@@ -10,7 +10,7 @@
 
 ## 0. Hạn nộp và các thay đổi kỹ thuật
 
-**Hạn nộp duy nhất: 22/11/2026.** Đây là mốc ngày duy nhất được dùng để điều phối dự án. Không đặt thêm deadline trung gian, ngày MVP, ngày code freeze, ngày thi hoặc lịch demo trong kế hoạch này. Việc triển khai được quản lý bằng **thứ tự ưu tiên, phụ thuộc và tiêu chí nghiệm thu**; nhóm tự quyết định thời điểm thực hiện các giai đoạn, miễn tất cả đầu ra bắt buộc hoàn tất trước khi nộp.
+**Hạn nộp repository và báo cáo: 22/11/2026.** Không tự đặt thêm deadline trung gian; việc triển khai được quản lý bằng **thứ tự ưu tiên, phụ thuộc và tiêu chí nghiệm thu**. Theo Important Notes của tài liệu yêu cầu, lịch demo/vấn đáp là **23/11/2026 và 30/11/2026**; nhóm xác nhận buổi được phân với giảng viên. Lịch giữa kỳ **16/11/2026** là dự kiến, có thể thay đổi. Các lịch học phần này không phải hạn nộp bổ sung của dự án.
 
 **Hồ sơ phải có khi nộp:** repository chạy được theo `README.md`, lịch sử Git của cả 3 người, `docs/report.pdf`, mã nguồn, deploy/test/scripts, `.env.example`, minh chứng kiểm thử và hướng dẫn demo đủ 9 tình huống. Nếu repo private, cấp quyền truy cập cho giảng viên. Kiểm tra lại đăng ký nhóm và MSSV, nhưng không coi đây là một mốc lịch bổ sung.
 
@@ -441,6 +441,40 @@ Mọi log có `timestamp`, `service`, `instanceId`, `correlationId`, `tripId`, `
 
 **Nguyên tắc:** 3 người đều có module, test, tài liệu và commit riêng. Mỗi công việc có **một người chịu trách nhiệm chính (owner)**, người còn lại hỗ trợ review/tích hợp. Không lấy số lượng commit làm thước đo duy nhất; phải có sản phẩm chạy được và giải thích được khi vấn đáp.
 
+### 7.0 Rà soát thực tế và đầu việc còn lại — cập nhật 11/11/2026
+
+Mục này cập nhật phân công v5 theo source và tài liệu bàn giao trong repository; giữ tên file để các liên kết hiện có tiếp tục hoạt động. Checklist 7.2 là phạm vi nghiệm thu toàn bộ, không có nghĩa mọi việc đều phải làm lại. Không tick hoàn thành chỉ dựa trên thiết kế, container healthy hoặc script đã viết.
+
+| Thành viên | Hiện trạng có thể đối chiếu | Đầu việc tiếp theo và điều kiện bàn giao | Người review |
+|---|---|---|---|
+| **TV1** | Có Identity/Gateway/Notification/UI/platform và automation. `docs/tv1-validation.md` ghi kết quả kiểm thử ngày 10/11; chưa phải bằng chứng E2E toàn nhóm | Giữ phần đã làm; chốt contract với TV2/TV3, nối UI và Notification với nghiệp vụ thật; chạy E01–E03, demo 1–9, thu artifact; xác minh UI trên trình duyệt và redeploy máy sạch; tổng hợp báo cáo/PDF | TV2 review quyền truy cập và E2E; TV3 review consumer/retry |
+| **TV2** | `trip-service/src/main.ts` và `payment-service/src/main.ts` mới có healthcheck, nghiệp vụ trả 501 | Viết migrations, Booking/lifecycle/pricing, Payment idempotent, Saga/compensation và recovery. Bàn giao API/event thật, F04/F06/F07-Payment/F09, C03/C04, ít nhất một failure/recovery có kiểm tra DB; hỗ trợ E01–E03 | TV3 review Saga/reservation; TV1 review API/event dùng cho UI/Notification |
+| **TV3** | `driver-service/src/main.ts` và `matching-service/src/main.ts` mới có healthcheck, nghiệp vụ trả 501; chưa có thư viện messaging nghiệp vụ hoàn chỉnh | Viết Driver/location/heartbeat/atomic reserve, Matching, common messaging/retry/dedup/DLQ. Bàn giao F03/F05/F08, C01/C02, ít nhất một failure/recovery, script concurrency và một benchmark có kết quả thật | TV2 review reserve/confirm/release; TV1 review cách chạy và evidence |
+
+**Ưu tiên theo phụ thuộc:** TV2 và TV3 triển khai nghiệp vụ ngay trên platform hiện có; chốt contract trước khi tích hợp. TV1 tập trung kiểm tra bàn giao và tích hợp thay vì viết lại platform hoặc làm đẹp UI. TV3 giao bản messaging tối thiểu trước benchmark; TV2 giao happy path trước các crash point mở rộng. Chủ service tự viết migration, test và nội dung báo cáo của mình; TV1 chỉ tổng hợp.
+
+**Các gói phải nghiệm thu trước khi nộp:**
+
+| Gói / yêu cầu giảng viên | Owner | Đầu ra và tiêu chí nghiệm thu |
+|---|---|---|
+| Đăng ký nhóm (§2) | TV1 điều phối; mỗi TV xác nhận thông tin của mình | Danh sách họ tên/MSSV/GitHub, đề tài, kiến trúc và công nghệ đã đăng ký. Chưa có thông tin tên thật trong repo nên tiếp tục dùng TV1–TV3, không tự gán danh tính |
+| Kiến trúc phân tán (§4.1–4.2, §7.2) | TV1 cấu hình; TV2/TV3 triển khai service của mình | Ít nhất 4 business services hoạt động thật, process/container độc lập, HTTP + MQ, DB/schema riêng và không đọc chéo DB. Gateway không được tính; mục tiêu giữ 6 services |
+| Chức năng DS03 (§7.3) | TV1 Identity/Notification; TV2 Trip/Payment; TV3 Driver/Matching | Đủ đăng ký/login/role, location/status, booking, matching, accept/reject, lifecycle, fare/payment và thông báo hai bên; F01–F10 có kết quả thực |
+| Đồng thời và nhất quán (§4.3, §9) | TV3 C01/C02; TV2 kiểm tra Trip/Payment | Ít nhất 2 kịch bản concurrency riêng biệt, có tải đồng thời và trạng thái cuối chứng minh không double assignment; không đếm số assertion thay số kịch bản |
+| Chịu lỗi và giao dịch phân tán (§4.4, §7.3–7.4) | TV2 Saga/Payment; TV3 Driver/Matching/MQ; TV1 chạy E2E | Có retry hữu hạn, dedup, event/idempotency ID, DLQ hoặc error storage, correlation ID và compensation thật. Tối thiểu 2 failure/recovery khác nhau, ghi thời điểm gây lỗi, trạng thái chờ và trạng thái sau phục hồi |
+| Security/invalid data (§4.5, §9) | TV1 auth/transport; TV2 ownership Trip/Payment; TV3 ownership Driver | Ít nhất 2 kịch bản có kết quả thật; bảo vệ tại service nghiệp vụ, không chỉ tại Gateway; kiểm tra hash password, env secrets, validation và giới hạn message |
+| Performance (§9) | TV3; TV2 hỗ trợ workload nghiệp vụ | Ít nhất P01 chạy trên hệ thống thật, lưu cấu hình máy/tải, thời gian đo, latency/throughput/error và giới hạn. P02 scaling là mở rộng |
+| Demo (§7.4, §11) | TV1 automation; TV3 tình huống 4–6; TV2 tình huống 7–9 | Đủ 9 tình huống mục 9, có network logs, concurrency, live failure và restart xử lý tiếp. Cả 3 thành viên trình bày |
+| Giao nộp/đóng góp (§10, §12–13) | TV1 đóng gói; mỗi TV cung cấp phần của mình | README chạy lại được, report.pdf, các thư mục bắt buộc, test evidence được lưu bền vững, final tag/release và commit/PR từng người; cấp quyền giảng viên nếu private. Không giả tạo tác giả/commit để đủ bảng đóng góp |
+
+**Bộ test tối thiểu để nghiệm thu §9:** F01–F08 (8 functional, vẫn phải thực hiện chức năng cancel và thông báo), C01/C02 (2 concurrency), X03/X04 (2 failure/recovery khác nhau), S01/S02 (2 security/invalid) và P01 (1 performance). TV2 owner X03, TV3 owner X04; các case còn lại ở mục 8 kiểm chứng thiết kế và rủi ro của nhóm. E03 bổ sung yêu cầu stop/restart Payment trong demo. Chỉ ghi PASS khi đã chạy; lỗi 501 hoặc thiếu backend là BLOCKED/FAIL kèm nguyên nhân, không dùng mock để công nhận E2E.
+
+**Chuẩn hóa mã security khi tổng hợp:** mã S01–S05 ở mục 8.4 là mã chuẩn của plan. `docs/testing.md` hiện dùng nhãn khác: token S01 → plan S02; role/ownership S02 → plan S03 hoặc S05 tùy resource; schema S03 → plan S01; size S04 → plan S04; internal/header S05 → plan S03. TV1 ghi tên case cụ thể vào bảng kết quả; TV2 vẫn phải chứng minh S05 cho Trip thật. Không suy ra đã đủ security chỉ từ nhãn cũ.
+
+**Lưu bằng chứng:** `artifacts/` hiện bị gitignore; TV1 tổng hợp bản được chọn vào `docs/evidence/` hoặc release/CI artifact có liên kết truy cập được và thời hạn lưu qua kỳ chấm. Mỗi kết quả ghi test ID, owner, commit, môi trường, lệnh chạy, expected/actual, PASS/FAIL/BLOCKED và log liên quan. Không đưa token/mật khẩu vào evidence. Báo cáo lịch sử TV1 không thay thế chạy tích hợp sau khi TV2/TV3 hoàn tất.
+
+**Phân biệt bắt buộc và lựa chọn nhóm:** ≥4 business services, mọi chức năng §7.3, Saga/compensation, retry/dedup/DLQ và bộ test tối thiểu là bắt buộc. Sáu services, outbox, Matching ×2, fencing/tombstone cụ thể và P02 là thiết kế nhóm chọn để đạt độ tin cậy; không mô tả là thuật toán do giảng viên bắt buộc. Nếu giảm thiết kế, phải cập nhật đồng bộ invariant, contract, test và báo cáo; không bỏ chức năng bắt buộc.
+
 ### 7.1 Ma trận trách nhiệm và đầu ra (phân công v5)
 
 **Phân công chính:** TV1 nhận **Platform + Identity + Gateway + UI + Notification + E2E/demo**; TV2 nhận **Trip + Saga + Payment + Pricing + Recovery**; TV3 nhận **Driver + Matching + RabbitMQ + common/messaging + concurrency/performance**. Mỗi service có đúng **một owner**. Người hỗ trợ review nhưng không đồng sở hữu những thay đổi không có phân công.
@@ -464,7 +498,7 @@ Mọi log có `timestamp`, `service`, `instanceId`, `correlationId`, `tripId`, `
 - [ ] **Xây `notification-service` (chuyển từ TV3):** notification DB/migration riêng; nhận `trip.*` bằng queue `notification.events`; inbox `(eventId)` và unique `(userId,eventId,type)` để chống trùng; API `GET /notifications/me?since=`, auth/ownership; **không** publish event, nên không cần outbox.
 - [ ] Xây `web-ui`: Passenger tạo/xem/hủy chuyến; Driver online/location, offer/accept/reject/start/complete; polling 2s; hiển thị trạng thái và `correlationId`; thông báo được đọc qua notification API.
 - [ ] **Owner E2E và demo automation:** script `start/seed/reset-demo/kill-service/logs-by-trip`, hai tài khoản Passenger + một Driver, script chạy happy path và 9 tình huống demo; kiểm tra các API qua gateway.
-- [ ] **Kiểm thử owner:** F01, F02, F07 phần Notification, F10, S01–S05, X06; **E01–E03** (E2E); hỗ trợ chạy lại toàn bộ suite và lưu evidence. TV1 không tự tuyên bố PASS cho lỗi thuộc service khác.
+- [ ] **Kiểm thử owner:** F01, F02, F07 phần Notification, F10, S01/S02/S04 và phần Gateway/Notification của S03, X06; **E01–E03** (E2E). TV1 điều phối suite security S01–S05; TV2 sở hữu S05 Trip, TV3 sở hữu kiểm tra quyền Driver. Hỗ trợ chạy lại toàn bộ suite và lưu evidence; TV1 không tự tuyên bố PASS cho lỗi thuộc service khác.
 - [ ] **Báo cáo owner:** 1–3, 12, phần Identity/Platform/UI/Notification của 13; biên tập bảng đóng góp, README, references/appendices và PDF cuối; điều phối tài liệu kết quả nhưng không viết thay phần kỹ thuật TV2/TV3.
 - [ ] **Demo trình bày chính:** tình huống 1–3; hỗ trợ thao tác UI và reset giữa các demo của TV2/TV3.
 
@@ -476,7 +510,7 @@ Mọi log có `timestamp`, `service`, `instanceId`, `correlationId`, `tripId`, `
 - [ ] Saga orchestrator Trip: command/reply qua MQ; states `ACCEPTING`/`COMPENSATING`; persisted compensation steps; `matching.cancel_attempt`, `driver.release`, `payment.void` và chờ ACK/đối soát trước `CANCELLED`.
 - [ ] Trip reconciler/timeout; xử lý late replies, crash sau Driver confirm, capture pending sau pivot; mọi race accept/cancel/start dùng Trip CAS.
 - [ ] Tích hợp và tự sở hữu migrations/outbox/inbox trong hai service bằng `common/messaging` của TV3; yêu cầu TV3 chỉnh **API thư viện**, không chuyển bug nghiệp vụ cho TV3.
-- [ ] **Kiểm thử owner:** F04, F06, F07 phần Payment, F09, C03, C04, X01, X03, X07–X09; hỗ trợ E01–E03 và C01 khi cần Trip state.
+- [ ] **Kiểm thử owner:** F04, F06, F07 phần Payment, F09, C03, C04, X01, X03, X07–X09, S05 ownership Trip; hỗ trợ E01–E03 và C01 khi cần Trip state. TV2 cung cấp checker Trip/Payment; TV3 cung cấp checker Driver, mỗi checker dùng quyền DB của service mình, không đưa truy cập DB chéo vào runtime nghiệp vụ.
 - [ ] **Báo cáo owner:** 5, 10–11, phần Trip/Payment/Pricing của 13, phần nghiệp vụ/fault của 14; cung cấp test evidence có kiểm tra trạng thái DB.
 - [ ] **Demo trình bày chính:** tình huống 7–9 (crash, retry/compensation, restart/recovery).
 
@@ -487,7 +521,7 @@ Mọi log có `timestamp`, `service`, `instanceId`, `correlationId`, `tripId`, `
 - [ ] **Owner `common/messaging` và RabbitMQ definitions:** envelope/Zod, exchanges/routing, queue bindings (kể cả `notification.events`), outbox polling, inbox helpers, publisher confirms, retry count/TTL, DLQ + replay/audit.
 - [ ] Cung cấp ví dụ tối thiểu `trip.event -> notification consumer -> inbox -> notification DB` để **TV1 tự triển khai service**; hỗ trợ kết nối/bind và review một PR tích hợp Notification.
 - [ ] Simulator Driver/seed hỗ trợ TV1 (TV3 làm logic simulator, TV1 nhúng vào `reset-demo`); script concurrency và k6 10/50/100 VU, benchmark Matching 1/2/3 instance.
-- [ ] **Kiểm thử owner:** F03, F05, F08, C01, C02, C05, C06, X02, X04, X05, X10, P01/P02; hỗ trợ E01–E03, X06 cùng TV1.
+- [ ] **Kiểm thử owner:** F03, F05, F08, C01, C02, C05, C06, X02, X04, X05, X10, P01 (P02 mở rộng); kiểm tra role/ownership Driver trong S03; hỗ trợ E01–E03, X06 cùng TV1.
 - [ ] **Báo cáo owner:** 4, 6–9, phần Driver/Matching/Messaging của 13, 15–17; cung cấp benchmark có dữ liệu thô và giới hạn đo lường.
 - [ ] **Demo trình bày chính:** tình huống 4–6 (matching, hoàn thành chuyến qua Driver, concurrency); TV2 hỗ trợ chứng minh Trip/Payment ở tình huống 5.
 
@@ -807,7 +841,7 @@ Theo **§7.4**, nhóm phải demo đủ 9 ý; demo live có log và phép thử 
 ### 13.4 Test / deliverable
 
 - [ ] ≥8 Functional, ≥2 Concurrency, ≥2 Fault/Recovery, ≥2 Security/Invalid, ≥1 Performance có file kết quả.
-- [ ] Báo cáo đủ 19 mục, khoảng 20–30 trang không tính phụ lục, có trích dẫn và mô tả hạn chế thật.
+- [ ] Báo cáo hoàn chỉnh có trích dẫn và mô tả hạn chế thật; nhóm dùng khung 19 mục của §10.2. Độ dài 20–30 trang không tính phụ lục là khuyến nghị của giảng viên, không phải điều kiện loại độc lập.
 - [ ] `README`, `src`, `deploy`, `tests`, `scripts`, `docs/report.pdf`, `.env.example`; `slides.pdf` nếu có.
 - [ ] Git tag `v1.0.0`, có commit của 3 người, clone và start lại thành công, nộp đúng **22/11/2026**.
 
@@ -817,8 +851,8 @@ Theo **§7.4**, nhóm phải demo đủ 9 ý; demo live có log và phép thử 
 
 ### 14.1 Tài liệu gốc
 
-1. `COURSE PROJECT SPECIFICATION.pdf`: §4.1–4.5 (yêu cầu chung), §7.1–7.5 (DS03), §9–13 (kiểm thử, giao nộp, demo, điều kiện không đạt, học thuật), trang 1–3 và 11–17.
-2. `plan.md` v2: kiến trúc sáu service, thông điệp, API, 9 demo, phân vai và tiến độ ban đầu.
+1. `General_Requirements_and_DS03_English.md`: bản trích yêu cầu đang có trong workspace, gồm §2, §4.1–4.5, §7.1–7.5, §9–13 và Important Notes. PDF gốc hiện không có trong cây làm việc; không tuyên bố đã kiểm tra lại PDF trong lần rà soát này.
+2. `plan.md` v2: nguồn lịch sử của thiết kế; không có trong cây làm việc hiện tại và không dùng làm rubric. Tiến độ hiện thực đối chiếu source, `docs/member-1.md`, `docs/tv1-validation.md`, `docs/testing.md` và `docs/contracts.md`.
 3. `Distributed_Systems_3.pdf` và `Giao trinh Cac He thong phan tan 2024...pdf`: dùng khi viết báo cáo cho concurrency, consistency, communication và fault tolerance; không xem là rubric thay Specification.
 
 ### 14.2 Nguồn kỹ thuật để team kiểm tra khi cài đặt

@@ -1,6 +1,34 @@
+# Dependencies and generated build/cache files (all workspaces)
 node_modules/
 dist/
-.env
-artifacts/
-*.log
+coverage/
 .npm-cache/
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Local secrets; keep shareable configuration templates
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local test/demo output; curated submission evidence belongs in docs/evidence/
+artifacts/
+test-results/
+playwright-report/
+*.log
+
+# Personal editor and operating-system files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp

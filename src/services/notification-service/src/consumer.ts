@@ -7,7 +7,8 @@ import { saveNotification } from './app.js';
 
 // Adapter riêng TV1; TV3 có thể thay bằng common/messaging cùng contract.
 export function consumeNotifications(pool: Pool, logger: FastifyBaseLogger) {
-  const connection = amqp.connect([process.env.RABBITMQ_URL!]);
+  if (!process.env.RABBITMQ_URL) throw new Error('Thiếu RABBITMQ_URL');
+  const connection = amqp.connect([process.env.RABBITMQ_URL], { reconnectTimeInSeconds: 2 });
   connection.on('connectFailed', () => logger.warn('BROKER_DISCONNECTED'));
   const wrapper = connection.createChannel({ setup: async (channel: ConfirmChannel) => {
     const queue = 'notification.events';
@@ -15,7 +16,7 @@ export function consumeNotifications(pool: Pool, logger: FastifyBaseLogger) {
     await channel.assertQueue(queue, { durable: true });
     await channel.bindQueue(queue, 'ride.events', 'trip.*');
     await channel.assertQueue(`${queue}.dlq`, { durable: true });
-    for (const [index, seconds] of [1,5,15].entries()) {
+    for (const seconds of [1,5,15]) {
       await channel.assertQueue(`${queue}.retry.${seconds}s`, { durable: true, arguments: { 'x-message-ttl': seconds * 1000, 'x-dead-letter-exchange': '', 'x-dead-letter-routing-key': queue } });
     }
     await channel.prefetch(5);

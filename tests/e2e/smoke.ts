@@ -8,7 +8,7 @@ try {
   const me = await api('/users/me', {}, session.accessToken);
   assert.equal(me.email, 'passenger1@demo.local');
   assert.ok(Array.isArray((await api('/notifications/me', {}, session.accessToken)).items));
-  evidence.push({ test: 'F01/F02/F10', result: 'PASS' });
+  evidence.push({ test: 'F02/F10 (login/me/notification API)', result: 'PASS' });
   for (const [id, path, token, status] of [
     ['S01','/users/me','',401], ['S01','/users/me','bad-token',401],
     ['S02','/drivers/me',session.accessToken,403],

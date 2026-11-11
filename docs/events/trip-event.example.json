@@ -1,0 +1,17 @@
+{
+  "eventId": "8bd85f65-0288-4d75-8d1f-970a9b437c3c",
+  "type": "trip.paid",
+  "schemaVersion": 1,
+  "occurredAt": "2026-11-10T08:00:00.000Z",
+  "correlationId": "7063a765-f73c-4a5d-8b47-17f0f0e52838",
+  "causationId": null,
+  "producer": { "service": "trip-service", "instanceId": "trip-service-1" },
+  "aggregateId": "0fd41a29-b4a9-4e42-a86d-0b4ad121ba36",
+  "aggregateVersion": 7,
+  "matchAttempt": 1,
+  "payload": {
+    "tripId": "0fd41a29-b4a9-4e42-a86d-0b4ad121ba36",
+    "passengerId": "0750f15c-e983-4c68-915d-c1bca31144f9",
+    "driverId": "6ae6d174-9554-47c6-bf68-d43ca664ba12"
+  }
+}

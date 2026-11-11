@@ -1,0 +1,33 @@
+# Chỉ dành cho integration TV1, không dùng credentials này ngoài test local/CI.
+name: ds03-tv1-test
+services:
+  identity-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: identity, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: identity_test }
+    ports: ["127.0.0.1:55431:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U identity -d identity_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  notification-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: notification, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: notification_test }
+    ports: ["127.0.0.1:55436:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U notification -d notification_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  rabbitmq:
+    image: rabbitmq:4.1.4-management-alpine
+    user: rabbitmq
+    environment: { RABBITMQ_DEFAULT_USER: tv1, RABBITMQ_DEFAULT_PASS: local-test-only }
+    ports: ["127.0.0.1:5673:5672"]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 3s
+      timeout: 3s
+      retries: 30

@@ -18,6 +18,7 @@ x-app: &app
 services:
   rabbitmq:
     image: rabbitmq:4.1.4-management-alpine
+    user: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ride
       RABBITMQ_DEFAULT_PASS: \${RABBITMQ_PASSWORD:?Run scripts/init-env.ps1}

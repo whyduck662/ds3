@@ -31,7 +31,7 @@ export async function notificationApp(pool: Pool) {
   const app = await createApp('notification-service', pool);
   app.get('/notifications/me', { preHandler: authenticate }, async req => {
     const query = z.object({ since: z.iso.datetime().optional() }).strict().parse(req.query);
-    const result = await pool.query('SELECT id,type,trip_id AS "tripId",event_id AS "eventId",aggregate_version AS "aggregateVersion",correlation_id AS "correlationId",created_at AS "createdAt" FROM notifications WHERE user_id=$1 AND ($2::timestamptz IS NULL OR created_at>$2) ORDER BY created_at,id LIMIT 200', [req.user.userId, query.since ?? null]);
+    const result = await pool.query('SELECT id,type,trip_id AS "tripId",event_id AS "eventId",aggregate_version AS "aggregateVersion",correlation_id AS "correlationId",created_at AS "createdAt" FROM notifications WHERE user_id=$1 AND ($2::timestamptz IS NULL OR created_at>$2) ORDER BY created_at DESC,id DESC LIMIT 200', [req.user.userId, query.since ?? null]);
     return { items: result.rows };
   });
   return app;
