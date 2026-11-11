@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-11-11T09:00:28.719Z",
+  "browser": "Microsoft Edge headless",
+  "results": [
+    {
+      "name": "Đăng ký Passenger trên UI",
+      "status": "PASS"
+    },
+    {
+      "name": "Sai mật khẩu: hiển thị lỗi, vẫn ở màn hình login",
+      "status": "PASS"
+    },
+    {
+      "name": "Login Passenger, chọn địa điểm Hà Nội và phân quyền UI",
+      "status": "PASS"
+    },
+    {
+      "name": "Phân quyền Gateway khi gọi từ trình duyệt",
+      "status": "PASS"
+    },
+    {
+      "name": "Thông báo qua MQ thật và chống trùng hiển thị UI",
+      "status": "PASS"
+    },
+    {
+      "name": "Upstream chưa chạy: UI hiện lỗi và còn thao tác được",
+      "status": "PASS"
+    },
+    {
+      "name": "Phiên hết hạn: logout và yêu cầu đăng nhập lại",
+      "status": "PASS"
+    },
+    {
+      "name": "Đăng ký/login Driver và phân quyền UI",
+      "status": "PASS"
+    },
+    {
+      "name": "Không có lỗi JavaScript chưa xử lý",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

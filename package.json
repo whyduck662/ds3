@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit && tsc -p tsconfig.tools.json && npm run typecheck --workspace web-ui",
     "test": "vitest run",
     "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:ui": "tsx scripts/test-ui.ts",
     "demo": "tsx scripts/demo/run.ts",
     "start": "npm run start --workspace identity-service",
     "up": "node scripts/start.mjs",
@@ -24,11 +25,12 @@
     "e2e": "tsx tests/e2e/scenarios.ts"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "tsx": "^4.20.6",
-    "vitest": "^3.2.4",
+    "@playwright/test": "^1.65.0",
+    "@types/amqplib": "^0.10.7",
     "@types/node": "^24.10.0",
     "@types/pg": "^8.15.5",
-    "@types/amqplib": "^0.10.7"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

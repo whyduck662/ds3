@@ -447,7 +447,7 @@ Mục này cập nhật phân công v5 theo source và tài liệu bàn giao tro
 
 | Thành viên | Hiện trạng có thể đối chiếu | Đầu việc tiếp theo và điều kiện bàn giao | Người review |
 |---|---|---|---|
-| **TV1** | Có Identity/Gateway/Notification/UI/platform và automation. `docs/tv1-validation.md` ghi kết quả kiểm thử ngày 10/11; chưa phải bằng chứng E2E toàn nhóm | Giữ phần đã làm; chốt contract với TV2/TV3, nối UI và Notification với nghiệp vụ thật; chạy E01–E03, demo 1–9, thu artifact; xác minh UI trên trình duyệt và redeploy máy sạch; tổng hợp báo cáo/PDF | TV2 review quyền truy cập và E2E; TV3 review consumer/retry |
+| **TV1** | Có Identity/Gateway/Notification/UI/platform và automation. `docs/testing.md` ghi kết quả kiểm thử ngày 10/11; chưa phải bằng chứng E2E toàn nhóm | Giữ phần đã làm; chốt contract với TV2/TV3, nối UI và Notification với nghiệp vụ thật; chạy E01–E03, demo 1–9, thu artifact; xác minh UI trên trình duyệt và redeploy máy sạch; tổng hợp báo cáo/PDF | TV2 review quyền truy cập và E2E; TV3 review consumer/retry |
 | **TV2** | `trip-service/src/main.ts` và `payment-service/src/main.ts` mới có healthcheck, nghiệp vụ trả 501 | Viết migrations, Booking/lifecycle/pricing, Payment idempotent, Saga/compensation và recovery. Bàn giao API/event thật, F04/F06/F07-Payment/F09, C03/C04, ít nhất một failure/recovery có kiểm tra DB; hỗ trợ E01–E03 | TV3 review Saga/reservation; TV1 review API/event dùng cho UI/Notification |
 | **TV3** | `driver-service/src/main.ts` và `matching-service/src/main.ts` mới có healthcheck, nghiệp vụ trả 501; chưa có thư viện messaging nghiệp vụ hoàn chỉnh | Viết Driver/location/heartbeat/atomic reserve, Matching, common messaging/retry/dedup/DLQ. Bàn giao F03/F05/F08, C01/C02, ít nhất một failure/recovery, script concurrency và một benchmark có kết quả thật | TV2 review reserve/confirm/release; TV1 review cách chạy và evidence |
 
@@ -469,7 +469,7 @@ Mục này cập nhật phân công v5 theo source và tài liệu bàn giao tro
 
 **Bộ test tối thiểu để nghiệm thu §9:** F01–F08 (8 functional, vẫn phải thực hiện chức năng cancel và thông báo), C01/C02 (2 concurrency), X03/X04 (2 failure/recovery khác nhau), S01/S02 (2 security/invalid) và P01 (1 performance). TV2 owner X03, TV3 owner X04; các case còn lại ở mục 8 kiểm chứng thiết kế và rủi ro của nhóm. E03 bổ sung yêu cầu stop/restart Payment trong demo. Chỉ ghi PASS khi đã chạy; lỗi 501 hoặc thiếu backend là BLOCKED/FAIL kèm nguyên nhân, không dùng mock để công nhận E2E.
 
-**Chuẩn hóa mã security khi tổng hợp:** mã S01–S05 ở mục 8.4 là mã chuẩn của plan. `docs/testing.md` hiện dùng nhãn khác: token S01 → plan S02; role/ownership S02 → plan S03 hoặc S05 tùy resource; schema S03 → plan S01; size S04 → plan S04; internal/header S05 → plan S03. TV1 ghi tên case cụ thể vào bảng kết quả; TV2 vẫn phải chứng minh S05 cho Trip thật. Không suy ra đã đủ security chỉ từ nhãn cũ.
+**Chuẩn hóa mã security khi tổng hợp:** mã S01–S05 ở mục 8.4 là mã chuẩn của plan. Bảng trong `docs/testing.md` đã được chuẩn hóa; nhãn cũ trong source được đối chiếu như sau: token S01 → plan S02; role/ownership S02 → plan S03 hoặc S05 tùy resource; schema S03 → plan S01; size S04 → plan S04; internal/header S05 → plan S03. TV1 ghi tên case cụ thể vào bảng kết quả; TV2 vẫn phải chứng minh S05 cho Trip thật. Không suy ra đã đủ security chỉ từ nhãn cũ.
 
 **Lưu bằng chứng:** `artifacts/` hiện bị gitignore; TV1 tổng hợp bản được chọn vào `docs/evidence/` hoặc release/CI artifact có liên kết truy cập được và thời hạn lưu qua kỳ chấm. Mỗi kết quả ghi test ID, owner, commit, môi trường, lệnh chạy, expected/actual, PASS/FAIL/BLOCKED và log liên quan. Không đưa token/mật khẩu vào evidence. Báo cáo lịch sử TV1 không thay thế chạy tích hợp sau khi TV2/TV3 hoàn tất.
 
@@ -852,7 +852,7 @@ Theo **§7.4**, nhóm phải demo đủ 9 ý; demo live có log và phép thử 
 ### 14.1 Tài liệu gốc
 
 1. `General_Requirements_and_DS03_English.md`: bản trích yêu cầu đang có trong workspace, gồm §2, §4.1–4.5, §7.1–7.5, §9–13 và Important Notes. PDF gốc hiện không có trong cây làm việc; không tuyên bố đã kiểm tra lại PDF trong lần rà soát này.
-2. `plan.md` v2: nguồn lịch sử của thiết kế; không có trong cây làm việc hiện tại và không dùng làm rubric. Tiến độ hiện thực đối chiếu source, `docs/member-1.md`, `docs/tv1-validation.md`, `docs/testing.md` và `docs/contracts.md`.
+2. `plan.md` v2: nguồn lịch sử của thiết kế; không có trong cây làm việc hiện tại và không dùng làm rubric. Tiến độ hiện thực đối chiếu source, `docs/member-1.md`, `docs/testing.md` và `docs/contracts.md`.
 3. `Distributed_Systems_3.pdf` và `Giao trinh Cac He thong phan tan 2024...pdf`: dùng khi viết báo cáo cho concurrency, consistency, communication và fault tolerance; không xem là rubric thay Specification.
 
 ### 14.2 Nguồn kỹ thuật để team kiểm tra khi cài đặt

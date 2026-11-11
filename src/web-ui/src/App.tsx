@@ -33,7 +33,7 @@ export function App() {
     bookingKey.current = null;
   }
   function report(error: unknown) {
-    if (error instanceof ApiError && error.status === 401) { logout(); setMessage('Phiên đã hết hạn. Vui lòng đăng nhập lại.'); }
+    if (error instanceof ApiError && error.status === 401 && session) { logout(); setMessage('Phiên đã hết hạn. Vui lòng đăng nhập lại.'); }
     else setMessage(error instanceof Error ? error.message : String(error));
   }
   async function action(work: () => Promise<void>) {

@@ -17,6 +17,6 @@ Chưa được coi là hoàn thành toàn hệ thống: nghiệp vụ TV2/TV3, p
 
 Tài liệu bàn giao: contracts.md, openapi/tv1.yaml, testing.md, demo.md và report/tv1.md. C01 CLI thuộc TV3, DB invariant checks thuộc TV2/TV3. Test fixture MQ chỉ dùng trong integration Notification, không được đưa vào business service.
 
-Đã xác minh tại máy: 9 unit tests, 8 integration tests với DB/MQ thật, typecheck/build, startup/seed và smoke qua Gateway container đều PASS. Xem tv1-validation.md để biết command, môi trường và giới hạn; chưa chạy E01–E03 khi service nghiệp vụ chưa có.
+Đã xác minh tại máy: 9 unit tests, 8 integration tests với DB/MQ thật, typecheck/build, startup/seed và smoke qua Gateway container đều PASS. Xem testing.md để biết command, môi trường và giới hạn; chưa chạy E01–E03 khi service nghiệp vụ chưa có.
 
 Các phần báo cáo TV1 cần tổng hợp sau khi có kết quả thật: 1–3, 12, 13 (Platform/Identity/UI/Notification), 18–19 theo mục 11 plan. Tham chiếu plan_DS03_v5.md cho ma trận phân công đầy đủ.
