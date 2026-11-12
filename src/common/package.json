@@ -6,8 +6,11 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "fastify": "^5.6.2",
     "@fastify/jwt": "^10.0.0",
+    "@types/amqplib": "^0.10.8",
+    "amqp-connection-manager": "^5.0.1",
+    "amqplib": "^0.10.9",
+    "fastify": "^5.6.2",
     "pg": "^8.16.3",
     "zod": "^4.1.12"
   }

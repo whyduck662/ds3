@@ -2,6 +2,11 @@ import { randomUUID } from 'node:crypto';
 import type { Pool, PoolClient } from 'pg';
 import { z } from 'zod';
 
+// Re-export rabbit & consumer modules for convenience
+export { connectBroker, setupTopology, RETRY_TIERS, QUEUE_BINDINGS } from './rabbit.js';
+export { startConsumer, PermanentError, type ConsumerParams } from './consumer.js';
+export { startOutboxPoller } from './outbox.js';
+
 export const envelopeSchema = z.object({
   eventId: z.string().uuid(),
   type: z.string(),
