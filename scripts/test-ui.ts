@@ -14,7 +14,10 @@ import { consumeNotifications } from '../src/services/notification-service/src/c
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'ui-test-only-secret-at-least-32-characters';
 process.env.RABBITMQ_URL = 'amqp://tv1:local-test-only@127.0.0.1:5673';
-process.env.UI_ORIGIN = 'http://localhost:3000';
+// Dedicated ports allow TV1 fixture UI checks alongside the real deployment.
+const uiOrigin = 'http://localhost:3001';
+const gatewayOrigin = 'http://localhost:8088';
+process.env.UI_ORIGIN = uiOrigin;
 const identityDB = new Pool({ connectionString: 'postgres://identity:local-test-only@127.0.0.1:55431/identity_test' });
 const notificationDB = new Pool({ connectionString: 'postgres://notification:local-test-only@127.0.0.1:55436/notification_test' });
 const apps: Awaited<ReturnType<typeof identityApp>>[] = [];
@@ -34,12 +37,12 @@ try {
   // Port đóng mô phỏng upstream chưa sẵn sàng, không thay thế bằng backend giả.
   process.env.TRIP_URL = process.env.DRIVER_URL = process.env.PAYMENT_URL = 'http://127.0.0.1:1';
   const gateway = await gatewayApp(); apps.push(gateway);
-  await gateway.listen({ host: '127.0.0.1', port: 8080 });
+  await gateway.listen({ host: '127.0.0.1', port: 8088 });
   mq = await amqp.connect(process.env.RABBITMQ_URL);
   const channel = await mq.createConfirmChannel();
   await channel.assertExchange('ride.events', 'topic', { durable: true });
   consumer = consumeNotifications(notificationDB, notification.log);
-  vite = await createServer({ root: 'src/web-ui', server: { host: 'localhost', port: 3000, strictPort: true } });
+  vite = await createServer({ root: 'src/web-ui', define: { 'import.meta.env.VITE_API_URL': JSON.stringify(gatewayOrigin) }, server: { host: 'localhost', port: 3001, strictPort: true } });
   await vite.listen();
   browser = await chromium.launch({ channel: 'msedge', headless: true });
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
@@ -51,7 +54,7 @@ try {
     catch (error) { results.push({ name, status: 'FAIL', detail: String(error) }); }
     await page.screenshot({ path: `artifacts/ui/${results.length}.png`, fullPage: true });
   }
-  await page.goto('http://localhost:3000');
+  await page.goto(uiOrigin);
   const email = `ui-${randomUUID()}@test.local`, password = 'BrowserTest123!';
   await check('Đăng ký Passenger trên UI', async () => {
     await page.getByRole('button', { name: 'Đăng ký mới' }).click();
@@ -77,12 +80,12 @@ try {
     await expect(page.getByRole('button', { name: 'Đặt xe', exact: true })).toBeDisabled();
     await page.getByLabel('Bạn muốn đến đâu?').selectOption('opera-house');
   });
-  const login = await fetch('http://127.0.0.1:8080/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) }).then(r => r.json()) as { accessToken: string; user: { userId: string } };
+  const login = await fetch(gatewayOrigin + '/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) }).then(r => r.json()) as { accessToken: string; user: { userId: string } };
   await check('Phân quyền Gateway khi gọi từ trình duyệt', async () => {
-    const statuses = await page.evaluate(async token => {
+    const statuses = await page.evaluate(async ({ token, origin }) => {
       const headers = { Authorization: `Bearer ${token}` };
-      return Promise.all(['/drivers/me', '/internal/test'].map(async path => (await fetch('http://localhost:8080' + path, { headers })).status));
-    }, login.accessToken);
+      return Promise.all(['/drivers/me', '/internal/test'].map(async path => (await fetch(origin + path, { headers })).status));
+    }, { token: login.accessToken, origin: gatewayOrigin });
     expect(statuses).toEqual([403, 403]);
   });
   await check('Thông báo qua MQ thật và chống trùng hiển thị UI', async () => {

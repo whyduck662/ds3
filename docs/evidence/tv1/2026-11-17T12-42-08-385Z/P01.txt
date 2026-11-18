@@ -1,0 +1,7 @@
+
+> benchmark
+> tsx scripts/load/p01.ts
+
+P01: PASS; artifacts/p01.json
+
+

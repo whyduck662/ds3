@@ -1,0 +1,87 @@
+# Read-only deployment diagnostics — 17/11/2026
+
+Owner thu thập: TV1. Đây là snapshot để xác định blocker, không thay checker/invariant tests của TV2/TV3.
+
+Commands: docker compose exec -T rabbitmq rabbitmqctl list_bindings source_name destination_name routing_key; docker compose exec -T trip-db psql -U trip -d trip -c SELECT id,status,payment_status,match_attempt,driver_id FROM trips ORDER BY created_at DESC LIMIT 3;
+
+Listing bindings for vhost /...
+source_name	destination_name	routing_key
+	driver.trip-events.retry.15s	driver.trip-events.retry.15s
+	matching.commands.dlq	matching.commands.dlq
+	trip.driver-events.dlq	trip.driver-events.dlq
+	payment.commands.retry.5s	payment.commands.retry.5s
+	driver.commands.dlq	driver.commands.dlq
+	notification.events.retry.5s	notification.events.retry.5s
+	trip.driver-events.retry.5s	trip.driver-events.retry.5s
+	driver.commands	driver.commands
+	matching.commands	matching.commands
+	payment.commands	payment.commands
+	driver.commands.retry.1s	driver.commands.retry.1s
+	driver.trip-events.dlq	driver.trip-events.dlq
+	driver.trip-events	driver.trip-events
+	trip.replies.retry.5s	trip.replies.retry.5s
+	matching.commands.retry.15s	matching.commands.retry.15s
+	trip.replies.retry.15s	trip.replies.retry.15s
+	notification.events.dlq	notification.events.dlq
+	payment.commands.retry.1s	payment.commands.retry.1s
+	driver.commands.retry.15s	driver.commands.retry.15s
+	trip.replies.retry.1s	trip.replies.retry.1s
+	payment.commands.dlq	payment.commands.dlq
+	notification.events.retry.15s	notification.events.retry.15s
+	trip.replies.dlq	trip.replies.dlq
+	trip.driver-events	trip.driver-events
+	notification.events.retry.1s	notification.events.retry.1s
+	matching.commands.retry.1s	matching.commands.retry.1s
+	driver.trip-events.retry.1s	driver.trip-events.retry.1s
+	trip.driver-events.retry.1s	trip.driver-events.retry.1s
+	payment.commands.retry.15s	payment.commands.retry.15s
+	driver.commands.retry.5s	driver.commands.retry.5s
+	trip.driver-events.retry.15s	trip.driver-events.retry.15s
+	notification.events	notification.events
+	matching.commands.retry.5s	matching.commands.retry.5s
+	driver.trip-events.retry.5s	driver.trip-events.retry.5s
+	trip.replies	trip.replies
+ride.commands	driver.commands	driver.commands
+ride.commands	matching.commands	matching.commands
+ride.commands	payment.commands	payment.authorize
+ride.commands	payment.commands	payment.capture
+ride.commands	payment.commands	payment.commands
+ride.commands	payment.commands	payment.void
+ride.commands	trip.replies	trip.replies
+ride.dlq	driver.commands.dlq	driver.commands.dlq
+ride.dlq	driver.trip-events.dlq	driver.trip-events.dlq
+ride.dlq	matching.commands.dlq	matching.commands.dlq
+ride.dlq	notification.events.dlq	notification.events.dlq
+ride.dlq	payment.commands.dlq	payment.commands.dlq
+ride.dlq	trip.driver-events.dlq	trip.driver-events.dlq
+ride.dlq	trip.replies.dlq	trip.replies.dlq
+ride.events	trip.driver-events	driver.*
+ride.events	driver.trip-events	trip.*
+ride.events	notification.events	trip.*
+ride.retry	driver.commands.retry.15s	driver.commands.retry.15s
+ride.retry	driver.commands.retry.1s	driver.commands.retry.1s
+ride.retry	driver.commands.retry.5s	driver.commands.retry.5s
+ride.retry	driver.trip-events.retry.15s	driver.trip-events.retry.15s
+ride.retry	driver.trip-events.retry.1s	driver.trip-events.retry.1s
+ride.retry	driver.trip-events.retry.5s	driver.trip-events.retry.5s
+ride.retry	matching.commands.retry.15s	matching.commands.retry.15s
+ride.retry	matching.commands.retry.1s	matching.commands.retry.1s
+ride.retry	matching.commands.retry.5s	matching.commands.retry.5s
+ride.retry	notification.events.retry.15s	notification.events.retry.15s
+ride.retry	notification.events.retry.1s	notification.events.retry.1s
+ride.retry	notification.events.retry.5s	notification.events.retry.5s
+ride.retry	payment.commands.retry.15s	payment.commands.retry.15s
+ride.retry	payment.commands.retry.1s	payment.commands.retry.1s
+ride.retry	payment.commands.retry.5s	payment.commands.retry.5s
+ride.retry	trip.driver-events.retry.15s	trip.driver-events.retry.15s
+ride.retry	trip.driver-events.retry.1s	trip.driver-events.retry.1s
+ride.retry	trip.driver-events.retry.5s	trip.driver-events.retry.5s
+ride.retry	trip.replies.retry.15s	trip.replies.retry.15s
+ride.retry	trip.replies.retry.1s	trip.replies.retry.1s
+ride.retry	trip.replies.retry.5s	trip.replies.retry.5s
+                  id                  |  status   | payment_status | match_attempt | driver_id 
+--------------------------------------+-----------+----------------+---------------+-----------
+ 2ce11430-4a4a-4960-a45d-15c3796d8af7 | SEARCHING | AUTHORIZED     |             1 | 
+(1 row)
+
+

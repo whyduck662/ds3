@@ -1,0 +1,52 @@
+
+> up
+> node scripts/start.mjs
+
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.93kB done
+#1 DONE 0.0s
+
+#2 [driver-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 245B 0.1s done
+#2 DONE 0.1s
+
+#3 [web-ui internal] load build definition from Dockerfile.web
+#3 transferring dockerfile: 309B 0.0s done
+#3 DONE 0.1s
+
+#4 [api-gateway internal] load metadata for docker.io/library/node:24.15.0-bookworm-slim
+#4 ERROR: failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Fnode%3Apull&service=registry.docker.io": dial tcp: lookup auth.docker.io: getaddrinfow: This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server.
+
+#5 [web-ui internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#5 ERROR: failed to authorize: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Fnginx%3Apull&service=registry.docker.io": dial tcp: lookup auth.docker.io: getaddrinfow: This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server.
+------
+ > [driver-service internal] load metadata for docker.io/library/node:24.15.0-bookworm-slim:
+------
+------
+ > [web-ui internal] load metadata for docker.io/library/nginx:1.28.0-alpine:
+------
+
+ Image ds03-api-gateway Building 
+ Image ds03-driver-service Building 
+ Image ds03-web-ui Building 
+ Image ds03-payment-service Building 
+ Image ds03-matching-service Building 
+ Image ds03-matching-service-2 Building 
+ Image ds03-identity-service Building 
+ Image ds03-notification-service Building 
+ Image ds03-trip-service Building 
+Dockerfile.web:1
+
+--------------------
+
+   1 | >>> FROM node:24.15.0-bookworm-slim AS build
+
+   2 |     WORKDIR /app
+
+   3 |     COPY package*.json ./
+
+--------------------
+
+target web-ui: failed to solve: failed to fetch anonymous token: Get "https://auth.docker.io/token?scope=repository%3Alibrary%2Fnode%3Apull&service=registry.docker.io": dial tcp: lookup auth.docker.io: getaddrinfow: This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server.
+
+

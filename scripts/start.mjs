@@ -1,14 +1,10 @@
-import { randomBytes } from 'node:crypto';
-import { existsSync, writeFileSync } from 'node:fs';
+import { ensureEnv } from './env.mjs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
-if (!existsSync('.env')) {
-  const keys = ['JWT_SECRET', 'RABBITMQ_PASSWORD', ...['IDENTITY', 'DRIVER', 'TRIP', 'MATCHING', 'PAYMENT', 'NOTIFICATION'].map(name => `${name}_DB_PASSWORD`)];
-  writeFileSync('.env', keys.map(key => `${key}=${randomBytes(32).toString('hex')}`).join('\n') + '\n', { flag: 'wx' });
-  console.log('Đã tạo .env với secrets ngẫu nhiên.');
-}
+const added = ensureEnv();
+if (added.length) console.log(`Đã bổ sung ${added.length} biến cấu hình ngẫu nhiên vào .env.`);
 function run(command, args) {
   const result = spawnSync(command, args, { stdio: 'inherit' });
   if (result.error) throw result.error;

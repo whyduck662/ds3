@@ -15,7 +15,7 @@ if (demo === '6') {
   commands['6'] = [process.execPath, '--import', 'tsx', path];
 }
 const command = commands[demo];
-if (!command) console.log('Demo: npm run demo -- 1 | 2-5 | 6 | 7-9 | cancel. Xem docs/demo.md; cần seed trước 2-9.');
+if (!command) console.log('Demo: npm run demo -- 1 | 2-5 | 6 | 7-9 | cancel. Xem docs/TV1.md; cần seed trước 2-9.');
 else {
   const result = spawnSync(command[0], command.slice(1), { stdio: 'inherit' });
   if (result.error) console.error(result.error.message);

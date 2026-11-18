@@ -1,0 +1,22 @@
+
+> test
+> vitest run
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/matching.test.ts (3 tests) 297ms
+ ✓ tests/payment.test.ts (6 tests) 351ms
+ ✓ tests/trip.test.ts (8 tests) 387ms
+ ✓ tests/driver.test.ts (11 tests) 442ms
+ ✓ tests/platform.test.ts (9 tests) 595ms
+   ✓ Gateway security > chặn token sai, sai role và internal trước proxy  337ms
+
+ Test Files  5 passed (5)
+      Tests  37 passed (37)
+   Start at  16:22:26
+   Duration  3.12s (transform 1.39s, setup 0ms, collect 6.52s, tests 2.07s, environment 3ms, prepare 1.74s)
+
+JSON report written to D:/htpt/ds3/artifacts/unit.json
+
+

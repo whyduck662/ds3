@@ -4,7 +4,7 @@ import type { Pool, PoolClient } from 'pg';
 import type { FastifyBaseLogger } from 'fastify';
 
 import { envelopeSchema, type Envelope } from './messaging.js';
-import { isProcessed, markProcessed } from './messaging.js';
+import { markProcessed } from './messaging.js';
 import { RETRY_TIERS } from './rabbit.js';
 
 /* ------------------------------------------------------------------ */
@@ -79,6 +79,7 @@ export async function startConsumer(params: ConsumerParams): Promise<void> {
     /* ---- 1. Parse envelope ---- */
     let envelope: Envelope;
     try {
+      if (msg.content.length > 65536) throw new PermanentError('Message exceeds 64 KB');
       const raw: unknown = JSON.parse(msg.content.toString());
       envelope = envelopeSchema.parse(raw) as Envelope;
     } catch (err) {
@@ -109,10 +110,9 @@ export async function startConsumer(params: ConsumerParams): Promise<void> {
     try {
       await client.query('BEGIN');
 
-      const alreadySeen = await isProcessed(client, envelope.eventId);
-      if (alreadySeen) {
+      const firstDelivery = await markProcessed(client, envelope.eventId);
+      if (!firstDelivery) {
         await client.query('ROLLBACK');
-        client.release();
         channelWrapper.ack(msg);
         logger.info({ operation: 'MESSAGE_DEDUPED', queue, eventId: envelope.eventId });
         return;
@@ -120,14 +120,12 @@ export async function startConsumer(params: ConsumerParams): Promise<void> {
 
       // Mark processed *before* handler so the row is visible to the handler's
       // queries within the same transaction.
-      await markProcessed(client, envelope.eventId);
       await handler(envelope, client);
       await client.query('COMMIT');
       channelWrapper.ack(msg);
       logger.info({ operation: 'MESSAGE_PROCESSED', queue, eventId: envelope.eventId });
     } catch (err) {
       await client.query('ROLLBACK').catch(() => {});
-      client.release();
 
       if (isPermanent(err)) {
         // --- permanent error → DLQ directly ---
@@ -203,6 +201,8 @@ export async function startConsumer(params: ConsumerParams): Promise<void> {
           logger.error({ operation: 'DLQ', queue, eventId: envelope.eventId }, 'DLQ publish failed — redelivery');
         }
       }
+    } finally {
+      client.release();
     }
   }, { noAck: false });
 }

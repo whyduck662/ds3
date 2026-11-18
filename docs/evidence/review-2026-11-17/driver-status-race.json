@@ -1,0 +1,40 @@
+{
+  "scenario": "Driver status update races with reserve",
+  "driverId": "52655524-5cb3-492c-801f-b854db98c7a7",
+  "tripA": "877eab93-2e96-41b1-b3a1-f3774749ea63",
+  "tripB": "7a29fdae-c664-43fd-a546-4fedaae2940a",
+  "firstReserve": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "driverId": "52655524-5cb3-492c-801f-b854db98c7a7",
+      "tripId": "877eab93-2e96-41b1-b3a1-f3774749ea63",
+      "reservationId": "47231670-1676-4ff6-ad47-bac10d285a28",
+      "reservationVersion": 1,
+      "reservedUntil": "2026-11-17T13:24:59.295Z"
+    }
+  },
+  "statusUpdate": {
+    "status": 200,
+    "body": {
+      "id": "52655524-5cb3-492c-801f-b854db98c7a7",
+      "status": "AVAILABLE",
+      "currentTripId": "877eab93-2e96-41b1-b3a1-f3774749ea63",
+      "latitude": null,
+      "longitude": null,
+      "lastSeenAt": "2026-11-17T13:24:29.329Z"
+    }
+  },
+  "secondReserve": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "driverId": "52655524-5cb3-492c-801f-b854db98c7a7",
+      "tripId": "7a29fdae-c664-43fd-a546-4fedaae2940a",
+      "reservationId": "9f0c8fab-4169-4101-a824-b7da9e75f34b",
+      "reservationVersion": 2,
+      "reservedUntil": "2026-11-17T13:24:59.374Z"
+    }
+  },
+  "confirmed": true
+}

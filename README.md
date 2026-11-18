@@ -1,7 +1,9 @@
 # DS03 — Mô phỏng đặt xe
 
 Phần TV1: Identity, Gateway, Notification, Web UI, cấu hình chạy và script tích hợp.
-Driver/Trip/Matching/Payment hiện là **khung healthcheck trả 501 cho nghiệp vụ**, bàn giao TV2/TV3.
+Driver/Trip/Matching/Payment đã có code nghiệp vụ và migrations của TV2/TV3. Các lỗi routing/consumer chặn chạy thử đã được sửa; E01/E02/E03 đã chạy PASS. Xem [tài liệu và kết quả TV1](docs/TV1.md).
+
+Tài liệu TV1 được hợp nhất tại [docs/TV1.md](docs/TV1.md). Báo cáo chỉnh sửa bằng Word: [docs/report.docx](docs/report.docx). Kết quả kiểm thử mới nhất và giới hạn nghiệm thu có trong tài liệu TV1/evidence.
 
 ## Cấu trúc
 
@@ -11,10 +13,10 @@ src/
     identity-service/     # TV1: đăng ký, đăng nhập, JWT
     api-gateway/          # TV1: định tuyến, JWT, RBAC
     notification-service/ # TV1: consumer, inbox, thông báo
-    trip-service/         # TV2: khung bàn giao
-    payment-service/      # TV2: khung bàn giao
-    driver-service/       # TV3: khung bàn giao
-    matching-service/     # TV3: khung bàn giao
+    trip-service/         # TV2: booking, lifecycle, pricing, Saga
+    payment-service/      # TV2: simulated payment
+    driver-service/       # TV3: location, reserve, heartbeat
+    matching-service/     # TV3: matching, lease recovery
   web-ui/                 # TV1: giao diện React
   common/                 # tiện ích nền tảng dùng chung, không có nghiệp vụ
 deploy/                   # Dockerfiles
@@ -37,7 +39,7 @@ npm.cmd ci
 npm.cmd run up
 ```
 
-Mở UI tại http://localhost:3000, Gateway tại http://localhost:8080. RabbitMQ Management tại http://localhost:15672 (user `ride`, mật khẩu lấy từ `.env`). `npm run up` chạy được trên Windows/Linux/macOS, tạo `.env` ngẫu nhiên nếu chưa có, build/start/wait containers rồi seed. `.env` không đưa lên Git. Chỉ Gateway/UI/Management được bind vào localhost; DB và backend không public port. PowerShell vẫn hỗ trợ `scripts/start.ps1`.
+Mở UI tại http://localhost:3000, Gateway tại http://localhost:8080. RabbitMQ Management tại http://localhost:15672 (user `ride`, mật khẩu lấy từ `.env`). `npm run up` tạo `.env` ngẫu nhiên nếu chưa có, bổ sung các biến còn thiếu mà giữ nguyên credentials đã có, build/start/wait containers rồi seed. `INTERNAL_TOKEN` được truyền đồng nhất cho backend và hai Matching instances. Biến đã khai báo nhưng rỗng cần điền trước khi chạy. `.env` không đưa lên Git. Chỉ Gateway/UI/Management được bind vào localhost; DB và backend không public port. PowerShell vẫn hỗ trợ `scripts/start.ps1`. Khả năng redeploy máy sạch cần kiểm chứng theo checklist.
 
 Seed tạo `passenger1@demo.local`, `passenger2@demo.local`, `driver@demo.local`, mật khẩu demo `DemoPass123!`. Không dùng các tài khoản này cho triển khai public.
 
@@ -50,6 +52,8 @@ npm.cmd run dev --workspace web-ui
 
 Khi chạy backend ngoài Docker, đặt `JWT_SECRET` giống nhau, `DATABASE_URL` của **chính service đó** và `RABBITMQ_URL` cho Notification. Gateway hỗ trợ `IDENTITY_URL`, `DRIVER_URL`, `TRIP_URL`, `PAYMENT_URL`, `NOTIFICATION_URL`. DB mặc định chỉ nằm trong Docker network; chạy độc lập cần DB riêng có thể kết nối, không dùng URL Docker DNS từ host.
 
+Đặt `INTERNAL_TOKEN` giống nhau ở Driver/Trip/Matching khi chạy ngoài Docker. Compose truyền token không thay thế việc owner bảo vệ endpoint nội bộ của từng service.
+
 ```powershell
 npm.cmd run typecheck
 npm.cmd run build
@@ -59,7 +63,7 @@ npm.cmd run smoke
 npm.cmd run e2e -- E01
 ```
 
-Smoke cần Compose và seed. Integration TV1 có DB/MQ test riêng, không phụ thuộc TV2/TV3. E01–E03 cần TV2/TV3 hoàn tất nghiệp vụ theo [hợp đồng](docs/contracts.md); lỗi 501 được ghi FAIL, không giả lập PASS. Kết quả chạy được lưu vào `artifacts/`. CI chạy build/typecheck/unit/integration và upload evidence. Xem [kiểm thử](docs/testing.md) và [9 demo](docs/demo.md).
+Smoke cần Compose và seed. Integration TV1 có DB/MQ test riêng, không phụ thuộc TV2/TV3. E01–E03 chạy services thật theo [hợp đồng](docs/contracts.md); lỗi được ghi FAIL, không giả lập PASS. Kết quả chạy được lưu vào `artifacts/` và evidence được chọn. CI chạy build/typecheck/unit/integration và upload evidence. Xem [kiểm thử và demo TV1](docs/TV1.md).
 
 Backend chạy TypeScript qua `tsx` với entrypoint riêng của workspace; `build` kiểm tra biên dịch và build UI. Identity/Notification chạy migration theo tên file có version trong transaction/advisory lock, lưu schema_migrations. Khi đổi schema thêm file SQL đánh số mới, không sửa migration đã áp dụng.
 
@@ -71,4 +75,14 @@ powershell -ExecutionPolicy Bypass -File scripts/logs-by-trip.ps1 <trip-uuid>
 
 `reset-demo.ps1` **xóa toàn bộ volume dữ liệu của Compose project ds03**, rồi khởi động và seed lại. Chỉ chạy khi muốn làm mới dữ liệu demo.
 
-Theo dõi tình trạng hiện thực trong [phần bàn giao TV1](docs/member-1.md). Bản plan là thiết kế, không phải bằng chứng kiểm thử.
+Theo dõi tình trạng hiện thực trong [tài liệu TV1](docs/TV1.md). Bản plan là thiết kế, không phải bằng chứng kiểm thử.
+
+## Nghiệm thu và báo cáo
+
+Kết quả các lần kiểm tra được gộp tại [docs/kiem-thu.md](docs/kiem-thu.md), đánh số từng lần và không hiển thị ngày giờ. Chạy `npm run check:summary` để tổng hợp lại evidence hiện có.
+
+`npm run verify:tv1` chạy typecheck/build/unit, kiểm tra Docker và tự cập nhật file tổng hợp; bằng chứng gốc đã che secrets được giữ trong `docs/evidence/tv1/`. Lệnh trả mã khác 0 khi có FAIL hoặc BLOCKED. `npm run verify:tv1 -- --full` bổ sung test infrastructure, integration, UI fixture, startup/seed, smoke, E01–E04 tuần tự, UI nghiệp vụ, C01/C02 và P01; dừng chuỗi E2E khi một case lỗi. Lệnh full có thể tạo tài khoản/chuyến thử và kill/restart Payment trong E03; không chạy đồng thời với demo/UI cùng tài khoản. Không tự xóa dữ liệu để làm test PASS.
+
+`npm run report:update` đồng bộ các bảng số liệu/ảnh từ evidence mới nhất vào `docs/report.md`. `npm run report:word` tạo **Word có thể chỉnh sửa** tại `docs/report.docx` (Python 3 standard library); `npm run report:pdf` tạo PDF từ cùng nguồn bằng Edge/Playwright. Báo cáo có sáu chương theo mẫu Markdown, sơ đồ và ảnh thật, bảng kết quả/performance, phụ lục đối chiếu Course Project; thông tin hành chính để trống theo yêu cầu. Xuất lại sẽ ghi đè DOCX nên giữ riêng bản Word đã sửa. Checklist nộp bài/redeploy tại [docs/TV1.md](docs/TV1.md).
+
+Khi chỉ cần chạy lại deployment sau một lỗi build/network, dùng `npm run verify:tv1 -- --deployment-only`. Chế độ này không chạy lại typecheck/build/unit/integration/UI fixture; kết quả ghi rõ phạm vi và liên kết lượt evidence trước, không tự công nhận các bài chưa chạy.

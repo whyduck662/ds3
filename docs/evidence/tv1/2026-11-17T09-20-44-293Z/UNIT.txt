@@ -1,0 +1,26 @@
+
+> test
+> vitest run
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/matching.test.ts (3 tests) 383ms
+   ✓ Matching Service HTTP API (TV3) > trả về 404 khi không tìm thấy match attempt  345ms
+ ✓ tests/payment.test.ts (6 tests) 460ms
+   ✓ Payment Service HTTP API > từ chối request không có JWT  329ms
+ ✓ tests/trip.test.ts (8 tests) 496ms
+   ✓ Trip Service HTTP API > từ chối POST /trips nếu thiếu Idempotency-Key  391ms
+ ✓ tests/driver.test.ts (11 tests) 535ms
+   ✓ Driver Service HTTP API (TV3) > từ chối request không có JWT (401)  361ms
+ ✓ tests/platform.test.ts (9 tests) 670ms
+   ✓ Gateway security > chặn token sai, sai role và internal trước proxy  383ms
+
+ Test Files  5 passed (5)
+      Tests  37 passed (37)
+   Start at  16:21:16
+   Duration  3.10s (transform 1.00s, setup 0ms, collect 6.32s, tests 2.54s, environment 3ms, prepare 1.95s)
+
+JSON report written to D:/htpt/ds3/artifacts/unit.json
+
+

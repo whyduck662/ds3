@@ -1,0 +1,15 @@
+
+> e2e
+> tsx tests/e2e/scenarios.ts E02
+
+[
+  {
+    tripId: 'b7da3361-e328-4621-9dc0-0f84592453af',
+    correlationId: '1f7cbadc-b908-42d1-a4fd-16fdefd6b7c8',
+    quotedFare: 23000
+  },
+  { cleanup: 'driver released, payment voided' },
+  { result: 'PASS', finalNotification: 'trip.cancelled' }
+]
+
+

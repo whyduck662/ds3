@@ -1,0 +1,28 @@
+
+> test
+> vitest run
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/migrate.test.ts (2 tests) 185ms
+ ✓ tests/messaging.test.ts (3 tests) 104ms
+ ✓ tests/matching.test.ts (3 tests) 637ms
+   ✓ Matching Service HTTP API (TV3) > trả về 404 khi không tìm thấy match attempt  560ms
+ ✓ tests/payment.test.ts (6 tests) 659ms
+   ✓ Payment Service HTTP API > từ chối request không có JWT  509ms
+ ✓ tests/driver.test.ts (11 tests) 829ms
+   ✓ Driver Service HTTP API (TV3) > từ chối request không có JWT (401)  533ms
+ ✓ tests/trip.test.ts (8 tests) 907ms
+   ✓ Trip Service HTTP API > từ chối POST /trips nếu thiếu Idempotency-Key  683ms
+ ✓ tests/platform.test.ts (11 tests) 1908ms
+   ✓ Gateway security > does not share authenticated polling quotas between two users on the same IP  1480ms
+
+ Test Files  7 passed (7)
+      Tests  44 passed (44)
+   Start at  19:42:48
+   Duration  6.58s (transform 5.55s, setup 0ms, collect 14.97s, tests 5.23s, environment 4ms, prepare 4.03s)
+
+JSON report written to D:/htpt/ds3/artifacts/unit.json
+
+

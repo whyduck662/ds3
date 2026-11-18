@@ -1,0 +1,10 @@
+
+> typecheck
+> tsc --noEmit && tsc -p tsconfig.tools.json && npm run typecheck --workspace web-ui
+
+
+> typecheck
+> tsc --noEmit
+
+
+

@@ -1,0 +1,447 @@
+
+> up
+> node scripts/start.mjs
+
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.93kB done
+#1 DONE 0.0s
+
+#2 [notification-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 245B 0.1s done
+#2 transferring dockerfile: 245B 0.1s done
+#2 DONE 0.1s
+
+#3 [web-ui internal] load build definition from Dockerfile.web
+#3 transferring dockerfile: 309B 0.1s done
+#3 DONE 0.1s
+
+#4 [web-ui internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#4 DONE 2.7s
+
+#5 [matching-service internal] load metadata for docker.io/library/node:24.15.0-bookworm-slim
+#5 DONE 2.7s
+
+#6 [identity-service internal] load .dockerignore
+#6 transferring context: 97B 0.1s done
+#6 transferring context: 97B 0.1s done
+#6 DONE 0.2s
+
+#7 [matching-service internal] load build context
+#7 DONE 0.0s
+
+#8 [web-ui internal] load build context
+#8 DONE 0.0s
+
+#9 [matching-service 1/7] FROM docker.io/library/node:24.15.0-bookworm-slim@sha256:4e6b70dd6cbfc88c8157ba19aa3d9f9cce6ba4703576d55459e45efcbc9c5f5d
+#9 resolve docker.io/library/node:24.15.0-bookworm-slim@sha256:4e6b70dd6cbfc88c8157ba19aa3d9f9cce6ba4703576d55459e45efcbc9c5f5d 0.1s done
+#9 resolve docker.io/library/node:24.15.0-bookworm-slim@sha256:4e6b70dd6cbfc88c8157ba19aa3d9f9cce6ba4703576d55459e45efcbc9c5f5d 0.1s done
+#9 DONE 0.1s
+
+#10 [web-ui stage-1 1/2] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#10 resolve docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284 0.1s done
+#10 DONE 0.1s
+
+#7 [identity-service internal] load build context
+#7 transferring context: 277.25kB 0.3s done
+#7 DONE 0.4s
+
+#8 [web-ui internal] load build context
+#8 transferring context: 271.99kB 0.3s done
+#8 DONE 0.3s
+
+#11 [api-gateway 2/7] WORKDIR /app
+#11 CACHED
+
+#12 [api-gateway build 3/7] COPY package*.json ./
+#12 DONE 0.1s
+
+#13 [identity-service build 4/7] COPY src ./src
+#13 DONE 0.3s
+
+#14 [matching-service-2 build 5/7] RUN npm ci
+#14 25.91 
+#14 25.91 added 177 packages, and audited 194 packages in 25s
+#14 25.91 
+#14 25.91 44 packages are looking for funding
+#14 25.91   run `npm fund` for details
+#14 25.99 
+#14 25.99 3 vulnerabilities (1 moderate, 2 critical)
+#14 25.99 
+#14 25.99 To address all issues (including breaking changes), run:
+#14 25.99   npm audit fix --force
+#14 25.99 
+#14 25.99 Run `npm audit` for details.
+#14 26.00 npm notice
+#14 26.00 npm notice New major version of npm available! 11.12.1 -> 12.2.2
+#14 26.00 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+#14 26.00 npm notice To update run: npm install -g npm@12.2.2
+#14 26.00 npm notice
+#14 DONE 26.8s
+
+#15 [matching-service 4/7] COPY src ./src
+#15 CACHED
+
+#16 [matching-service 5/7] RUN npm ci
+#16 CACHED
+
+#17 [matching-service 3/7] COPY package*.json ./
+#17 CACHED
+
+#18 [matching-service 6/7] COPY tsconfig.json ./
+#18 DONE 0.4s
+
+#19 [web-ui build 6/7] COPY src/web-ui src/web-ui
+#19 DONE 0.4s
+
+#20 [trip-service 7/7] RUN npx tsc
+#20 ...
+
+#21 [web-ui build 7/7] RUN npm run build --workspace src/web-ui
+#21 0.952 
+#21 0.952 > build
+#21 0.952 > vite build
+#21 0.952 
+#21 1.600 vite v7.3.8 building client environment for production...
+#21 1.781 transforming...
+#21 4.792 ✓ 32 modules transformed.
+#21 5.228 rendering chunks...
+#21 5.255 computing gzip size...
+#21 5.298 dist/index.html                   0.35 kB │ gzip:  0.27 kB
+#21 5.298 dist/assets/index-CP7X0666.css    0.91 kB │ gzip:  0.46 kB
+#21 5.299 dist/assets/index-DFW1InJ3.js   232.92 kB │ gzip: 73.31 kB
+#21 5.299 ✓ built in 3.63s
+#21 DONE 5.5s
+
+#20 [trip-service 7/7] RUN npx tsc
+#20 ...
+
+#10 [web-ui stage-1 1/2] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#10 CACHED
+
+#22 [web-ui stage-1 2/2] COPY --from=build /app/src/web-ui/dist /usr/share/nginx/html
+#22 DONE 0.2s
+
+#20 [trip-service 7/7] RUN npx tsc
+#20 ...
+
+#23 [web-ui] exporting to image
+#23 exporting layers
+#23 exporting layers 0.3s done
+#23 exporting manifest sha256:a7690d3f0fc5e17b7db3da12d9067540348744318af60b6a311421de83d7256e 0.0s done
+#23 exporting config sha256:118968cf61d316be532ce09f0c3e362d5e637c1f25d7459fd4d42d5b210be55c 0.1s done
+#23 exporting attestation manifest sha256:7f84fcfc9dc26d669d5acf24f6a5848984f477c74f931dddf928ac8d033306af
+#23 exporting attestation manifest sha256:7f84fcfc9dc26d669d5acf24f6a5848984f477c74f931dddf928ac8d033306af 0.1s done
+#23 exporting manifest list sha256:5e961245a2fd435eba23aabedfed1a0449e906fbb7fe25da39ba7e8f9b36270d 0.0s done
+#23 naming to docker.io/library/ds03-web-ui:latest done
+#23 unpacking to docker.io/library/ds03-web-ui:latest 0.1s done
+#23 DONE 0.8s
+
+#20 [trip-service 7/7] RUN npx tsc
+#20 ...
+
+#24 [web-ui] resolving provenance for metadata file
+#24 DONE 0.1s
+
+#20 [trip-service 7/7] RUN npx tsc
+#20 DONE 9.2s
+
+#25 [matching-service-2] exporting to image
+#25 ...
+
+#26 [api-gateway] exporting to image
+#26 ...
+
+#27 [payment-service] exporting to image
+#27 ...
+
+#28 [matching-service] exporting to image
+#28 ...
+
+#29 [notification-service] exporting to image
+#29 ...
+
+#30 [trip-service] exporting to image
+#30 ...
+
+#31 [identity-service] exporting to image
+#31 ...
+
+#32 [driver-service] exporting to image
+#32 ...
+
+#25 [matching-service-2] exporting to image
+#25 exporting layers 13.4s done
+#25 exporting manifest sha256:72d219b4c5b8914e455a369bbbcd3df4e3ad55d6b634f4b793904a03ed32ec6d
+#25 exporting manifest sha256:72d219b4c5b8914e455a369bbbcd3df4e3ad55d6b634f4b793904a03ed32ec6d 0.2s done
+#25 exporting config sha256:040437ca2571c9d4031089a36a009f8ffc2c1c3eb41bb6b4bae74aedc404635b
+#25 exporting config sha256:040437ca2571c9d4031089a36a009f8ffc2c1c3eb41bb6b4bae74aedc404635b 0.3s done
+#25 exporting attestation manifest sha256:2a145f43e6e3f90317da5177e66297b0c5565d78dcc0c7d7158b5d4d1d52e1b9
+#25 exporting attestation manifest sha256:2a145f43e6e3f90317da5177e66297b0c5565d78dcc0c7d7158b5d4d1d52e1b9 0.4s done
+#25 exporting manifest list sha256:4096a8e0ee6eed49929fb7f1b4050704c86baae22f7a688903d471ef47a67b2c
+#25 exporting manifest list sha256:4096a8e0ee6eed49929fb7f1b4050704c86baae22f7a688903d471ef47a67b2c 0.2s done
+#25 naming to docker.io/library/ds03-matching-service-2:latest
+#25 naming to docker.io/library/ds03-matching-service-2:latest 0.1s done
+#25 unpacking to docker.io/library/ds03-matching-service-2:latest
+#25 ...
+
+#27 [payment-service] exporting to image
+#27 exporting layers 13.4s done
+#27 exporting manifest sha256:419bf388bb06579b606e67781b2dfd70de364a96ed064b8aa05cf504385c6c2b 0.3s done
+#27 exporting config sha256:07ea5af7cff5a026233fdd060b85ef8205707da4431975b3d2822f4e00ac67da 0.4s done
+#27 exporting attestation manifest sha256:ff19344cacdfa9c8bb2ae52f2f5d39ce147eb7a2b21162029e886dbe8d1eeaab 0.4s done
+#27 exporting manifest list sha256:3ff9903184a418e9aca0d8edadcf7965e44b50433734a4fae26a7b72f95892c2 0.2s done
+#27 naming to docker.io/library/ds03-payment-service:latest 0.0s done
+#27 unpacking to docker.io/library/ds03-payment-service:latest
+#27 ...
+
+#31 [identity-service] exporting to image
+#31 exporting layers 13.4s done
+#31 exporting manifest sha256:07d95245e8a34e20aa1225cce4ad2abec5f9039dd6090eea0eb1d305d9f8550c 0.2s done
+#31 exporting config sha256:2cc1901b3d1988ab2568582d2191107f85faf5a0afba3adcbaca89db88843e9d 0.3s done
+#31 exporting attestation manifest sha256:8282c02d1ee10a6d7fa7b919b05487b34a550c99f3d6e78089f3336f2612d6db 0.4s done
+#31 exporting manifest list sha256:218a34ca1b2a27c20a4023ff2440c735c78448ddfb4638265a874002afc2cd37 0.2s done
+#31 naming to docker.io/library/ds03-identity-service:latest 0.1s done
+#31 unpacking to docker.io/library/ds03-identity-service:latest
+#31 ...
+
+#32 [driver-service] exporting to image
+#32 exporting layers 13.4s done
+#32 exporting manifest sha256:26851cbb389ce483c30673bad40ec1d9270a59231193cbce0291b6b0cdb51bf9 0.2s done
+#32 exporting config sha256:3587c10a681acfcc68a18e669d8a4118b73f0cb493d56ec5e2622e64c02ffb6a 0.3s done
+#32 exporting attestation manifest sha256:b54875a0b24629db655ce40cf8b8bda5b75af48978c67375f265516ba35e09b7 0.4s done
+#32 exporting manifest list sha256:75b13af04fe562385f3f795a149243a948f080db7c53898f64d3cfd75770c03d 0.2s done
+#32 naming to docker.io/library/ds03-driver-service:latest 0.1s done
+#32 unpacking to docker.io/library/ds03-driver-service:latest
+#32 ...
+
+#30 [trip-service] exporting to image
+#30 exporting layers 13.4s done
+#30 exporting manifest sha256:e32f0f44b69852b3c1a2c3cbc0fc60976c7591746fbe850293ca08ae5c7ad735 0.2s done
+#30 exporting config sha256:5ae8ea3d7ed2f53a1be1c1d1da1dafc4a09f3a61c55dd26e1b3d8466d42230eb 0.3s done
+#30 exporting attestation manifest sha256:e06e4d2efe32ec1327a129a30184832b481dd96401eceb86d2ac8fb5275a95d1 0.4s done
+#30 exporting manifest list sha256:965ebc96266b7d5b9b6895649c5aee45005c5c98ad5aab5e31b3a98fc3ccbbf0 0.2s done
+#30 naming to docker.io/library/ds03-trip-service:latest 0.1s done
+#30 unpacking to docker.io/library/ds03-trip-service:latest
+#30 ...
+
+#28 [matching-service] exporting to image
+#28 exporting layers 13.4s done
+#28 exporting manifest sha256:85aee7051f7b429f258023d24f1ec249e176c9255fa6d068e2d89deffbf32cb9 0.2s done
+#28 exporting config sha256:1b0add47957ae399490517fa8e078a5654158684f49d2c909606a3893e26d039 0.2s done
+#28 exporting attestation manifest sha256:cf3d1564c593175a9ccfe865abea01564b477b57850f54edd611dcad5a3bec50 0.4s done
+#28 exporting manifest list sha256:706a177abbe16c9e7697c4f437764462c57245f5bf345d06ee1d7976b1615559 0.2s done
+#28 naming to docker.io/library/ds03-matching-service:latest 0.1s done
+#28 unpacking to docker.io/library/ds03-matching-service:latest
+#28 ...
+
+#29 [notification-service] exporting to image
+#29 exporting layers 13.4s done
+#29 exporting manifest sha256:52c72edb4377c38da52b18aba8d44b8c66cdd66020dc13d7f85fe38b2b4cdb73 0.3s done
+#29 exporting config sha256:88f0e28df800ce797385a0377ef01561ef9836affb98235faa066629ea9df1f9 0.3s done
+#29 exporting attestation manifest sha256:c6ad299a78181a6936a2c90cce1a5b7a90e3daee0ad075e8bbad8eaae99e5b6b 0.4s done
+#29 exporting manifest list sha256:160994206195637e808796daf5de9fb2e36a3b36e231e6a476f1e82d246a7b64 0.2s done
+#29 naming to docker.io/library/ds03-notification-service:latest 0.0s done
+#29 unpacking to docker.io/library/ds03-notification-service:latest
+#29 ...
+
+#26 [api-gateway] exporting to image
+#26 exporting layers 13.4s done
+#26 exporting manifest sha256:d3d56a04f1c1245031a5dc5a007b99205fffa77026daed765f493d11def5339c 0.3s done
+#26 exporting config sha256:484c060f23783b1ada913c010151f5ad7ac9b6172c42ff69bf399daa85d88e39 0.5s done
+#26 exporting attestation manifest sha256:90bf6b2db6ff3f74968dd516a88bb3de9483aea575cbb5394033b7fcb90f5059 0.4s done
+#26 exporting manifest list sha256:5d9361f30020eb946ea1e826d6645aa887948c90f37a6aed3a391ac51b641a6f 0.2s done
+#26 naming to docker.io/library/ds03-api-gateway:latest 0.0s done
+#26 unpacking to docker.io/library/ds03-api-gateway:latest
+#26 ...
+
+#31 [identity-service] exporting to image
+#31 unpacking to docker.io/library/ds03-identity-service:latest 10.7s done
+#31 DONE 25.8s
+
+#32 [driver-service] exporting to image
+#32 unpacking to docker.io/library/ds03-driver-service:latest 10.8s done
+#32 ...
+
+#30 [trip-service] exporting to image
+#30 unpacking to docker.io/library/ds03-trip-service:latest 10.7s done
+#30 DONE 25.8s
+
+#28 [matching-service] exporting to image
+#28 unpacking to docker.io/library/ds03-matching-service:latest 10.8s done
+#28 DONE 25.8s
+
+#27 [payment-service] exporting to image
+#27 unpacking to docker.io/library/ds03-payment-service:latest 10.7s done
+#27 DONE 25.8s
+
+#25 [matching-service-2] exporting to image
+#25 unpacking to docker.io/library/ds03-matching-service-2:latest 10.8s done
+#25 DONE 25.8s
+
+#29 [notification-service] exporting to image
+#29 unpacking to docker.io/library/ds03-notification-service:latest 10.8s done
+#29 DONE 25.9s
+
+#26 [api-gateway] exporting to image
+#26 unpacking to docker.io/library/ds03-api-gateway:latest 10.7s done
+#26 DONE 25.9s
+
+#32 [driver-service] exporting to image
+#32 DONE 25.9s
+
+#33 [identity-service] resolving provenance for metadata file
+#33 DONE 0.3s
+
+#34 [matching-service-2] resolving provenance for metadata file
+#34 DONE 0.8s
+
+#35 [trip-service] resolving provenance for metadata file
+#35 DONE 1.0s
+
+#36 [notification-service] resolving provenance for metadata file
+#36 DONE 0.7s
+
+#37 [driver-service] resolving provenance for metadata file
+#37 DONE 0.5s
+
+#38 [matching-service] resolving provenance for metadata file
+#38 DONE 0.3s
+
+#39 [api-gateway] resolving provenance for metadata file
+#39 DONE 0.6s
+
+#40 [payment-service] resolving provenance for metadata file
+#40 DONE 0.1s
+
+ Image ds03-api-gateway Building 
+ Image ds03-payment-service Building 
+ Image ds03-trip-service Building 
+ Image ds03-notification-service Building 
+ Image ds03-matching-service-2 Building 
+ Image ds03-web-ui Building 
+ Image ds03-driver-service Building 
+ Image ds03-identity-service Building 
+ Image ds03-matching-service Building 
+ Image ds03-identity-service Built 
+ Image ds03-notification-service Built 
+ Image ds03-api-gateway Built 
+ Image ds03-trip-service Built 
+ Image ds03-matching-service-2 Built 
+ Image ds03-payment-service Built 
+ Image ds03-driver-service Built 
+ Image ds03-matching-service Built 
+ Image ds03-web-ui Built 
+ Container ds03-identity-service-1 Recreate 
+ Container ds03-web-ui-1 Recreate 
+ Container ds03-matching-service-1 Recreate 
+ Container ds03-trip-service-1 Recreate 
+ Container ds03-notification-service-1 Recreate 
+ Container ds03-driver-service-1 Recreate 
+ Container ds03-payment-service-1 Recreate 
+ Container ds03-matching-service-2-1 Recreate 
+ Container ds03-identity-service-1 Recreated 
+ Container ds03-payment-service-1 Recreated 
+ Container ds03-trip-service-1 Recreated 
+ Container ds03-driver-service-1 Recreated 
+ Container ds03-notification-service-1 Recreated 
+ Container ds03-matching-service-1 Recreated 
+ Container ds03-matching-service-2-1 Recreated 
+ Container ds03-web-ui-1 Recreated 
+ Container ds03-api-gateway-1 Recreate 
+ Container ds03-api-gateway-1 Recreated 
+ Container ds03-notification-db-1 Starting 
+ Container ds03-matching-db-1 Starting 
+ Container ds03-driver-db-1 Starting 
+ Container ds03-trip-db-1 Starting 
+ Container ds03-identity-db-1 Starting 
+ Container ds03-web-ui-1 Starting 
+ Container ds03-payment-db-1 Starting 
+ Container ds03-rabbitmq-1 Starting 
+ Container ds03-notification-db-1 Started 
+ Container ds03-web-ui-1 Started 
+ Container ds03-trip-db-1 Started 
+ Container ds03-identity-db-1 Started 
+ Container ds03-driver-db-1 Started 
+ Container ds03-payment-db-1 Started 
+ Container ds03-rabbitmq-1 Started 
+ Container ds03-payment-db-1 Waiting 
+ Container ds03-identity-db-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-notification-db-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-driver-db-1 Waiting 
+ Container ds03-trip-db-1 Waiting 
+ Container ds03-matching-db-1 Started 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-matching-db-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-matching-db-1 Waiting 
+ Container ds03-driver-db-1 Healthy 
+ Container ds03-identity-db-1 Healthy 
+ Container ds03-trip-db-1 Healthy 
+ Container ds03-payment-db-1 Healthy 
+ Container ds03-notification-db-1 Healthy 
+ Container ds03-matching-db-1 Healthy 
+ Container ds03-matching-db-1 Healthy 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-trip-service-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-driver-service-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-payment-service-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-notification-service-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-identity-service-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-matching-service-2-1 Starting 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-matching-service-1 Starting 
+ Container ds03-payment-service-1 Started 
+ Container ds03-driver-service-1 Started 
+ Container ds03-trip-service-1 Started 
+ Container ds03-matching-service-1 Started 
+ Container ds03-notification-service-1 Started 
+ Container ds03-matching-service-2-1 Started 
+ Container ds03-identity-service-1 Started 
+ Container ds03-identity-service-1 Waiting 
+ Container ds03-notification-service-1 Waiting 
+ Container ds03-identity-service-1 Healthy 
+ Container ds03-notification-service-1 Healthy 
+ Container ds03-api-gateway-1 Starting 
+ Container ds03-api-gateway-1 Started 
+ Container ds03-web-ui-1 Waiting 
+ Container ds03-identity-db-1 Waiting 
+ Container ds03-matching-db-1 Waiting 
+ Container ds03-notification-service-1 Waiting 
+ Container ds03-notification-db-1 Waiting 
+ Container ds03-trip-db-1 Waiting 
+ Container ds03-matching-service-2-1 Waiting 
+ Container ds03-driver-db-1 Waiting 
+ Container ds03-identity-service-1 Waiting 
+ Container ds03-payment-db-1 Waiting 
+ Container ds03-matching-service-1 Waiting 
+ Container ds03-payment-service-1 Waiting 
+ Container ds03-driver-service-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-trip-service-1 Waiting 
+ Container ds03-api-gateway-1 Waiting 
+ Container ds03-identity-service-1 Healthy 
+ Container ds03-trip-db-1 Healthy 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-matching-service-1 Healthy 
+ Container ds03-web-ui-1 Healthy 
+ Container ds03-notification-service-1 Healthy 
+ Container ds03-matching-db-1 Healthy 
+ Container ds03-notification-db-1 Healthy 
+ Container ds03-driver-db-1 Healthy 
+ Container ds03-driver-service-1 Healthy 
+ Container ds03-identity-db-1 Healthy 
+ Container ds03-matching-service-2-1 Healthy 
+ Container ds03-payment-db-1 Healthy 
+ Container ds03-api-gateway-1 Healthy 
+container ds03-trip-service-1 is unhealthy
+

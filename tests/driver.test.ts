@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { driverApp } from '../src/services/driver-service/src/app.js';
 
 process.env.NODE_ENV = 'test';
+process.env.INTERNAL_TOKEN = 'test-only-internal-token-32-characters';
 process.env.JWT_SECRET = 'test-only-secret-with-at-least-32-characters';
 
 const apps: FastifyInstance[] = [];
@@ -318,6 +319,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/reserve`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId, reservationId, matchAttempt: 1 }
     });
 
@@ -357,6 +359,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/reserve`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId, reservationId, matchAttempt: 1 }
     });
 
@@ -384,6 +387,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/reserve`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId: randomUUID(), reservationId: randomUUID(), matchAttempt: 1 }
     });
 
@@ -413,6 +417,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/confirm`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId, reservationId, reservationVersion: 1 }
     });
 
@@ -445,6 +450,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/confirm`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId, reservationId, reservationVersion: 1 }
     });
 
@@ -473,6 +479,7 @@ describe('Driver Service HTTP API (TV3)', () => {
     const res = await app.inject({
       method: 'POST',
       url: `/internal/drivers/${driverId}/release`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN },
       payload: { tripId, reservationId }
     });
 

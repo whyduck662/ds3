@@ -1,0 +1,149 @@
+{
+  "owner": "TV1",
+  "startedAt": "2026-11-17T09:21:54.749Z",
+  "commit": "52bbb2af714b843a13eaf62ccd6cea1ac3ab7e62",
+  "workingTree": "M .env.example\n M .github/workflows/ci.yml\n D General_Requirements_and_DS03_English.md\n M README.md\n M compose.yaml\n M docs/demo.md\n M docs/member-1.md\n M docs/report/tv1.md\n M docs/requirements-review.md\n M docs/testing.md\n M package.json\n M scripts/create-compose.mjs\n M scripts/init-env.ps1\n M scripts/start.mjs\n?? \"COURSE PROJECT SPECIFICATION.md\"\n?? docs/evidence/tv1/\n?? docs/redeploy.md\n?? docs/report.pdf\n?? docs/report/preview.html\n?? docs/report/project.md\n?? docs/submission-checklist.md\n?? scripts/build-report.mjs\n?? scripts/env.mjs\n?? scripts/test-ui-business.ts\n?? scripts/verify-tv1.mjs",
+  "mode": "full",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "arch": "x64",
+    "cpus": 8,
+    "memoryBytes": 16942211072
+  },
+  "checks": [
+    {
+      "testId": "TYPECHECK",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+      "expected": "Backend, tools and UI typecheck exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:21:54.998Z",
+      "endedAt": "2026-11-17T09:22:12.420Z",
+      "log": "TYPECHECK.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "BUILD",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run build",
+      "expected": "TypeScript and production UI build exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:22:12.426Z",
+      "endedAt": "2026-11-17T09:22:24.332Z",
+      "log": "BUILD.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "UNIT",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js test",
+      "expected": "All unit tests pass; see test counts in log",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:22:24.332Z",
+      "endedAt": "2026-11-17T09:22:30.143Z",
+      "log": "UNIT.txt",
+      "evidenceFiles": [
+        "UNIT-unit.json"
+      ]
+    },
+    {
+      "testId": "DOCKER",
+      "owner": "TV1",
+      "command": "docker info --format {{.ServerVersion}}",
+      "expected": "Docker Engine responds",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:22:30.143Z",
+      "endedAt": "2026-11-17T09:22:30.776Z",
+      "log": "DOCKER.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "TEST-INFRA",
+      "owner": "TV1",
+      "command": "docker compose -f deploy/compose.test.yaml up -d --wait",
+      "expected": "Dedicated test DB/MQ healthy",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:22:30.776Z",
+      "endedAt": "2026-11-17T09:22:42.517Z",
+      "log": "TEST-INFRA.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "INTEGRATION-TV1",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run test:integration",
+      "expected": "Identity/Notification integration suite passes with real test DB/MQ",
+      "actual": "exit=1; FAIL",
+      "status": "FAIL",
+      "startedAt": "2026-11-17T09:22:42.517Z",
+      "endedAt": "2026-11-17T09:22:48.134Z",
+      "log": "INTEGRATION-TV1.txt",
+      "evidenceFiles": [
+        "INTEGRATION-TV1-integration.json"
+      ]
+    },
+    {
+      "testId": "STARTUP",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run up",
+      "expected": "Build/start deployment and seed through HTTP",
+      "actual": "exit=1; FAIL",
+      "status": "FAIL",
+      "startedAt": "2026-11-17T09:22:48.135Z",
+      "endedAt": "2026-11-17T09:24:47.429Z",
+      "log": "STARTUP.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "SMOKE",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "E01",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "E02",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "E03",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "UI-BUSINESS",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "REDEPLOY",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    }
+  ],
+  "endedAt": "2026-11-17T09:24:47.430Z",
+  "acceptance": "FAIL"
+}

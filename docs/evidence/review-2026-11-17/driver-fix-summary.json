@@ -1,0 +1,24 @@
+{
+  "scope": "Driver status/reserve race fix; targeted verification, not clean-machine redeploy",
+  "recordedAt": "2026-11-17T13:32:13.394652+00:00",
+  "typecheck": "PASS",
+  "unit": "44/44 PASS",
+  "integration": "21/21 PASS including four real-PostgreSQL interleaving regressions",
+  "buildDriver": "PASS",
+  "driverDeployment": "Updated and healthy",
+  "C01": "PASS",
+  "C02": "PASS",
+  "originalSchedule": {
+    "reserveA": 200,
+    "statusUpdate": 409,
+    "reserveB": 409
+  },
+  "code": "src/services/driver-service/src/app.ts",
+  "evidence": [
+    "driver-status-race-fixed.json",
+    "driver-fix-unit.json",
+    "driver-fix-integration.json",
+    "driver-fix-c01.json",
+    "driver-fix-c02.json"
+  ]
+}

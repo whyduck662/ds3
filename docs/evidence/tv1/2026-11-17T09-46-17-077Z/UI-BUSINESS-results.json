@@ -1,0 +1,13 @@
+{
+  "testId": "UI-BUSINESS",
+  "owner": "TV1",
+  "commit": "52bbb2af714b843a13eaf62ccd6cea1ac3ab7e62",
+  "startedAt": "2026-11-17T09:48:51.825Z",
+  "expected": "Two real browser sessions complete and pay a trip; real notifications reach both users",
+  "status": "FAIL",
+  "steps": [],
+  "actual": "expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: 'Đăng xuất' })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('button', { name: 'Đăng xuất' }) with timeout 15000ms\n  - waiting for getByRole('button', { name: 'Đăng xuất' })\n",
+  "endedAt": "2026-11-17T09:49:10.931Z",
+  "browser": "Playwright Chromium/Edge",
+  "ui": "http://localhost:3000"
+}

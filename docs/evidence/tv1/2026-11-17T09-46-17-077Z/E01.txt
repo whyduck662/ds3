@@ -1,0 +1,18 @@
+
+> e2e
+> tsx tests/e2e/scenarios.ts E01
+
+[
+  {
+    tripId: 'ae46809f-6f2c-4d9c-aab4-0b536abaab1a',
+    correlationId: '3cc5491e-b6b4-4dda-89e2-bc23fa7909d2',
+    quotedFare: 23000
+  },
+  {
+    payment: { status: 'CAPTURED', amount: 23000 },
+    note: 'TV2 bổ sung DB invariant evidence cho số lần capture'
+  },
+  { result: 'PASS', finalNotification: 'trip.paid' }
+]
+
+

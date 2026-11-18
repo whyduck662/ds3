@@ -12,6 +12,31 @@ process.env.JWT_SECRET = 'test-only-secret-with-at-least-32-characters';
 const apps: FastifyInstance[] = [];
 afterEach(async () => { await Promise.all(apps.splice(0).map(app => app.close())); });
 describe('Gateway security', () => {
+  it('does not share authenticated polling quotas between two users on the same IP', async () => {
+    const upstream = Fastify(); apps.push(upstream);
+    upstream.get('/notifications/me', async () => ({ items: [] }));
+    const saved = process.env.NOTIFICATION_URL;
+    process.env.NOTIFICATION_URL = await upstream.listen({ host: '127.0.0.1', port: 0 });
+    try {
+      const app = await gatewayApp(); apps.push(app);
+      const first = app.jwt.sign({ userId: randomUUID(), role: 'PASSENGER' });
+      const second = app.jwt.sign({ userId: randomUUID(), role: 'DRIVER' });
+      for (let index = 0; index < 120; index++) expect((await app.inject({ url: '/notifications/me', headers: { authorization: `Bearer ${first}` } })).statusCode).toBe(200);
+      expect((await app.inject({ url: '/notifications/me', headers: { authorization: `Bearer ${first}` } })).statusCode).toBe(429);
+      expect((await app.inject({ url: '/notifications/me', headers: { authorization: `Bearer ${second}` } })).statusCode).toBe(200);
+    } finally { if (saved) process.env.NOTIFICATION_URL = saved; else delete process.env.NOTIFICATION_URL; }
+  });
+  it('allows browser preflight for Driver PUT location/status and booking headers', async () => {
+    const app = await gatewayApp(); apps.push(app);
+    const result = await app.inject({ method: 'OPTIONS', url: '/drivers/me/location', headers: {
+      origin: 'http://localhost:3000', 'access-control-request-method': 'PUT',
+      'access-control-request-headers': 'authorization,content-type,idempotency-key,x-correlation-id'
+    } });
+    expect(result.statusCode).toBe(204);
+    expect(result.headers['access-control-allow-methods']).toContain('PUT');
+    expect(result.headers['access-control-allow-origin']).toBe('http://localhost:3000');
+    expect(result.headers['access-control-allow-headers']).toContain('idempotency-key');
+  });
   it('chặn token sai, sai role và internal trước proxy', async () => {
     const app = await gatewayApp(); apps.push(app);
     const token = app.jwt.sign({ userId: randomUUID(), role: 'PASSENGER' });

@@ -1,0 +1,19 @@
+
+> build
+> tsc && npm run build --workspace web-ui
+
+
+> build
+> vite build
+
+vite v7.3.8 building client environment for production...
+transforming...
+✓ 32 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.35 kB │ gzip:  0.27 kB
+dist/assets/index-CP7X0666.css    0.91 kB │ gzip:  0.46 kB
+dist/assets/index-DFW1InJ3.js   232.92 kB │ gzip: 73.31 kB
+✓ built in 3.40s
+
+

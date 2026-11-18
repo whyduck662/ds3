@@ -1,0 +1,280 @@
+{
+  "numTotalTestSuites": 4,
+  "numPassedTestSuites": 4,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 21,
+  "numPassedTests": 21,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1794922075383,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ status AVAILABLE cannot overwrite a concurrent RESERVED reservation",
+          "status": "passed",
+          "title": "status AVAILABLE cannot overwrite a concurrent RESERVED reservation",
+          "duration": 218.85809999999992,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ status OFFLINE cannot overwrite a concurrent RESERVED reservation",
+          "status": "passed",
+          "title": "status OFFLINE cannot overwrite a concurrent RESERVED reservation",
+          "duration": 104.01449999999977,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ status AVAILABLE cannot overwrite a concurrent ON_TRIP reservation",
+          "status": "passed",
+          "title": "status AVAILABLE cannot overwrite a concurrent ON_TRIP reservation",
+          "duration": 243.45029999999997,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ status OFFLINE cannot overwrite a concurrent ON_TRIP reservation",
+          "status": "passed",
+          "title": "status OFFLINE cannot overwrite a concurrent ON_TRIP reservation",
+          "duration": 127.44090000000006,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ capture before authorize or after void never emits a successful capture",
+          "status": "passed",
+          "title": "capture before authorize or after void never emits a successful capture",
+          "duration": 298.4960000000001,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ a captured event with wrong status or amount cannot make Trip PAID",
+          "status": "passed",
+          "title": "a captured event with wrong status or amount cannot make Trip PAID",
+          "duration": 373.21730000000025,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ rejects mismatched capture amount and cannot void a CAPTURED payment",
+          "status": "passed",
+          "title": "rejects mismatched capture amount and cannot void a CAPTURED payment",
+          "duration": 355.5492999999997,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ cancellation does not ACK on release 503, then recovers and releases Driver",
+          "status": "passed",
+          "title": "cancellation does not ACK on release 503, then recovers and releases Driver",
+          "duration": 231.83410000000003,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ recovers expired RESERVING work using the persisted reservation and emits a reply",
+          "status": "passed",
+          "title": "recovers expired RESERVING work using the persisted reservation and emits a reply",
+          "duration": 106.36149999999998,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ resumes persisted PENDING work after restart rather than only resetting its state",
+          "status": "passed",
+          "title": "resumes persisted PENDING work after restart rather than only resetting its state",
+          "duration": 150.34540000000015,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ retains reservation identity and compensates when confirm response is lost after Driver commit",
+          "status": "passed",
+          "title": "retains reservation identity and compensates when confirm response is lost after Driver commit",
+          "duration": 1717.5607,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ internal endpoints fail closed for missing/wrong token and missing server configuration",
+          "status": "passed",
+          "title": "internal endpoints fail closed for missing/wrong token and missing server configuration",
+          "duration": 49.38590000000022,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "Distributed recovery regressions — real DB/MQ"
+          ],
+          "fullName": "Distributed recovery regressions — real DB/MQ reservation expiry preserves old trip/reservation IDs in its durable event",
+          "status": "passed",
+          "title": "reservation expiry preserves old trip/reservation IDs in its durable event",
+          "duration": 62.71010000000024,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1794922111374,
+      "endTime": 1794922115418.7102,
+      "status": "passed",
+      "message": "",
+      "name": "D:/htpt/ds3/tests/integration/recovery.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ F01/F02: register/login/me qua Gateway, hash mật khẩu và role đúng",
+          "status": "passed",
+          "title": "F01/F02: register/login/me qua Gateway, hash mật khẩu và role đúng",
+          "duration": 5265.220400000001,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ F07/F10: event thật qua MQ lưu một lần cho cả passenger và driver",
+          "status": "passed",
+          "title": "F07/F10: event thật qua MQ lưu một lần cho cả passenger và driver",
+          "duration": 130.4312000000009,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ event sai schema vào DLQ, không ghi inbox",
+          "status": "passed",
+          "title": "event sai schema vào DLQ, không ghi inbox",
+          "duration": 85.0676999999996,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ rollback khi DB xử lý lỗi, retry hữu hạn rồi xử lý sau khôi phục",
+          "status": "passed",
+          "title": "rollback khi DB xử lý lỗi, retry hữu hạn rồi xử lý sau khôi phục",
+          "duration": 1060.2901999999995,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ consumer dừng rồi chạy lại nhận message đang chờ",
+          "status": "passed",
+          "title": "consumer dừng rồi chạy lại nhận message đang chờ",
+          "duration": 188.070099999999,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ hết retry budget vào DLQ, giữ eventId và không ghi inbox lỗi",
+          "status": "passed",
+          "title": "hết retry budget vào DLQ, giữ eventId và không ghi inbox lỗi",
+          "duration": 76.0668999999998,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ event version cũ đến muộn vẫn lưu lịch sử riêng, không mất thông báo mới",
+          "status": "passed",
+          "title": "event version cũ đến muộn vẫn lưu lịch sử riêng, không mất thông báo mới",
+          "duration": 81.65770000000157,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "TV1 — real PostgreSQL/RabbitMQ"
+          ],
+          "fullName": "TV1 — real PostgreSQL/RabbitMQ X06: consumer tự reconnect sau khi RabbitMQ test restart",
+          "status": "passed",
+          "title": "X06: consumer tự reconnect sau khi RabbitMQ test restart",
+          "duration": 21214.0435,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1794922079666,
+      "endTime": 1794922107769.0435,
+      "status": "passed",
+      "message": "",
+      "name": "D:/htpt/ds3/tests/integration/tv1.test.ts"
+    }
+  ]
+}

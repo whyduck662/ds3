@@ -1,0 +1,27 @@
+{
+  "scenario": "E04",
+  "time": "2026-11-17T10:05:03.288Z",
+  "evidence": [
+    {
+      "tripId": "07915303-a552-40d1-9ccd-1acb35a8813a",
+      "correlationId": "61aba061-7de6-4c2c-9cb5-cc43a5a4d465",
+      "quotedFare": 23000
+    },
+    {
+      "operation": "DRIVER_REJECTED",
+      "expected": "With only the rejected driver online, rematch must cancel rather than assign that driver again"
+    },
+    {
+      "cleanup": "driver released, payment voided"
+    },
+    {
+      "result": "PASS",
+      "finalNotification": "trip.cancelled"
+    }
+  ],
+  "testId": "E04",
+  "owner": "TV1",
+  "command": "npm.cmd run e2e -- E04",
+  "status": "PASS",
+  "scope": "Supplemental test after the full verification; does not alter timestamps of earlier checks"
+}

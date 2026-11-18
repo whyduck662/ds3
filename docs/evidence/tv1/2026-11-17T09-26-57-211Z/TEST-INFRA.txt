@@ -1,0 +1,14 @@
+
+ Container ds03-tv1-test-notification-db-1 Running 
+ Container ds03-tv1-test-identity-db-1 Running 
+ Container ds03-tv1-test-rabbitmq-1 Recreate 
+ Container ds03-tv1-test-rabbitmq-1 Recreated 
+ Container ds03-tv1-test-rabbitmq-1 Starting 
+ Container ds03-tv1-test-rabbitmq-1 Started 
+ Container ds03-tv1-test-rabbitmq-1 Waiting 
+ Container ds03-tv1-test-identity-db-1 Waiting 
+ Container ds03-tv1-test-notification-db-1 Waiting 
+ Container ds03-tv1-test-identity-db-1 Healthy 
+ Container ds03-tv1-test-notification-db-1 Healthy 
+ Container ds03-tv1-test-rabbitmq-1 Healthy 
+

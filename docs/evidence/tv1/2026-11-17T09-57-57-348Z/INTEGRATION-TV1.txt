@@ -1,0 +1,20 @@
+
+> test:integration
+> vitest run --config vitest.integration.config.ts
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/integration/tv1.test.ts (8 tests) 30180ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > F01/F02: register/login/me qua Gateway, hash mật khẩu và role đúng  4772ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > rollback khi DB xử lý lỗi, retry hữu hạn rồi xử lý sau khôi phục  1077ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > X06: consumer tự reconnect sau khi RabbitMQ test restart  23106ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  16:58:44
+   Duration  32.32s (transform 247ms, setup 0ms, collect 1.50s, tests 30.18s, environment 0ms, prepare 242ms)
+
+JSON report written to D:/htpt/ds3/artifacts/integration.json
+
+

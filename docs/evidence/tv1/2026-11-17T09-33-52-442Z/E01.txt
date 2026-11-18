@@ -1,0 +1,17 @@
+
+> e2e
+> tsx tests/e2e/scenarios.ts E01
+
+[
+  {
+    tripId: '2ce11430-4a4a-4960-a45d-15c3796d8af7',
+    correlationId: '3ef92cca-6dc7-4daa-aea4-177ba960d940',
+    quotedFare: 23000
+  },
+  {
+    result: 'FAIL',
+    error: 'Error: Timeout: /trips/2ce11430-4a4a-4960-a45d-15c3796d8af7'
+  }
+]
+
+

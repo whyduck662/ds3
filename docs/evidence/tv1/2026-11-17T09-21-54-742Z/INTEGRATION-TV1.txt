@@ -1,0 +1,34 @@
+
+> test:integration
+> vitest run --config vitest.integration.config.ts
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ❯ tests/integration/tv1.test.ts (8 tests | 8 skipped) 649ms
+   ↓ TV1 — real PostgreSQL/RabbitMQ > F01/F02: register/login/me qua Gateway, hash mật khẩu và role đúng
+   ↓ TV1 — real PostgreSQL/RabbitMQ > F07/F10: event thật qua MQ lưu một lần cho cả passenger và driver
+   ↓ TV1 — real PostgreSQL/RabbitMQ > event sai schema vào DLQ, không ghi inbox
+   ↓ TV1 — real PostgreSQL/RabbitMQ > rollback khi DB xử lý lỗi, retry hữu hạn rồi xử lý sau khôi phục
+   ↓ TV1 — real PostgreSQL/RabbitMQ > consumer dừng rồi chạy lại nhận message đang chờ
+   ↓ TV1 — real PostgreSQL/RabbitMQ > hết retry budget vào DLQ, giữ eventId và không ghi inbox lỗi
+   ↓ TV1 — real PostgreSQL/RabbitMQ > event version cũ đến muộn vẫn lưu lịch sử riêng, không mất thông báo mới
+   ↓ TV1 — real PostgreSQL/RabbitMQ > X06: consumer tự reconnect sau khi RabbitMQ test restart
+
+ Test Files  1 failed (1)
+      Tests  8 skipped (8)
+   Start at  16:22:44
+   Duration  3.08s (transform 294ms, setup 0ms, collect 1.69s, tests 649ms, environment 1ms, prepare 236ms)
+
+JSON report written to D:/htpt/ds3/artifacts/integration.json
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/integration/tv1.test.ts [ tests/integration/tv1.test.ts ]
+Error: Socket closed abruptly during opening handshake
+ ❯ Socket.endWhileOpening node_modules/amqplib/lib/connection.js:214:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+

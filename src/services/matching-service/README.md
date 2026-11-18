@@ -1,8 +1,8 @@
 # matching-service
 
-Owner: TV3. Đây là khung healthcheck, chưa có nghiệp vụ.
+Owner: TV3. Consumer lưu durable work/tombstone cùng inbox; worker claim lease và commit candidate/reservation trước REST. Worker replay cùng reservationId sau lỗi, phát reply qua outbox và chỉ xác nhận cancel sau release. Hai instances dùng cùng logical-service DB. Xem docs/report.md và docs/TV1.md ở gốc repository.
 
 - Mã nguồn: `src/`
-- Migration: thêm vào `migrations/` khi triển khai.
-- Chạy riêng: `npm.cmd run dev --workspace matching-service` (cần JWT_SECRET và DATABASE_URL).
+- Migration: SQL versioned trong `migrations/`, chạy tự động khi startup.
+- Chạy riêng: `npm.cmd run dev --workspace matching-service` (cần JWT_SECRET, INTERNAL_TOKEN, DATABASE_URL, RABBITMQ_URL và DRIVER_SERVICE_URL phù hợp).
 - Không truy cập DB của service khác.

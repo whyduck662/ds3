@@ -1,0 +1,101 @@
+{
+  "owner": "TV1",
+  "startedAt": "2026-11-17T09:33:52.446Z",
+  "commit": "52bbb2af714b843a13eaf62ccd6cea1ac3ab7e62",
+  "workingTree": "M .env.example\n M .github/workflows/ci.yml\n D General_Requirements_and_DS03_English.md\n M README.md\n M compose.yaml\n M deploy/compose.test.yaml\n M docs/demo.md\n M docs/member-1.md\n M docs/report/tv1.md\n M docs/requirements-review.md\n M docs/testing.md\n M package.json\n M scripts/create-compose.mjs\n M scripts/init-env.ps1\n M scripts/start.mjs\n M scripts/test-ui.ts\n M src/common/src/migrate.ts\n?? \"COURSE PROJECT SPECIFICATION.md\"\n?? docs/evidence/tv1/\n?? docs/redeploy.md\n?? docs/report.pdf\n?? docs/report/preview.html\n?? docs/report/project.md\n?? docs/submission-checklist.md\n?? scripts/build-report.mjs\n?? scripts/env.mjs\n?? scripts/test-ui-business.ts\n?? scripts/verify-tv1.mjs\n?? tests/migrate.test.ts",
+  "mode": "deployment-only",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "arch": "x64",
+    "cpus": 8,
+    "memoryBytes": 16942211072
+  },
+  "checks": [
+    {
+      "testId": "DOCKER",
+      "owner": "TV1",
+      "command": "docker info --format {{.ServerVersion}}",
+      "expected": "Docker Engine responds",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:33:52.629Z",
+      "endedAt": "2026-11-17T09:33:53.567Z",
+      "log": "DOCKER.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "STARTUP",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run up",
+      "expected": "Build/start deployment and seed through HTTP",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:33:53.572Z",
+      "endedAt": "2026-11-17T09:34:40.317Z",
+      "log": "STARTUP.txt",
+      "evidenceFiles": []
+    },
+    {
+      "testId": "SMOKE",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run smoke",
+      "expected": "Gateway smoke suite passes",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:34:40.317Z",
+      "endedAt": "2026-11-17T09:34:43.935Z",
+      "log": "SMOKE.txt",
+      "evidenceFiles": [
+        "SMOKE-smoke.json"
+      ]
+    },
+    {
+      "testId": "E01",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run e2e -- E01",
+      "expected": "Complete scenario and all API/notification assertions pass",
+      "actual": "exit=1; FAIL",
+      "status": "FAIL",
+      "startedAt": "2026-11-17T09:34:43.935Z",
+      "endedAt": "2026-11-17T09:35:50.263Z",
+      "log": "E01.txt",
+      "evidenceFiles": [
+        "E01-E01.json",
+        "E01-E01-containers.log"
+      ]
+    },
+    {
+      "testId": "E02",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "E03",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "UI-BUSINESS",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    },
+    {
+      "testId": "REDEPLOY",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass"
+    }
+  ],
+  "previousEvidence": "docs/evidence/tv1/2026-11-17T09-26-57-211Z",
+  "endedAt": "2026-11-17T09:35:50.264Z",
+  "acceptance": "FAIL"
+}

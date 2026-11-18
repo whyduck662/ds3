@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { matchingApp } from '../src/services/matching-service/src/app.js';
 
 process.env.NODE_ENV = 'test';
+process.env.INTERNAL_TOKEN = 'test-only-internal-token-32-characters';
 process.env.JWT_SECRET = 'test-only-secret-with-at-least-32-characters';
 
 const apps: FastifyInstance[] = [];
@@ -24,7 +25,8 @@ describe('Matching Service HTTP API (TV3)', () => {
     const tripId = randomUUID();
     const res = await app.inject({
       method: 'GET',
-      url: `/internal/matching/${tripId}/1`
+      url: `/internal/matching/${tripId}/1`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN }
     });
 
     expect(res.statusCode).toBe(404);
@@ -61,7 +63,8 @@ describe('Matching Service HTTP API (TV3)', () => {
 
     const res = await app.inject({
       method: 'GET',
-      url: `/internal/matching/${tripId}/1`
+      url: `/internal/matching/${tripId}/1`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN }
     });
 
     expect(res.statusCode).toBe(200);

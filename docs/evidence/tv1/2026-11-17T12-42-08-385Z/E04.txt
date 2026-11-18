@@ -1,0 +1,19 @@
+
+> e2e
+> tsx tests/e2e/scenarios.ts E04
+
+[
+  {
+    tripId: 'de2a10fb-4fa9-489f-aa4d-7a82a492cdee',
+    correlationId: 'a72e2e8a-a4f0-400c-818f-fac251207604',
+    quotedFare: 23000
+  },
+  {
+    operation: 'DRIVER_REJECTED',
+    expected: 'With only the rejected driver online, rematch must cancel rather than assign that driver again'
+  },
+  { cleanup: 'driver released, payment voided' },
+  { result: 'PASS', finalNotification: 'trip.cancelled' }
+]
+
+

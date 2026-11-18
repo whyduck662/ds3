@@ -1,0 +1,19 @@
+# Read-only snapshot: Trip producer → MQ → Notification (17/11/2026)
+
+Commands: docker compose exec -T trip-db psql -U trip -d trip -c SELECT routing_key,status,attempt_count FROM outbox ORDER BY created_at DESC LIMIT 5; docker compose exec -T notification-db psql -U notification -d notification -c SELECT trip_id,type,count(*) FROM notifications GROUP BY trip_id,type ORDER BY trip_id;
+
+Không thay thế invariant checker hoặc full E2E của owner nghiệp vụ.
+
+     routing_key      | status | attempt_count 
+----------------------+--------+---------------
+ matching.find_driver | SENT   |             0
+ payment.authorize    | SENT   |             0
+ trip.requested       | SENT   |             0
+(3 rows)
+
+               trip_id                |      type      | count 
+--------------------------------------+----------------+-------
+ 2ce11430-4a4a-4960-a45d-15c3796d8af7 | trip.requested |     1
+(1 row)
+
+

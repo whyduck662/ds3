@@ -1,0 +1,18 @@
+{
+  "scenario": "E02",
+  "time": "2026-11-17T09:48:35.248Z",
+  "evidence": [
+    {
+      "tripId": "b7da3361-e328-4621-9dc0-0f84592453af",
+      "correlationId": "1f7cbadc-b908-42d1-a4fd-16fdefd6b7c8",
+      "quotedFare": 23000
+    },
+    {
+      "cleanup": "driver released, payment voided"
+    },
+    {
+      "result": "PASS",
+      "finalNotification": "trip.cancelled"
+    }
+  ]
+}

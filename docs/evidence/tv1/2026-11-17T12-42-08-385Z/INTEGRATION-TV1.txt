@@ -1,0 +1,23 @@
+
+> test:integration
+> vitest run --config vitest.integration.config.ts
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/integration/tv1.test.ts (8 tests) 28727ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > F01/F02: register/login/me qua Gateway, hash mật khẩu và role đúng  5105ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > rollback khi DB xử lý lỗi, retry hữu hạn rồi xử lý sau khôi phục  1051ms
+   ✓ TV1 — real PostgreSQL/RabbitMQ > X06: consumer tự reconnect sau khi RabbitMQ test restart  21309ms
+ ✓ tests/integration/recovery.test.ts (9 tests) 3671ms
+   ✓ Distributed recovery regressions — real DB/MQ > rejects mismatched capture amount and cannot void a CAPTURED payment  356ms
+   ✓ Distributed recovery regressions — real DB/MQ > retains reservation identity and compensates when confirm response is lost after Driver commit  517ms
+
+ Test Files  2 passed (2)
+      Tests  17 passed (17)
+   Start at  19:43:01
+   Duration  37.91s (transform 763ms, setup 0ms, collect 4.14s, tests 32.40s, environment 1ms, prepare 564ms)
+
+JSON report written to D:/htpt/ds3/artifacts/integration.json
+
+

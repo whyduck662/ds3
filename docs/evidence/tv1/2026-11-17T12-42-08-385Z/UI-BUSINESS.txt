@@ -1,0 +1,7 @@
+
+> test:ui:business
+> tsx scripts/test-ui-business.ts
+
+UI-BUSINESS: PASS; evidence artifacts/ui-business/2026-11-17T12-47-32-053Z/results.json
+
+

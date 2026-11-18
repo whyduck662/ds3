@@ -1,0 +1,22 @@
+{
+  "scenario": "E01",
+  "time": "2026-11-17T12:46:36.857Z",
+  "evidence": [
+    {
+      "tripId": "c34c6d19-0f0c-4f43-a687-99395200a730",
+      "correlationId": "efd2d69b-73c7-4aeb-b996-f0c06377c195",
+      "quotedFare": 23000
+    },
+    {
+      "payment": {
+        "status": "CAPTURED",
+        "amount": 23000
+      },
+      "note": "TV2 bổ sung DB invariant evidence cho số lần capture"
+    },
+    {
+      "result": "PASS",
+      "finalNotification": "trip.paid"
+    }
+  ]
+}

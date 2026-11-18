@@ -5,7 +5,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { api, base, login } from '../../scripts/demo/api.js';
 
 const scenario = process.argv[2] ?? 'E01';
-if (!['E01', 'E02', 'E03'].includes(scenario)) throw new Error('Dùng E01 (happy path), E02 (cancel), E03 (capture recovery)');
+if (!['E01', 'E02', 'E03', 'E04'].includes(scenario)) throw new Error('Dùng E01 (happy path), E02 (cancel), E03 (capture recovery), E04 (reject/rematch)');
 const evidence: unknown[] = [];
 const compose = (...args: string[]) => execFileSync('docker', ['compose', ...args], { encoding: 'utf8', timeout: 60000 });
 async function waitFor(path: string, token: string, predicate: (value: any) => boolean, timeout = 60000) {
@@ -35,8 +35,11 @@ try {
   assert.ok(id, 'POST /trips phải trả id');
   evidence.push({ tripId: id, correlationId: trip.correlationId, quotedFare: trip.quotedFare });
   await waitFor(`/trips/${id}`, passenger.accessToken, t => t.status === 'DRIVER_ASSIGNED');
-  if (scenario === 'E02') {
-    await api(`/trips/${id}/cancel`, { method: 'POST', body: '{}' }, passenger.accessToken);
+  if (scenario === 'E02' || scenario === 'E04') {
+    if (scenario === 'E04') {
+      await api(`/trips/${id}/reject`, { method: 'POST', body: '{}' }, driver.accessToken);
+      evidence.push({ operation: 'DRIVER_REJECTED', expected: 'With only the rejected driver online, rematch must cancel rather than assign that driver again' });
+    } else await api(`/trips/${id}/cancel`, { method: 'POST', body: '{}' }, passenger.accessToken);
     await waitFor(`/trips/${id}`, passenger.accessToken, t => t.status === 'CANCELLED');
     await waitFor('/drivers/me', driver.accessToken, d => d.currentTripId === null && d.status === 'AVAILABLE');
     await waitFor(`/payments/${id}`, passenger.accessToken, p => p.status === 'VOIDED');
@@ -65,8 +68,8 @@ try {
     assert.equal(payment.status, 'CAPTURED'); assert.equal(payment.amount, trip.quotedFare);
     evidence.push({ payment: { status: payment.status, amount: payment.amount }, note: 'TV2 bổ sung DB invariant evidence cho số lần capture' });
   }
-  const type = scenario === 'E02' ? 'trip.cancelled' : 'trip.paid';
-  for (const session of [passenger, driver]) {
+  const type = ['E02', 'E04'].includes(scenario) ? 'trip.cancelled' : 'trip.paid';
+  for (const session of scenario === 'E04' ? [passenger] : [passenger, driver]) {
     const notifications = await waitFor('/notifications/me', session.accessToken, n => n.items.some((item: any) => item.tripId === id && item.type === type));
     assert.equal(notifications.items.filter((n: any) => n.tripId === id && n.type === type).length, 1);
   }

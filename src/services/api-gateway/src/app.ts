@@ -17,10 +17,13 @@ export function allowed(role: string, method: string, path: string) {
 }
 export async function gatewayApp() {
   const app = await createApp('api-gateway');
-  await app.register(cors, { origin: process.env.UI_ORIGIN ?? 'http://localhost:3000', exposedHeaders: ['X-Correlation-ID'] });
+  await app.register(cors, { origin: process.env.UI_ORIGIN ?? 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'OPTIONS'], exposedHeaders: ['X-Correlation-ID'] });
   await app.register(rateLimit, {
+    hook: 'preHandler',
     max: req => req.url.startsWith('/auth/') ? 10 : req.method === 'POST' && req.url.split('?')[0] === '/trips' ? 30 : 120,
-    keyGenerator: req => `${req.ip}:${req.url.startsWith('/auth/') ? 'auth' : req.method === 'POST' && req.url.split('?')[0] === '/trips' ? 'booking' : 'api'}`,
+    // Authentication runs in onRequest first; public auth remains IP-limited.
+    keyGenerator: req => `${req.url.startsWith('/auth/') ? req.ip : req.user?.userId ?? req.ip}:${req.url.startsWith('/auth/') ? 'auth' : req.method === 'POST' && req.url.split('?')[0] === '/trips' ? 'booking' : 'api'}`,
     timeWindow: '1 minute'
   });
   app.addHook('onRequest', async (req, reply) => {

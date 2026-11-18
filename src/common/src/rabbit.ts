@@ -40,6 +40,12 @@ const QUEUE_BINDINGS: QueueBinding[] = [
   { queue: 'trip.driver-events',  exchange: 'ride.events',  routingKey: 'driver.*'           },
   { queue: 'driver.trip-events',  exchange: 'ride.events',  routingKey: 'trip.*'             },
   { queue: 'notification.events', exchange: 'ride.events',  routingKey: 'trip.*'             },
+  { queue: 'payment.commands', exchange: 'ride.commands', routingKey: 'payment.authorize' },
+  { queue: 'payment.commands', exchange: 'ride.commands', routingKey: 'payment.capture' },
+  { queue: 'payment.commands', exchange: 'ride.commands', routingKey: 'payment.void' },
+  { queue: 'matching.commands', exchange: 'ride.commands', routingKey: 'matching.find_driver' },
+  { queue: 'matching.commands', exchange: 'ride.commands', routingKey: 'matching.cancel_attempt' },
+  { queue: 'driver.commands', exchange: 'ride.commands', routingKey: 'driver.release' },
 ];
 
 const RETRY_TIERS = [
@@ -59,10 +65,13 @@ export async function setupTopology(channel: Channel): Promise<void> {
   }
 
   // 2. Main queues + bindings + retry + DLQ
+  const configuredQueues = new Set<string>();
   for (const binding of QUEUE_BINDINGS) {
     // Main queue
     await channel.assertQueue(binding.queue, { durable: true });
     await channel.bindQueue(binding.queue, binding.exchange, binding.routingKey);
+    if (configuredQueues.has(binding.queue)) continue;
+    configuredQueues.add(binding.queue);
 
     // Retry queues — messages TTL-expire back to the main queue
     for (const tier of RETRY_TIERS) {

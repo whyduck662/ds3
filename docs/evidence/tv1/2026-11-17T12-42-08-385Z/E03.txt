@@ -1,0 +1,34 @@
+
+> e2e
+> tsx tests/e2e/scenarios.ts E03
+
+[
+  {
+    tripId: '609459f5-f949-4ef5-a886-6649ae67fcdd',
+    correlationId: '1f4f8449-a2a7-49ef-b450-9e51aa55811c',
+    quotedFare: 23000
+  },
+  { operation: 'PAYMENT_KILLED', time: '2026-11-17T12:46:50.592Z' },
+  {
+    operation: 'CAPTURE_PENDING_WHILE_PAYMENT_DOWN',
+    status: 'COMPLETED'
+  },
+  { operation: 'PAYMENT_RESTARTED', time: '2026-11-17T12:46:53.617Z' },
+  {
+    payment: { status: 'CAPTURED', amount: 23000 },
+    note: 'TV2 bổ sung DB invariant evidence cho số lần capture'
+  },
+  { result: 'PASS', finalNotification: 'trip.paid' }
+]
+
+ Container ds03-payment-service-1 Killing 
+ Container ds03-payment-service-1 Killed 
+ Container ds03-rabbitmq-1 Running 
+ Container ds03-payment-db-1 Running 
+ Container ds03-payment-db-1 Waiting 
+ Container ds03-rabbitmq-1 Waiting 
+ Container ds03-payment-db-1 Healthy 
+ Container ds03-rabbitmq-1 Healthy 
+ Container ds03-payment-service-1 Starting 
+ Container ds03-payment-service-1 Started 
+

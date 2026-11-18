@@ -1,0 +1,37 @@
+{
+  "scenario": "Driver status update races with reserve",
+  "driverId": "9ce44d12-4a2e-43eb-8da0-17c6add42cdf",
+  "tripA": "010d9420-a926-45f2-b545-26d8421e4df3",
+  "tripB": "82e52b21-476c-47a9-9149-9cb426e0f385",
+  "firstReserve": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "driverId": "9ce44d12-4a2e-43eb-8da0-17c6add42cdf",
+      "tripId": "010d9420-a926-45f2-b545-26d8421e4df3",
+      "reservationId": "2df8639f-900f-4ba5-a4d9-e62f7c2d7343",
+      "reservationVersion": 1,
+      "reservedUntil": "2026-11-17T13:30:48.082Z"
+    }
+  },
+  "statusUpdate": {
+    "status": 409,
+    "body": {
+      "code": "INVALID_STATE_TRANSITION",
+      "message": "Không thể đổi trạng thái khi đang có chuyến hoặc đang giữ chỗ",
+      "correlationId": "6d103d65-8483-450e-968c-1c70fcef267d"
+    }
+  },
+  "secondReserve": {
+    "status": 409,
+    "body": {
+      "code": "DRIVER_NOT_AVAILABLE",
+      "message": "Tài xế không sẵn sàng hoặc đã được gán",
+      "correlationId": "b0af7dac-3d58-4069-aa29-fd0bea5594cc"
+    }
+  },
+  "confirmed": false,
+  "regressionFixed": true,
+  "recordedAt": "2026-11-17T13:30:49.582640+00:00",
+  "note": "confirmed=false means the original bug was NOT reproduced after the fix"
+}

@@ -1,4 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { Pool } from 'pg';
 
 // Chỉ nhận pool của service gọi; không có danh sách credentials của service khác.
@@ -13,7 +15,8 @@ export async function migrate(pool: Pool, directory: URL) {
     for (const file of files) {
       const applied = await client.query('SELECT 1 FROM schema_migrations WHERE name=$1', [file]);
       if (applied.rowCount) continue;
-      await client.query(await readFile(new URL(file, directory), 'utf8'));
+      // directory is a directory even when its URL has no trailing slash.
+      await client.query(await readFile(join(fileURLToPath(directory), file), 'utf8'));
       await client.query('INSERT INTO schema_migrations(name) VALUES($1)', [file]);
     }
     await client.query('COMMIT');

@@ -17,12 +17,21 @@
     "test": "vitest run",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:ui": "tsx scripts/test-ui.ts",
+    "test:ui:business": "tsx scripts/test-ui-business.ts",
+    "verify:tv1": "node scripts/verify-tv1.mjs",
+    "check:summary": "node scripts/check-summary.mjs",
+    "report:pdf": "node scripts/build-report.mjs",
+    "report:word": "python scripts/build-report.py",
+    "report:update": "python scripts/update-report-results.py",
+    "report:figures": "node scripts/report-figures.mjs",
     "demo": "tsx scripts/demo/run.ts",
     "start": "npm run start --workspace identity-service",
     "up": "node scripts/start.mjs",
     "seed": "tsx scripts/demo/seed.ts",
     "smoke": "tsx tests/e2e/smoke.ts",
-    "e2e": "tsx tests/e2e/scenarios.ts"
+    "e2e": "tsx tests/e2e/scenarios.ts",
+    "test:concurrency": "tsx tests/concurrency/c01.ts && tsx tests/concurrency/c02.ts",
+    "benchmark": "tsx scripts/load/p01.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

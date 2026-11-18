@@ -1,0 +1,19 @@
+
+> test:concurrency
+> tsx tests/concurrency/c01.ts && tsx tests/concurrency/c02.ts
+
+=== Running C01 Concurrency Test ===
+Target API Gateway: http://localhost:8080
+[1/5] Logging in Passenger 1, Passenger 2, and Driver...
+[2/5] Setting driver location and status to AVAILABLE...
+[3/5] Firing 2 concurrent trip requests for same driver location...
+Trip 1 ID: 735332c9-13f8-4214-bcfb-6da0ec8a0a1b
+Trip 2 ID: 59f3c7c3-2d09-489a-8c57-1547e05d943a
+[4/5] Waiting for matching resolution on both trips...
+Trip 1 final status: CANCELLED
+Trip 2 final status: DRIVER_ASSIGNED
+[5/5] Checking Invariants I01 & I02...
+>>> C01 PASSED! Evidence saved to artifacts/c01.json
+C02: PASS
+
+

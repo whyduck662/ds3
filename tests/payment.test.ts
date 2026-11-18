@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { paymentApp } from '../src/services/payment-service/src/app.js';
 
 process.env.NODE_ENV = 'test';
+process.env.INTERNAL_TOKEN = 'test-only-internal-token-32-characters';
 process.env.JWT_SECRET = 'test-only-secret-with-at-least-32-characters';
 
 const apps: FastifyInstance[] = [];
@@ -128,7 +129,8 @@ describe('Payment Service HTTP API', () => {
 
     const res = await app.inject({
       method: 'GET',
-      url: `/internal/payments/${tripId}/status`
+      url: `/internal/payments/${tripId}/status`,
+      headers: { 'x-internal-token': process.env.INTERNAL_TOKEN }
     });
     expect(res.statusCode).toBe(200);
     expect(res.json()).toEqual({

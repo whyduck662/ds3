@@ -1,8 +1,8 @@
 # trip-service
 
-Owner: TV2. Đây là khung healthcheck, chưa có nghiệp vụ.
+Owner: TV2. Đã có booking/idempotency, lifecycle, pricing, Saga và compensation/reconciler. Confirm không chắc chắn giữ reservation để bù trừ; PAID yêu cầu payment status/amount hợp lệ. Xem docs/report.md và docs/TV1.md ở gốc repository.
 
 - Mã nguồn: `src/`
-- Migration: thêm vào `migrations/` khi triển khai.
-- Chạy riêng: `npm.cmd run dev --workspace trip-service` (cần JWT_SECRET và DATABASE_URL).
+- Migration: SQL versioned trong `migrations/`, chạy tự động khi startup.
+- Chạy riêng: `npm.cmd run dev --workspace trip-service` (cần JWT_SECRET, INTERNAL_TOKEN, DATABASE_URL, RABBITMQ_URL và DRIVER_URL phù hợp).
 - Không truy cập DB của service khác.

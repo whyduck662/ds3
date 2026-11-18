@@ -1,0 +1,28 @@
+
+> test
+> vitest run
+
+
+ RUN  v3.2.7 D:/htpt/ds3
+
+ ✓ tests/migrate.test.ts (2 tests) 94ms
+ ✓ tests/messaging.test.ts (3 tests) 62ms
+ ✓ tests/matching.test.ts (3 tests) 626ms
+   ✓ Matching Service HTTP API (TV3) > trả về 404 khi không tìm thấy match attempt  539ms
+ ✓ tests/payment.test.ts (6 tests) 660ms
+   ✓ Payment Service HTTP API > từ chối request không có JWT  508ms
+ ✓ tests/trip.test.ts (8 tests) 707ms
+   ✓ Trip Service HTTP API > từ chối POST /trips nếu thiếu Idempotency-Key  555ms
+ ✓ tests/driver.test.ts (11 tests) 784ms
+   ✓ Driver Service HTTP API (TV3) > từ chối request không có JWT (401)  474ms
+ ✓ tests/platform.test.ts (10 tests) 1275ms
+   ✓ Gateway security > allows browser preflight for Driver PUT location/status and booking headers  515ms
+
+ Test Files  7 passed (7)
+      Tests  43 passed (43)
+   Start at  16:58:34
+   Duration  5.04s (transform 4.33s, setup 0ms, collect 13.24s, tests 4.21s, environment 8ms, prepare 3.55s)
+
+JSON report written to D:/htpt/ds3/artifacts/unit.json
+
+

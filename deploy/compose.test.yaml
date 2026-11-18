@@ -1,6 +1,46 @@
 # Chỉ dành cho integration TV1, không dùng credentials này ngoài test local/CI.
 name: ds03-tv1-test
 services:
+  driver-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: driver, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: driver_test }
+    ports: ["127.0.0.1:55432:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U driver -d driver_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  trip-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: trip, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: trip_test }
+    ports: ["127.0.0.1:55433:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U trip -d trip_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  matching-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: matching, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: matching_test }
+    ports: ["127.0.0.1:55434:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U matching -d matching_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  payment-db:
+    image: postgres:16.13-alpine
+    environment: { POSTGRES_USER: payment, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: payment_test }
+    ports: ["127.0.0.1:55435:5432"]
+    tmpfs: [/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U payment -d payment_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
   identity-db:
     image: postgres:16.13-alpine
     environment: { POSTGRES_USER: identity, POSTGRES_PASSWORD: local-test-only, POSTGRES_DB: identity_test }
@@ -27,7 +67,7 @@ services:
     environment: { RABBITMQ_DEFAULT_USER: tv1, RABBITMQ_DEFAULT_PASS: local-test-only }
     ports: ["127.0.0.1:5673:5672"]
     healthcheck:
-      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      test: [CMD, rabbitmq-diagnostics, -q, check_protocol_listener, amqp]
       interval: 3s
       timeout: 3s
       retries: 30

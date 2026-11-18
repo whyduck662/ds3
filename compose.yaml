@@ -24,7 +24,7 @@ services:
     networks: [backend]
     mem_limit: 512m
     healthcheck:
-      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      test: [CMD, rabbitmq-diagnostics, -q, check_protocol_listener, amqp]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -48,6 +48,7 @@ services:
       SERVICE_NAME: identity-service
       PORT: 8081
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://identity:${IDENTITY_DB_PASSWORD}@identity-db:5432/identity
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -73,6 +74,7 @@ services:
       SERVICE_NAME: driver-service
       PORT: 8082
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://driver:${DRIVER_DB_PASSWORD}@driver-db:5432/driver
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -98,6 +100,7 @@ services:
       SERVICE_NAME: trip-service
       PORT: 8083
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://trip:${TRIP_DB_PASSWORD}@trip-db:5432/trip
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -123,6 +126,7 @@ services:
       SERVICE_NAME: matching-service
       PORT: 8084
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://matching:${MATCHING_DB_PASSWORD}@matching-db:5432/matching
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -148,6 +152,7 @@ services:
       SERVICE_NAME: payment-service
       PORT: 8085
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://payment:${PAYMENT_DB_PASSWORD}@payment-db:5432/payment
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -173,6 +178,7 @@ services:
       SERVICE_NAME: notification-service
       PORT: 8086
       JWT_SECRET: ${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://notification:${NOTIFICATION_DB_PASSWORD}@notification-db:5432/notification
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -185,6 +191,7 @@ services:
       INSTANCE_ID: matching-service-2
       PORT: 8084
       JWT_SECRET: ${JWT_SECRET}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://matching:${MATCHING_DB_PASSWORD}@matching-db:5432/matching
       RABBITMQ_URL: amqp://ride:${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:

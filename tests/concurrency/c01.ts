@@ -122,6 +122,15 @@ async function runC01() {
       (t1Won && !t2Won) || (!t1Won && t2Won),
       `INVARIANT VIOLATION: Exactly one trip must win driver. Got trip1=${t1Final?.status}, trip2=${t2Final?.status}`
     );
+    const loser = t1Won ? t2Final : t1Final;
+    assert.equal(loser.status, 'CANCELLED', 'Losing trip must finish compensation');
+    const currentDriver = await api('/drivers/me', {}, driver.accessToken);
+    assert.equal(currentDriver.currentTripId, t1Won ? trip1.id : trip2.id);
+    assert.equal(currentDriver.status, 'RESERVED');
+    const winner = t1Won ? trip1.id : trip2.id;
+    await api(`/trips/${winner}/cancel`, { method: 'POST', body: '{}' }, t1Won ? p1.accessToken : p2.accessToken);
+    await waitFor(`/trips/${winner}`, t1Won ? p1.accessToken : p2.accessToken, trip => trip.status === 'CANCELLED');
+    await waitFor('/drivers/me', driver.accessToken, value => value.currentTripId === null && value.status === 'AVAILABLE');
 
     evidence.passed = true;
     evidence.winner = t1Won ? trip1.id : trip2.id;

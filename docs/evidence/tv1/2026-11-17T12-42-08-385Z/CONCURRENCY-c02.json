@@ -1,0 +1,59 @@
+{
+  "test": "C02",
+  "startedAt": "2026-11-17T12:48:35.629Z",
+  "description": "10 parallel bookings for one passenger, exactly one success and nine HTTP 409 conflicts",
+  "results": [
+    {
+      "success": true,
+      "tripId": "c60b1c1f-d4ac-470f-9d8b-5029948ee574",
+      "error": ""
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"059b26ef-0a2f-440a-98a3-e3d1588dd799\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"e485ca4a-111e-4bc9-a2ba-85c732643677\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"78ebc4e2-dc78-41de-a3f4-ac0fbaff31bc\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"c51f9f4a-f437-4b1d-acf0-90640cc170b6\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"d405a49b-2298-403c-8cb9-d61d6671899f\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"7007aecf-1796-42b4-ba12-7f39cb5157f5\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"99106bee-a399-4d70-8fa2-e67fb6752349\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"769383eb-9760-4807-953c-d8f2df89c2f7\"}"
+    },
+    {
+      "success": false,
+      "tripId": "",
+      "error": "Error: 409 {\"code\":\"ACTIVE_TRIP_EXISTS\",\"message\":\"Hành khách đang có chuyến đi chưa hoàn thành\",\"correlationId\":\"16b05052-69f3-4c63-8d5c-c7c386dead55\"}"
+    }
+  ],
+  "passed": true,
+  "endedAt": "2026-11-17T12:48:38.413Z"
+}

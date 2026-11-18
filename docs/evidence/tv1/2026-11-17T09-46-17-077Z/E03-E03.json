@@ -1,0 +1,34 @@
+{
+  "scenario": "E03",
+  "time": "2026-11-17T09:48:47.238Z",
+  "evidence": [
+    {
+      "tripId": "6948306e-e310-407e-a2e3-055c321d2758",
+      "correlationId": "0e01be51-b33d-4ca9-9496-a45beb6e5b2d",
+      "quotedFare": 23000
+    },
+    {
+      "operation": "PAYMENT_KILLED",
+      "time": "2026-11-17T09:48:41.251Z"
+    },
+    {
+      "operation": "CAPTURE_PENDING_WHILE_PAYMENT_DOWN",
+      "status": "COMPLETED"
+    },
+    {
+      "operation": "PAYMENT_RESTARTED",
+      "time": "2026-11-17T09:48:43.476Z"
+    },
+    {
+      "payment": {
+        "status": "CAPTURED",
+        "amount": 23000
+      },
+      "note": "TV2 bổ sung DB invariant evidence cho số lần capture"
+    },
+    {
+      "result": "PASS",
+      "finalNotification": "trip.paid"
+    }
+  ]
+}

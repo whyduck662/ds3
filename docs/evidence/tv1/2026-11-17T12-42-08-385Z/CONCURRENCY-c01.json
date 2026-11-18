@@ -1,0 +1,32 @@
+{
+  "test": "C01",
+  "description": "2 Passengers concurrent booking with 1 Driver",
+  "startedAt": "2026-11-17T12:48:28.464Z",
+  "steps": [
+    {
+      "step": "LOGIN_OK",
+      "p1Id": "ecc66944-3be5-44b3-b0b9-cc410d3a54b2",
+      "p2Id": "69b05d34-f579-455d-b806-cfe0d5c732f1",
+      "driverId": "640abf04-9a1a-4f3b-a5ab-cde6b1f15599"
+    },
+    {
+      "step": "TRIPS_CREATED",
+      "trip1": {
+        "id": "735332c9-13f8-4214-bcfb-6da0ec8a0a1b",
+        "correlationId": "7891d2be-4483-4f1e-9836-460d77fbb063"
+      },
+      "trip2": {
+        "id": "59f3c7c3-2d09-489a-8c57-1547e05d943a",
+        "correlationId": "6c3da03f-92fb-4311-8c23-9d782d9262d9"
+      }
+    },
+    {
+      "step": "TRIPS_RESOLVED",
+      "trip1Status": "CANCELLED",
+      "trip2Status": "DRIVER_ASSIGNED"
+    }
+  ],
+  "passed": true,
+  "winner": "59f3c7c3-2d09-489a-8c57-1547e05d943a",
+  "endedAt": "2026-11-17T12:48:34.718Z"
+}

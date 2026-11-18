@@ -27,7 +27,7 @@ services:
     networks: [backend]
     mem_limit: 512m
     healthcheck:
-      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      test: [CMD, rabbitmq-diagnostics, -q, check_protocol_listener, amqp]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -54,6 +54,7 @@ for (const [name, port] of Object.entries(services)) {
       SERVICE_NAME: ${name}-service
       PORT: ${port}
       JWT_SECRET: \${JWT_SECRET:?Run scripts/init-env.ps1}
+      INTERNAL_TOKEN: \${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://${name}:\${${key}}@${name}-db:5432/${name}
       RABBITMQ_URL: amqp://ride:\${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
@@ -68,6 +69,7 @@ yaml += `  matching-service-2:
       INSTANCE_ID: matching-service-2
       PORT: 8084
       JWT_SECRET: \${JWT_SECRET}
+      INTERNAL_TOKEN: \${INTERNAL_TOKEN:?Run scripts/init-env.ps1}
       DATABASE_URL: postgres://matching:\${MATCHING_DB_PASSWORD}@matching-db:5432/matching
       RABBITMQ_URL: amqp://ride:\${RABBITMQ_PASSWORD}@rabbitmq:5672
     depends_on:
