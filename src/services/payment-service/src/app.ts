@@ -1,5 +1,6 @@
 import type { Pool } from 'pg';
 import { authenticate, createApp, fail } from '../../../common/src/platform.js';
+import { verifyInternal } from '../../../common/src/internal-auth.js';
 
 export async function paymentApp(pool: Pool) {
   const app = await createApp('payment-service', pool);
@@ -19,7 +20,7 @@ export async function paymentApp(pool: Pool) {
     }
 
     const payment = rows[0];
-    if (req.user.role !== 'ADMIN' && payment.passenger_id && payment.passenger_id !== req.user.userId) {
+    if (req.user.role !== 'ADMIN' && payment.passenger_id !== req.user.userId) {
       fail(403, 'FORBIDDEN', 'Không có quyền truy cập thông tin thanh toán của chuyến đi này');
     }
 
@@ -32,6 +33,7 @@ export async function paymentApp(pool: Pool) {
 
   // GET /internal/payments/:tripId/status - Tra cứu nội bộ để Reconciler đối soát
   app.get<{ Params: { tripId: string } }>('/internal/payments/:tripId/status', async (req) => {
+    verifyInternal(req);
     const { tripId } = req.params;
     const { rows } = await pool.query(
       'SELECT trip_id, passenger_id, amount, status, version FROM payments WHERE trip_id = $1',

@@ -115,6 +115,7 @@ export function consumeTripReplies(pool: Pool, logger: FastifyBaseLogger) {
                     });
                   }
                 } else if (parsed.type === 'payment.declined') {
+                  if (trip.status !== 'REQUESTED') { await client.query('COMMIT'); channel.ack(message); return; }
                   await client.query(
                     `UPDATE trips
                      SET status = 'COMPENSATING', saga_status = 'COMPENSATING', payment_status = 'DECLINED',
@@ -154,6 +155,7 @@ export function consumeTripReplies(pool: Pool, logger: FastifyBaseLogger) {
                     });
                   }
                 } else if (parsed.type === 'matching.no_driver') {
+                  if (trip.status !== 'SEARCHING' || parsed.matchAttempt !== trip.match_attempt) { await client.query('COMMIT'); channel.ack(message); return; }
                   await client.query(
                     `UPDATE trips
                      SET status = 'COMPENSATING', saga_status = 'COMPENSATING', comp_match_ack = true,
@@ -175,22 +177,26 @@ export function consumeTripReplies(pool: Pool, logger: FastifyBaseLogger) {
                     envelope: voidEnvelope
                   });
                 } else if (parsed.type === 'matching.attempt_cancelled') {
+                  if (parsed.matchAttempt !== trip.match_attempt) { await client.query('COMMIT'); channel.ack(message); return; }
                   await client.query(
                     'UPDATE trips SET comp_match_ack = true, version = version + 1 WHERE id = $1',
                     [tripId]
                   );
                 } else if (parsed.type === 'driver.released') {
+                  if (parsed.payload.reservationId !== trip.reservation_id) { await client.query('COMMIT'); channel.ack(message); return; }
                   await client.query(
                     'UPDATE trips SET comp_driver_ack = true, version = version + 1 WHERE id = $1',
                     [tripId]
                   );
                 } else if (parsed.type === 'payment.voided' || parsed.type === 'payment.authorize_rejected_cancelled') {
+                  if (!['VOIDED','TOMBSTONED'].includes(String(parsed.payload.status))) { await client.query('COMMIT'); channel.ack(message); return; }
                   await client.query(
                     "UPDATE trips SET comp_payment_ack = true, payment_status = 'VOIDED', version = version + 1 WHERE id = $1",
                     [tripId]
                   );
                 } else if (parsed.type === 'payment.captured') {
-                  if (trip.status === 'COMPLETED') {
+                  if (trip.status === 'COMPLETED' && parsed.payload.status === 'CAPTURED'
+                    && parsed.payload.amount === trip.quoted_fare) {
                     await client.query(
                       `UPDATE trips
                        SET status = 'PAID', payment_status = 'CAPTURED', saga_status = 'COMPLETED',
@@ -372,6 +378,27 @@ export function consumeTripReplies(pool: Pool, logger: FastifyBaseLogger) {
           const matchDone = t.comp_match_ack || !t.match_attempt;
           const driverDone = t.comp_driver_ack || !t.driver_id;
           const paymentDone = t.comp_payment_ack || t.payment_status === 'VOIDED' || t.payment_status === 'DECLINED';
+
+          // Recover unfinished compensation, including work created before a broker
+          // routing failure. Persist retries; never force the business state to CANCELLED.
+          const retryStep = async (type: string, payload: Record<string, unknown>) => {
+            const recent = await client.query(
+              `SELECT 1 FROM outbox WHERE routing_key = $1
+               AND envelope->>'aggregateId' = $2
+               AND (status = 'PENDING' OR created_at > now() - interval '10 seconds') LIMIT 1`,
+              [type, t.id]
+            );
+            if (recent.rowCount) return;
+            await insertOutbox(client, {
+              exchange: 'ride.commands', routingKey: type,
+              envelope: createEnvelope({ type, correlationId: t.correlation_id, service: 'trip-service',
+                aggregateId: t.id, matchAttempt: t.match_attempt, payload })
+            });
+          };
+          if (!matchDone) await retryStep('matching.cancel_attempt', { tripId: t.id, matchAttempt: t.match_attempt });
+          if (!driverDone) await retryStep('driver.release', { tripId: t.id, driverId: t.driver_id,
+            reservationId: t.reservation_id, reservationVersion: t.reservation_version });
+          if (!paymentDone) await retryStep('payment.void', { tripId: t.id });
 
           if (matchDone && driverDone && paymentDone) {
             await client.query(

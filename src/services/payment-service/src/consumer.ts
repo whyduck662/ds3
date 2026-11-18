@@ -69,6 +69,12 @@ export function consumePayments(pool: Pool, logger: FastifyBaseLogger) {
                 [parsed.eventId]
               );
               const isFirstTime = (dedupRes.rowCount ?? 0) > 0;
+              if (!isFirstTime) {
+                await client.query('COMMIT');
+                channel.ack(message);
+                logger.info({ operation: 'PAYMENT_MESSAGE_DEDUPED', eventId: parsed.eventId });
+                return;
+              }
 
               if (parsed.type === 'payment.authorize') {
                 const { tripId, passengerId, amount } = parsed.payload as { tripId: string; passengerId: string; amount: number };
@@ -132,29 +138,31 @@ export function consumePayments(pool: Pool, logger: FastifyBaseLogger) {
                     ['VOIDED', tripId]
                   );
                 }
+                const voidStatus = cur.rows[0]?.status === 'CAPTURED' ? 'CAPTURED' : 'VOIDED';
                 const replyEnvelope = createEnvelope({
-                  type: 'payment.voided',
+                  type: voidStatus === 'VOIDED' ? 'payment.voided' : 'payment.void_rejected',
                   correlationId: parsed.correlationId,
                   causationId: parsed.eventId,
                   service: 'payment-service',
                   aggregateId: tripId,
-                  payload: { tripId, status: 'VOIDED' }
+                  payload: { tripId, status: voidStatus }
                 });
                 await insertOutbox(client, { exchange: 'ride.commands', routingKey: 'trip.replies', envelope: replyEnvelope });
               } else if (parsed.type === 'payment.capture') {
                 const { tripId, amount } = parsed.payload as { tripId: string; amount?: number };
                 const cur = await client.query('SELECT status, amount, version FROM payments WHERE trip_id = $1 FOR UPDATE', [tripId]);
 
-                if (cur.rows.length > 0 && cur.rows[0].status === 'AUTHORIZED') {
+                const amountMatches = amount === undefined || amount === cur.rows[0]?.amount;
+                if (cur.rows.length > 0 && cur.rows[0].status === 'AUTHORIZED' && amountMatches) {
                   await client.query(
                     'UPDATE payments SET status = $1, version = version + 1, updated_at = now() WHERE trip_id = $2',
                     ['CAPTURED', tripId]
                   );
                 }
 
-                const finalStatus = cur.rows.length > 0 && cur.rows[0].status === 'CAPTURED' ? 'CAPTURED' : (cur.rows.length > 0 && cur.rows[0].status === 'AUTHORIZED' ? 'CAPTURED' : cur.rows[0]?.status ?? 'NOT_FOUND');
+                const finalStatus = !cur.rows.length ? 'NOT_FOUND' : !amountMatches ? 'AMOUNT_MISMATCH' : ['AUTHORIZED', 'CAPTURED'].includes(cur.rows[0]?.status) ? 'CAPTURED' : cur.rows[0].status;
                 const replyEnvelope = createEnvelope({
-                  type: 'payment.captured',
+                  type: finalStatus === 'CAPTURED' ? 'payment.captured' : 'payment.capture_rejected',
                   correlationId: parsed.correlationId,
                   causationId: parsed.eventId,
                   service: 'payment-service',

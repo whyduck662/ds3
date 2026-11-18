@@ -37,6 +37,10 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
     try {
       await client.query('BEGIN');
 
+      // Serialize booking/idempotency decisions for this passenger, including
+      // concurrent inserts where SELECT FOR UPDATE cannot lock a missing row.
+      await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1, 0))', [req.user.userId]);
+
       // Kiểm tra Idempotency Key theo user_id
       const existingKey = await client.query(
         'SELECT trip_id, request_hash FROM idempotency_keys WHERE user_id = $1 AND key = $2 FOR UPDATE',
@@ -271,7 +275,7 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
         headers: {
           'content-type': 'application/json',
           'x-correlation-id': req.id,
-          'x-internal-token': process.env.INTERNAL_TOKEN ?? 'internal-token-for-ds03'
+          'x-internal-token': process.env.INTERNAL_TOKEN ?? ''
         },
         body: JSON.stringify({
           tripId: trip.id,
@@ -282,8 +286,7 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
       });
       confirmOk = resp.ok;
     } catch {
-      // Driver service có thể chưa bật hoặc timeout
-      if (process.env.STUB_DRIVER === 'true') confirmOk = true;
+      // A timeout is ambiguous: Driver may already have committed ON_TRIP.
     }
 
     const finishClient = await pool.connect();
@@ -321,11 +324,16 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
           onOutboxTrigger?.();
           return { id: acceptedTrip.id, status: 'ACCEPTED' };
         }
+        await finishClient.query('COMMIT');
+        fail(409, 'ACCEPT_CANCELLED', 'Chuyến đã thay đổi trong khi xác nhận');
       } else {
-        // Confirm thất bại: giải phóng và chuyển về SEARCHING hoặc COMPENSATING
+        // Keep reservation identity until compensation verifies release, even if
+        // the confirm response was lost after Driver committed ON_TRIP.
         await finishClient.query(
           `UPDATE trips
-           SET status = 'SEARCHING', driver_id = null, reservation_id = null, version = version + 1
+           SET status = 'COMPENSATING', saga_status = 'COMPENSATING',
+               cancel_reason = 'DRIVER_CONFIRM_UNCERTAIN', comp_driver_ack = false,
+               comp_match_ack = false, comp_payment_ack = false, version = version + 1
            WHERE id = $1 AND status = 'ACCEPTING'`,
           [id]
         );
@@ -349,6 +357,11 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
+      const previous = await client.query('SELECT * FROM trips WHERE id = $1 FOR UPDATE', [id]);
+      const offered = previous.rows[0];
+      if (!offered || offered.driver_id !== req.user.userId || offered.status !== 'DRIVER_ASSIGNED') {
+        fail(409, 'CONFLICT', 'Chuyến không thể từ chối');
+      }
       const { rows } = await client.query(
         `UPDATE trips
          SET status = 'SEARCHING',
@@ -364,6 +377,13 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
 
       if (rows.length === 0) fail(409, 'CONFLICT', 'Chuyến không thể từ chối');
       const trip = rows[0];
+      await insertOutbox(client, {
+        exchange: 'ride.commands', routingKey: 'driver.release',
+        envelope: createEnvelope({ type: 'driver.release', correlationId: trip.correlation_id,
+          service: 'trip-service', aggregateId: trip.id,
+          payload: { tripId: trip.id, driverId: offered.driver_id,
+            reservationId: offered.reservation_id, reservationVersion: offered.reservation_version } })
+      });
 
       if (trip.match_attempt <= 3) {
         // Tìm tài xế khác
@@ -386,11 +406,13 @@ export async function tripApp(pool: Pool, onOutboxTrigger?: () => void) {
           routingKey: 'matching.find_driver',
           envelope: matchEnvelope
         });
+      } else {
+        await client.query("UPDATE trips SET status = 'COMPENSATING', saga_status = 'COMPENSATING', cancel_reason = 'REJECT_LIMIT' WHERE id = $1", [trip.id]);
       }
 
       await client.query('COMMIT');
       onOutboxTrigger?.();
-      return { id: trip.id, status: 'SEARCHING' };
+      return { id: trip.id, status: trip.match_attempt <= 3 ? 'SEARCHING' : 'COMPENSATING' };
     } catch (e) {
       await client.query('ROLLBACK');
       throw e;
