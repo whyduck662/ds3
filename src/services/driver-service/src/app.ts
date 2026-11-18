@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { FastifyRequest } from 'fastify';
+import { verifyInternal } from '../../../common/src/internal-auth.js';
 import type { Pool } from 'pg';
 import { authenticate, createApp, fail } from '../../../common/src/platform.js';
 import { createEnvelope, insertOutbox } from '../../../common/src/messaging.js';
@@ -30,14 +30,6 @@ const releaseSchema = z.object({
   reservationId: z.string().uuid(),
   reservationVersion: z.number().int().nonnegative().optional()
 }).strict();
-
-function verifyInternal(req: FastifyRequest) {
-  const token = req.headers['x-internal-token'];
-  const expected = process.env.INTERNAL_TOKEN;
-  if (expected && token !== expected) {
-    fail(403, 'FORBIDDEN', 'Token nội bộ không hợp lệ');
-  }
-}
 
 export async function driverApp(pool: Pool) {
   const app = await createApp('driver-service', pool);
@@ -101,10 +93,19 @@ export async function driverApp(pool: Pool) {
        VALUES ($1, $2, now())
        ON CONFLICT (id) DO UPDATE
        SET status = $2, last_seen_at = now(), version = drivers.version + 1, updated_at = now()
+       WHERE drivers.status IN ('AVAILABLE', 'OFFLINE')
+         AND drivers.current_trip_id IS NULL
+         AND drivers.reservation_id IS NULL
        RETURNING id, status, current_trip_id AS "currentTripId",
                  latitude, longitude, last_seen_at AS "lastSeenAt"`,
       [userId, input.status]
     );
+
+    // The earlier SELECT is only a fast check/log snapshot. PostgreSQL evaluates
+    // this UPSERT predicate under its row lock after any concurrent reserve.
+    if (!updated.rowCount) {
+      fail(409, 'INVALID_STATE_TRANSITION', 'Không thể đổi trạng thái khi đang có chuyến hoặc đang giữ chỗ');
+    }
 
     req.log.info({
       operation: 'DRIVER_STATUS_CHANGED',

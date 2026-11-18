@@ -15,17 +15,20 @@ export function startDriverTtlJobs(pool: Pool, logger?: FastifyBaseLogger) {
       try {
         await client.query('BEGIN');
         const result = await client.query(
-          `UPDATE drivers
+          `WITH expired AS (
+             SELECT id,current_trip_id,reservation_id,reservation_version FROM drivers
+             WHERE status='RESERVED' AND reserved_until < now() FOR UPDATE SKIP LOCKED
+           ) UPDATE drivers AS d
            SET status = 'AVAILABLE',
                current_trip_id = NULL,
                reservation_id = NULL,
                reserved_until = NULL,
-               version = version + 1,
+               version = d.version + 1,
                updated_at = now()
-           WHERE status = 'RESERVED' AND reserved_until < now()
-           RETURNING id, current_trip_id AS "currentTripId",
-                     reservation_id AS "reservationId",
-                     reservation_version AS "reservationVersion"`
+           FROM expired AS e WHERE d.id=e.id
+           RETURNING d.id, e.current_trip_id AS "currentTripId",
+                     e.reservation_id AS "reservationId",
+                     e.reservation_version AS "reservationVersion"`
         );
 
         for (const row of result.rows) {
@@ -51,14 +54,7 @@ export function startDriverTtlJobs(pool: Pool, logger?: FastifyBaseLogger) {
               }
             });
 
-            // Send to trip replies so trip orchestrator wakes up and rematches
-            await insertOutbox(client, {
-              exchange: 'ride.commands',
-              routingKey: 'trip.replies',
-              envelope
-            });
-
-            // Also broadcast on ride.events
+            // One durable event is routed to trip.driver-events by topology.
             await insertOutbox(client, {
               exchange: 'ride.events',
               routingKey: 'driver.reservation_expired',
@@ -108,6 +104,7 @@ export function startDriverTtlJobs(pool: Pool, logger?: FastifyBaseLogger) {
   heartbeatTimer = setInterval(() => void checkHeartbeatOffline(), 10000);
 
   return {
+    runExpiry: checkReservationExpiry,
     stop: () => {
       stopped = true;
       if (reservationTimer) clearInterval(reservationTimer);

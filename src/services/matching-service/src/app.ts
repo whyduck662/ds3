@@ -1,15 +1,7 @@
 import { z } from 'zod';
-import type { FastifyRequest } from 'fastify';
+import { verifyInternal } from '../../../common/src/internal-auth.js';
 import type { Pool } from 'pg';
 import { createApp, fail } from '../../../common/src/platform.js';
-
-function verifyInternal(req: FastifyRequest) {
-  const token = req.headers['x-internal-token'];
-  const expected = process.env.INTERNAL_TOKEN;
-  if (expected && token !== expected) {
-    fail(403, 'FORBIDDEN', 'Token nội bộ không hợp lệ');
-  }
-}
 
 export async function matchingApp(pool: Pool) {
   const app = await createApp('matching-service', pool);
