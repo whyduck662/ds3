@@ -1,0 +1,683 @@
+identity-db-1       | 
+identity-db-1       | PostgreSQL Database directory appears to contain a database; Skipping initialization
+identity-db-1       | 
+identity-db-1       | 2026-11-18 08:31:32.202 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+identity-db-1       | 2026-11-18 08:31:32.202 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+identity-db-1       | 2026-11-18 08:31:32.202 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+identity-db-1       | 2026-11-18 08:31:32.235 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+identity-db-1       | 2026-11-18 08:31:32.265 UTC [29] LOG:  database system was shut down at 2026-11-17 13:55:44 UTC
+identity-db-1       | 2026-11-18 08:31:32.320 UTC [1] LOG:  database system is ready to accept connections
+matching-service-1  | 
+matching-service-1  | > start
+matching-service-1  | > tsx src/main.ts
+matching-service-1  | 
+matching-service-1  | {"level":30,"time":1794990726983,"service":"matching-service","instanceId":"matching-service","msg":"Server listening at http://127.0.0.1:8084"}
+matching-service-1  | {"level":30,"time":1794990726984,"service":"matching-service","instanceId":"matching-service","msg":"Server listening at http://172.21.0.16:8084"}
+matching-service-1  | {"level":30,"time":1794990730098,"service":"matching-service","instanceId":"matching-service","reqId":"19c86834-574a-474b-bbf4-7c585723a5fe","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":53940},"msg":"incoming request"}
+matching-service-1  | {"level":30,"time":1794990730119,"service":"matching-service","instanceId":"matching-service","reqId":"19c86834-574a-474b-bbf4-7c585723a5fe","res":{"statusCode":200},"responseTime":17.160799999999654,"msg":"request completed"}
+matching-service-1  | {"level":30,"time":1794990740764,"service":"matching-service","instanceId":"matching-service","reqId":"5ef28e32-b163-4c2c-88a1-5de60e9e6bd9","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":50678},"msg":"incoming request"}
+matching-service-1  | {"level":30,"time":1794990740768,"service":"matching-service","instanceId":"matching-service","reqId":"5ef28e32-b163-4c2c-88a1-5de60e9e6bd9","res":{"statusCode":200},"responseTime":3.1647869999978866,"msg":"request completed"}
+matching-service-1  | {"level":30,"time":1794990748407,"service":"matching-service","instanceId":"matching-service","operation":"MESSAGE_RECEIVED","queue":"matching.commands","eventId":"08adc948-14d7-497f-8f7e-6efd74828502","type":"matching.find_driver"}
+matching-service-1  | {"level":30,"time":1794990748436,"service":"matching-service","instanceId":"matching-service","operation":"MESSAGE_PROCESSED","queue":"matching.commands","eventId":"08adc948-14d7-497f-8f7e-6efd74828502"}
+matching-service-1  | {"level":30,"time":1794990751360,"service":"matching-service","instanceId":"matching-service","reqId":"8ae6dbc0-96b9-4f24-be0f-005c1a9a368f","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":53508},"msg":"incoming request"}
+matching-service-1  | {"level":30,"time":1794990751367,"service":"matching-service","instanceId":"matching-service","reqId":"8ae6dbc0-96b9-4f24-be0f-005c1a9a368f","res":{"statusCode":200},"responseTime":6.079982999999629,"msg":"request completed"}
+matching-service-1  | {"level":30,"time":1794990756608,"service":"matching-service","instanceId":"matching-service","operation":"MESSAGE_RECEIVED","queue":"matching.commands","eventId":"afc16473-5e28-46d8-8364-8c675573becb","type":"matching.cancel_attempt"}
+matching-service-1  | {"level":30,"time":1794990756617,"service":"matching-service","instanceId":"matching-service","operation":"MESSAGE_PROCESSED","queue":"matching.commands","eventId":"afc16473-5e28-46d8-8364-8c675573becb"}
+identity-service-1  | 
+identity-service-1  | > start
+identity-service-1  | > tsx src/main.ts
+identity-service-1  | 
+identity-service-1  | {"level":30,"time":1794990727059,"service":"identity-service","instanceId":"identity-service","msg":"Server listening at http://127.0.0.1:8081"}
+identity-service-1  | {"level":30,"time":1794990727060,"service":"identity-service","instanceId":"identity-service","msg":"Server listening at http://172.21.0.11:8081"}
+identity-service-1  | {"level":30,"time":1794990729508,"service":"identity-service","instanceId":"identity-service","reqId":"b46598f2-26f5-4b41-9298-f3bb9e7cb493","req":{"method":"GET","url":"/ready","host":"localhost:8081","remoteAddress":"127.0.0.1","remotePort":40714},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990729541,"service":"identity-service","instanceId":"identity-service","reqId":"b46598f2-26f5-4b41-9298-f3bb9e7cb493","res":{"statusCode":200},"responseTime":26.181123999998817,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990736925,"service":"identity-service","instanceId":"identity-service","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","req":{"method":"POST","url":"/auth/register","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990737884,"service":"identity-service","instanceId":"identity-service","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","res":{"statusCode":409},"responseTime":958.1762789999993,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990737918,"service":"identity-service","instanceId":"identity-service","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","req":{"method":"POST","url":"/auth/register","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990738742,"service":"identity-service","instanceId":"identity-service","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","res":{"statusCode":409},"responseTime":823.0835980000011,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990738758,"service":"identity-service","instanceId":"identity-service","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","req":{"method":"POST","url":"/auth/register","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990739665,"service":"identity-service","instanceId":"identity-service","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","res":{"statusCode":409},"responseTime":907.0647470000004,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990740374,"service":"identity-service","instanceId":"identity-service","reqId":"3e5fb270-2d39-4422-844c-2e78f93e69c7","req":{"method":"GET","url":"/ready","host":"localhost:8081","remoteAddress":"127.0.0.1","remotePort":43284},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990740392,"service":"identity-service","instanceId":"identity-service","reqId":"3e5fb270-2d39-4422-844c-2e78f93e69c7","res":{"statusCode":200},"responseTime":17.80239200000142,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990741650,"service":"identity-service","instanceId":"identity-service","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","req":{"method":"POST","url":"/auth/login","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990742875,"service":"identity-service","instanceId":"identity-service","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","operation":"LOGIN","userId":"ecc66944-3be5-44b3-b0b9-cc410d3a54b2","correlationId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","result":"SUCCESS"}
+identity-service-1  | {"level":30,"time":1794990742879,"service":"identity-service","instanceId":"identity-service","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","res":{"statusCode":200},"responseTime":1227.9233170000007,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990742907,"service":"identity-service","instanceId":"identity-service","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","req":{"method":"GET","url":"/users/me","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39490},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990742920,"service":"identity-service","instanceId":"identity-service","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","res":{"statusCode":200},"responseTime":12.018370000001596,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990745710,"service":"identity-service","instanceId":"identity-service","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","req":{"method":"POST","url":"/auth/login","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990746824,"service":"identity-service","instanceId":"identity-service","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","operation":"LOGIN","userId":"ecc66944-3be5-44b3-b0b9-cc410d3a54b2","correlationId":"527f87c2-876e-4143-9fe1-7580a11f35c2","result":"SUCCESS"}
+identity-service-1  | {"level":30,"time":1794990746826,"service":"identity-service","instanceId":"identity-service","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","res":{"statusCode":200},"responseTime":1116.0670460000001,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990746864,"service":"identity-service","instanceId":"identity-service","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","req":{"method":"POST","url":"/auth/login","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990747850,"service":"identity-service","instanceId":"identity-service","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","operation":"LOGIN","userId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","correlationId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","result":"SUCCESS"}
+identity-service-1  | {"level":30,"time":1794990747852,"service":"identity-service","instanceId":"identity-service","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","res":{"statusCode":200},"responseTime":987.2943119999982,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990750973,"service":"identity-service","instanceId":"identity-service","reqId":"866610c0-5fe2-4d87-b351-634822b5cc56","req":{"method":"GET","url":"/ready","host":"localhost:8081","remoteAddress":"127.0.0.1","remotePort":41292},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990750980,"service":"identity-service","instanceId":"identity-service","reqId":"866610c0-5fe2-4d87-b351-634822b5cc56","res":{"statusCode":200},"responseTime":6.115750000000844,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990753466,"service":"identity-service","instanceId":"identity-service","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","req":{"method":"POST","url":"/auth/login","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990754310,"service":"identity-service","instanceId":"identity-service","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","operation":"LOGIN","userId":"ecc66944-3be5-44b3-b0b9-cc410d3a54b2","correlationId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","result":"SUCCESS"}
+identity-service-1  | {"level":30,"time":1794990754312,"service":"identity-service","instanceId":"identity-service","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","res":{"statusCode":200},"responseTime":845.8912750000018,"msg":"request completed"}
+identity-service-1  | {"level":30,"time":1794990754340,"service":"identity-service","instanceId":"identity-service","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","req":{"method":"POST","url":"/auth/login","host":"identity-service:8081","remoteAddress":"172.21.0.17","remotePort":39486},"msg":"incoming request"}
+identity-service-1  | {"level":30,"time":1794990755427,"service":"identity-service","instanceId":"identity-service","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","operation":"LOGIN","userId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","correlationId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","result":"SUCCESS"}
+identity-service-1  | {"level":30,"time":1794990755429,"service":"identity-service","instanceId":"identity-service","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","res":{"statusCode":200},"responseTime":1096.7969369999992,"msg":"request completed"}
+matching-db-1       | 
+matching-db-1       | PostgreSQL Database directory appears to contain a database; Skipping initialization
+matching-db-1       | 
+matching-db-1       | 2026-11-18 08:31:32.309 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+matching-db-1       | 2026-11-18 08:31:32.309 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+matching-db-1       | 2026-11-18 08:31:32.309 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+matching-db-1       | 2026-11-18 08:31:32.326 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+matching-db-1       | 2026-11-18 08:31:32.347 UTC [28] LOG:  database system was shut down at 2026-11-17 13:55:42 UTC
+matching-db-1       | 2026-11-18 08:31:32.370 UTC [1] LOG:  database system is ready to accept connections
+payment-service-1   | 
+payment-service-1   | > start
+payment-service-1   | > tsx src/main.ts
+payment-service-1   | 
+payment-service-1   | {"level":30,"time":1794990727009,"service":"payment-service","instanceId":"payment-service","msg":"Server listening at http://127.0.0.1:8085"}
+payment-service-1   | {"level":30,"time":1794990727011,"service":"payment-service","instanceId":"payment-service","msg":"Server listening at http://172.21.0.13:8085"}
+payment-service-1   | {"level":30,"time":1794990729584,"service":"payment-service","instanceId":"payment-service","reqId":"47d30441-0dad-4d6a-94d0-baad61226bee","req":{"method":"GET","url":"/ready","host":"localhost:8085","remoteAddress":"127.0.0.1","remotePort":38748},"msg":"incoming request"}
+payment-service-1   | {"level":30,"time":1794990729625,"service":"payment-service","instanceId":"payment-service","reqId":"47d30441-0dad-4d6a-94d0-baad61226bee","res":{"statusCode":200},"responseTime":32.626625999999305,"msg":"request completed"}
+payment-service-1   | {"level":30,"time":1794990740518,"service":"payment-service","instanceId":"payment-service","reqId":"e7e0fba4-741b-4d74-8d21-9ca10ebeb2e7","req":{"method":"GET","url":"/ready","host":"localhost:8085","remoteAddress":"127.0.0.1","remotePort":54962},"msg":"incoming request"}
+payment-service-1   | {"level":30,"time":1794990740525,"service":"payment-service","instanceId":"payment-service","reqId":"e7e0fba4-741b-4d74-8d21-9ca10ebeb2e7","res":{"statusCode":200},"responseTime":5.578163999998651,"msg":"request completed"}
+payment-service-1   | {"level":30,"time":1794990748259,"service":"payment-service","instanceId":"payment-service","operation":"PAYMENT_PROCESSED","type":"payment.authorize","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","eventId":"bbb3ec5e-0453-49aa-b375-cd624623355b"}
+payment-service-1   | {"level":30,"time":1794990748312,"service":"payment-service","instanceId":"payment-service","operation":"OUTBOX_PUBLISHED","eventId":"e8ca6757-f7b9-4410-8990-245e0a2f9005","exchange":"ride.commands","routingKey":"trip.replies"}
+payment-service-1   | {"level":30,"time":1794990749571,"service":"payment-service","instanceId":"payment-service","operation":"PAYMENT_PROCESSED","type":"payment.capture","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","eventId":"ba39755b-c822-47b6-8c1e-8975d43f90da"}
+payment-service-1   | {"level":30,"time":1794990749628,"service":"payment-service","instanceId":"payment-service","operation":"OUTBOX_PUBLISHED","eventId":"20ff474b-4032-40d0-a8f8-014c844a33ba","exchange":"ride.commands","routingKey":"trip.replies"}
+payment-service-1   | {"level":30,"time":1794990750624,"service":"payment-service","instanceId":"payment-service","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","req":{"method":"GET","url":"/payments/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"payment-service:8085","remoteAddress":"172.21.0.17","remotePort":52940},"msg":"incoming request"}
+payment-db-1        | 
+payment-db-1        | PostgreSQL Database directory appears to contain a database; Skipping initialization
+payment-db-1        | 
+payment-db-1        | 2026-11-18 08:31:31.735 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+payment-db-1        | 2026-11-18 08:31:31.735 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+payment-db-1        | 2026-11-18 08:31:31.735 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+payment-db-1        | 2026-11-18 08:31:31.750 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+payment-db-1        | 2026-11-18 08:31:31.848 UTC [29] LOG:  database system was shut down at 2026-11-17 13:55:42 UTC
+payment-db-1        | 2026-11-18 08:31:31.984 UTC [1] LOG:  database system is ready to accept connections
+payment-service-1   | {"level":30,"time":1794990750641,"service":"payment-service","instanceId":"payment-service","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","res":{"statusCode":200},"responseTime":16.676398000003246,"msg":"request completed"}
+payment-service-1   | {"level":30,"time":1794990751181,"service":"payment-service","instanceId":"payment-service","reqId":"0fbc3384-3ac7-4770-bc11-df8f1b97268b","req":{"method":"GET","url":"/ready","host":"localhost:8085","remoteAddress":"127.0.0.1","remotePort":59864},"msg":"incoming request"}
+payment-service-1   | {"level":30,"time":1794990751184,"service":"payment-service","instanceId":"payment-service","reqId":"0fbc3384-3ac7-4770-bc11-df8f1b97268b","res":{"statusCode":200},"responseTime":2.3978449999995064,"msg":"request completed"}
+payment-service-1   | {"level":30,"time":1794990755538,"service":"payment-service","instanceId":"payment-service","operation":"PAYMENT_PROCESSED","type":"payment.authorize","tripId":"f42e941c-e386-491c-b324-623441695ceb","eventId":"2669ea48-1f7a-41b6-9b9e-517d15604a9f"}
+payment-service-1   | {"level":30,"time":1794990755564,"service":"payment-service","instanceId":"payment-service","operation":"OUTBOX_PUBLISHED","eventId":"2c945e3b-cb36-4e94-a44c-cf7d2fd7dd0b","exchange":"ride.commands","routingKey":"trip.replies"}
+notification-db-1   | 
+notification-db-1   | PostgreSQL Database directory appears to contain a database; Skipping initialization
+notification-db-1   | 
+notification-db-1   | 2026-11-18 08:31:31.774 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+notification-db-1   | 2026-11-18 08:31:31.775 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+notification-db-1   | 2026-11-18 08:31:31.775 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+notification-db-1   | 2026-11-18 08:31:31.838 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+notification-db-1   | 2026-11-18 08:31:31.914 UTC [28] LOG:  database system was shut down at 2026-11-17 13:55:44 UTC
+notification-db-1   | 2026-11-18 08:31:31.998 UTC [1] LOG:  database system is ready to accept connections
+web-ui-1            | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+web-ui-1            | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+web-ui-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+web-ui-1            | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+web-ui-1            | 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+web-ui-1            | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+payment-service-1   | {"level":30,"time":1794990756638,"service":"payment-service","instanceId":"payment-service","operation":"PAYMENT_PROCESSED","type":"payment.void","tripId":"f42e941c-e386-491c-b324-623441695ceb","eventId":"a970e08a-048c-47a4-8f94-1c5c02637482"}
+payment-service-1   | {"level":30,"time":1794990756691,"service":"payment-service","instanceId":"payment-service","operation":"OUTBOX_PUBLISHED","eventId":"8cdeeb9b-0586-4a92-a2c0-098ade6cab2b","exchange":"ride.commands","routingKey":"trip.replies"}
+payment-service-1   | {"level":30,"time":1794990757687,"service":"payment-service","instanceId":"payment-service","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","req":{"method":"GET","url":"/payments/f42e941c-e386-491c-b324-623441695ceb","host":"payment-service:8085","remoteAddress":"172.21.0.17","remotePort":52940},"msg":"incoming request"}
+payment-service-1   | {"level":30,"time":1794990757692,"service":"payment-service","instanceId":"payment-service","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","res":{"statusCode":200},"responseTime":4.5744399999966845,"msg":"request completed"}
+driver-service-1    | 
+driver-service-1    | > start
+driver-service-1    | > tsx src/main.ts
+driver-service-1    | 
+driver-service-1    | {"level":30,"time":1794990727006,"service":"driver-service","instanceId":"driver-service","msg":"Server listening at http://127.0.0.1:8082"}
+driver-service-1    | {"level":30,"time":1794990727007,"service":"driver-service","instanceId":"driver-service","msg":"Server listening at http://172.21.0.10:8082"}
+driver-service-1    | {"level":30,"time":1794990729294,"service":"driver-service","instanceId":"driver-service","reqId":"daad178c-ee5f-4514-ab21-d58f961bc37d","req":{"method":"GET","url":"/ready","host":"localhost:8082","remoteAddress":"127.0.0.1","remotePort":55052},"msg":"incoming request"}
+driver-service-1    | {"level":30,"time":1794990729314,"service":"driver-service","instanceId":"driver-service","reqId":"daad178c-ee5f-4514-ab21-d58f961bc37d","res":{"statusCode":200},"responseTime":16.63935400000082,"msg":"request completed"}
+driver-service-1    | {"level":30,"time":1794990739957,"service":"driver-service","instanceId":"driver-service","reqId":"e7a43c29-b206-4cfb-b371-e69b511b701c","req":{"method":"GET","url":"/ready","host":"localhost:8082","remoteAddress":"127.0.0.1","remotePort":52562},"msg":"incoming request"}
+driver-service-1    | {"level":30,"time":1794990739976,"service":"driver-service","instanceId":"driver-service","reqId":"e7a43c29-b206-4cfb-b371-e69b511b701c","res":{"statusCode":200},"responseTime":17.625442000000476,"msg":"request completed"}
+driver-service-1    | {"level":30,"time":1794990747882,"service":"driver-service","instanceId":"driver-service","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","req":{"method":"PUT","url":"/drivers/me/location","host":"driver-service:8082","remoteAddress":"172.21.0.17","remotePort":58326},"msg":"incoming request"}
+driver-service-1    | {"level":30,"time":1794990747926,"service":"driver-service","instanceId":"driver-service","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","res":{"statusCode":200},"responseTime":43.36999899999864,"msg":"request completed"}
+driver-service-1    | {"level":30,"time":1794990747944,"service":"driver-service","instanceId":"driver-service","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","req":{"method":"PUT","url":"/drivers/me/status","host":"driver-service:8082","remoteAddress":"172.21.0.17","remotePort":58326},"msg":"incoming request"}
+driver-service-1    | {"level":30,"time":1794990747964,"service":"driver-service","instanceId":"driver-service","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","operation":"DRIVER_STATUS_CHANGED","driverId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","stateBefore":"OFFLINE","stateAfter":"AVAILABLE","correlationId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea"}
+web-ui-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+web-ui-1            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+web-ui-1            | /docker-entrypoint.sh: Configuration complete; ready for start up
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: using the "epoll" event method
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: nginx/1.28.0
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker processes
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker process 30
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker process 31
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker process 32
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker process 33
+web-ui-1            | 2026/11/18 08:31:31 [notice] 1#1: start worker process 34
+matching-service-2-1  | 
+matching-service-2-1  | > start
+matching-service-2-1  | > tsx src/main.ts
+matching-service-2-1  | 
+matching-service-2-1  | {"level":30,"time":1794990726977,"service":"matching-service","instanceId":"matching-service-2","msg":"Server listening at http://127.0.0.1:8084"}
+web-ui-1              | 2026/11/18 08:31:31 [notice] 1#1: start worker process 35
+matching-service-2-1  | {"level":30,"time":1794990726978,"service":"matching-service","instanceId":"matching-service-2","msg":"Server listening at http://172.21.0.15:8084"}
+driver-service-1    | {"level":30,"time":1794990747966,"service":"driver-service","instanceId":"driver-service","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","res":{"statusCode":200},"responseTime":20.259664999997767,"msg":"request completed"}
+web-ui-1              | 2026/11/18 08:31:31 [notice] 1#1: start worker process 36
+driver-service-1      | {"level":30,"time":1794990748225,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"8266879e-41d5-4568-8c0d-49b20a891267","type":"trip.requested"}
+web-ui-1              | 2026/11/18 08:31:31 [notice] 1#1: start worker process 37
+driver-service-1      | {"level":30,"time":1794990748234,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.requested","eventId":"8266879e-41d5-4568-8c0d-49b20a891267","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990748240,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"8266879e-41d5-4568-8c0d-49b20a891267"}
+driver-service-1      | {"level":30,"time":1794990748639,"service":"driver-service","instanceId":"driver-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","req":{"method":"GET","url":"/internal/drivers/available?lat=10.7769&lng=106.7009&limit=50","host":"driver-service:8082","remoteAddress":"172.21.0.15","remotePort":35950},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990748656,"service":"driver-service","instanceId":"driver-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","res":{"statusCode":200},"responseTime":16.94307000000117,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990748693,"service":"driver-service","instanceId":"driver-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","req":{"method":"POST","url":"/internal/drivers/640abf04-9a1a-4f3b-a5ab-cde6b1f15599/reserve","host":"driver-service:8082","remoteAddress":"172.21.0.15","remotePort":35950},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990748702,"service":"driver-service","instanceId":"driver-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"RESERVE_WON","driverId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","reservationId":"4ee128e7-e275-43eb-aada-1060693782fa","reservationVersion":24,"correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990748704,"service":"driver-service","instanceId":"driver-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","res":{"statusCode":200},"responseTime":10.180545999999595,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990749337,"service":"driver-service","instanceId":"driver-service","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","req":{"method":"POST","url":"/internal/drivers/640abf04-9a1a-4f3b-a5ab-cde6b1f15599/confirm","host":"driver-service:8082","remoteAddress":"172.21.0.12","remotePort":43152},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990749350,"service":"driver-service","instanceId":"driver-service","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","operation":"CONFIRM_OK","driverId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","reservationId":"4ee128e7-e275-43eb-aada-1060693782fa","correlationId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c"}
+driver-service-1      | {"level":30,"time":1794990749352,"service":"driver-service","instanceId":"driver-service","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","res":{"statusCode":200},"responseTime":13.797121999999945,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990749398,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"3a240146-5149-448e-b2c9-f65cd49b8eca","type":"trip.accepted"}
+driver-service-1      | {"level":30,"time":1794990749404,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.accepted","eventId":"3a240146-5149-448e-b2c9-f65cd49b8eca","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990749408,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"3a240146-5149-448e-b2c9-f65cd49b8eca"}
+driver-service-1      | {"level":30,"time":1794990749454,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"c44d953e-f292-4c4d-91b5-3c984236d742","type":"trip.started"}
+driver-service-1      | {"level":30,"time":1794990749457,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.started","eventId":"c44d953e-f292-4c4d-91b5-3c984236d742","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990749462,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"c44d953e-f292-4c4d-91b5-3c984236d742"}
+driver-service-1      | {"level":30,"time":1794990749567,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"70dfd10f-c8db-4bd8-adca-96e46920a8a6","type":"trip.completed"}
+driver-service-1      | {"level":30,"time":1794990749575,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.completed","eventId":"70dfd10f-c8db-4bd8-adca-96e46920a8a6","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990749585,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"70dfd10f-c8db-4bd8-adca-96e46920a8a6"}
+driver-service-1      | {"level":30,"time":1794990749711,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"e926eb59-0240-4002-939d-660bcbdce46b","type":"trip.paid"}
+driver-service-1      | {"level":30,"time":1794990749723,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.paid","eventId":"e926eb59-0240-4002-939d-660bcbdce46b","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4"}
+driver-service-1      | {"level":30,"time":1794990749726,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"e926eb59-0240-4002-939d-660bcbdce46b"}
+driver-service-1      | {"level":30,"time":1794990750689,"service":"driver-service","instanceId":"driver-service","reqId":"fdb58fd5-e675-436f-ae34-c906fd6e6244","req":{"method":"GET","url":"/ready","host":"localhost:8082","remoteAddress":"127.0.0.1","remotePort":53180},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990750709,"service":"driver-service","instanceId":"driver-service","reqId":"fdb58fd5-e675-436f-ae34-c906fd6e6244","res":{"statusCode":200},"responseTime":16.957674000001134,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990755441,"service":"driver-service","instanceId":"driver-service","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","req":{"method":"PUT","url":"/drivers/me/location","host":"driver-service:8082","remoteAddress":"172.21.0.17","remotePort":58326},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990755451,"service":"driver-service","instanceId":"driver-service","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","res":{"statusCode":200},"responseTime":9.310417000000598,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990755465,"service":"driver-service","instanceId":"driver-service","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","req":{"method":"PUT","url":"/drivers/me/status","host":"driver-service:8082","remoteAddress":"172.21.0.17","remotePort":58326},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990755474,"service":"driver-service","instanceId":"driver-service","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","operation":"DRIVER_STATUS_CHANGED","driverId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","stateBefore":"AVAILABLE","stateAfter":"AVAILABLE","correlationId":"e0e26f36-38fd-454c-b074-74f11ecbe03c"}
+driver-service-1      | {"level":30,"time":1794990755475,"service":"driver-service","instanceId":"driver-service","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","res":{"statusCode":200},"responseTime":10.174513999998453,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990755526,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"85105053-1229-4929-92a3-42f4d0b2f5d2","type":"trip.requested"}
+driver-service-1      | {"level":30,"time":1794990755531,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.requested","eventId":"85105053-1229-4929-92a3-42f4d0b2f5d2","correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d"}
+web-ui-1              | 172.21.0.1 - - [18/Nov/2026:08:32:17 +0000] "GET / HTTP/1.1" 200 354 "-" "curl/8.22.0" "-"
+driver-service-1      | {"level":30,"time":1794990755543,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"85105053-1229-4929-92a3-42f4d0b2f5d2"}
+driver-service-1      | {"level":30,"time":1794990756191,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","req":{"method":"GET","url":"/internal/drivers/available?lat=10.7769&lng=106.7009&limit=50","host":"driver-service:8082","remoteAddress":"172.21.0.16","remotePort":55794},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990756199,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","res":{"statusCode":200},"responseTime":7.756264000003284,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990756258,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","req":{"method":"POST","url":"/internal/drivers/640abf04-9a1a-4f3b-a5ab-cde6b1f15599/reserve","host":"driver-service:8082","remoteAddress":"172.21.0.16","remotePort":55794},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990756264,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","operation":"RESERVE_WON","driverId":"640abf04-9a1a-4f3b-a5ab-cde6b1f15599","tripId":"f42e941c-e386-491c-b324-623441695ceb","reservationId":"7593a11d-fece-41fd-b30f-f90a19e01df0","reservationVersion":25,"correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d"}
+driver-service-1      | {"level":30,"time":1794990756266,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","res":{"statusCode":200},"responseTime":6.859260000004724,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990756621,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.commands","eventId":"452c6208-eee5-4c70-894c-f4c163b1f527","type":"driver.release"}
+driver-service-1      | {"level":30,"time":1794990756623,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_COMMAND_RECEIVED","type":"driver.release","eventId":"452c6208-eee5-4c70-894c-f4c163b1f527","correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d"}
+driver-service-1      | {"level":30,"time":1794990756635,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.commands","eventId":"452c6208-eee5-4c70-894c-f4c163b1f527"}
+driver-service-1      | {"level":30,"time":1794990757079,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","req":{"method":"POST","url":"/internal/drivers/640abf04-9a1a-4f3b-a5ab-cde6b1f15599/release","host":"driver-service:8082","remoteAddress":"172.21.0.16","remotePort":55794},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990757093,"service":"driver-service","instanceId":"driver-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","res":{"statusCode":200},"responseTime":12.959848000005877,"msg":"request completed"}
+driver-service-1      | {"level":30,"time":1794990757114,"service":"driver-service","instanceId":"driver-service","operation":"OUTBOX_PUBLISHED","eventId":"7f9d074f-c84f-4cfb-9eb4-cfdd82c584b7","exchange":"ride.commands","routingKey":"trip.replies"}
+driver-service-1      | {"level":30,"time":1794990757596,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_RECEIVED","queue":"driver.trip-events","eventId":"04af1552-a8d8-4636-9045-0d496337244c","type":"trip.cancelled"}
+driver-service-1      | {"level":30,"time":1794990757608,"service":"driver-service","instanceId":"driver-service","operation":"DRIVER_TRIP_EVENT_RECEIVED","type":"trip.cancelled","eventId":"04af1552-a8d8-4636-9045-0d496337244c","correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d"}
+driver-service-1      | {"level":30,"time":1794990757627,"service":"driver-service","instanceId":"driver-service","operation":"MESSAGE_PROCESSED","queue":"driver.trip-events","eventId":"04af1552-a8d8-4636-9045-0d496337244c"}
+driver-service-1      | {"level":30,"time":1794990757663,"service":"driver-service","instanceId":"driver-service","reqId":"09e3298a-6414-4880-9388-ccf82870f993","req":{"method":"GET","url":"/drivers/me","host":"driver-service:8082","remoteAddress":"172.21.0.17","remotePort":58326},"msg":"incoming request"}
+driver-service-1      | {"level":30,"time":1794990757674,"service":"driver-service","instanceId":"driver-service","reqId":"09e3298a-6414-4880-9388-ccf82870f993","res":{"statusCode":200},"responseTime":10.067489000000933,"msg":"request completed"}
+matching-service-2-1  | {"level":30,"time":1794990729700,"service":"matching-service","instanceId":"matching-service-2","reqId":"51cd8eb0-81a1-47bb-af13-c24f00321622","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":53928},"msg":"incoming request"}
+matching-service-2-1  | {"level":30,"time":1794990729737,"service":"matching-service","instanceId":"matching-service-2","reqId":"51cd8eb0-81a1-47bb-af13-c24f00321622","res":{"statusCode":200},"responseTime":31.738878000000113,"msg":"request completed"}
+matching-service-2-1  | {"level":30,"time":1794990740541,"service":"matching-service","instanceId":"matching-service-2","reqId":"f95be3a4-6585-4beb-9747-9b76ddcc659e","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":50676},"msg":"incoming request"}
+matching-service-2-1  | {"level":30,"time":1794990740556,"service":"matching-service","instanceId":"matching-service-2","reqId":"f95be3a4-6585-4beb-9747-9b76ddcc659e","res":{"statusCode":200},"responseTime":14.296909000000596,"msg":"request completed"}
+matching-service-2-1  | {"level":30,"time":1794990749091,"service":"matching-service","instanceId":"matching-service-2","operation":"OUTBOX_PUBLISHED","eventId":"6cc3dea5-8c5e-4aa7-bfbd-e8a979581a4a","exchange":"ride.commands","routingKey":"trip.replies"}
+matching-service-2-1  | {"level":30,"time":1794990751163,"service":"matching-service","instanceId":"matching-service-2","reqId":"6c82d4df-c7f9-425c-9d56-60dddfe6074a","req":{"method":"GET","url":"/ready","host":"localhost:8084","remoteAddress":"127.0.0.1","remotePort":53498},"msg":"incoming request"}
+matching-service-2-1  | {"level":30,"time":1794990751170,"service":"matching-service","instanceId":"matching-service-2","reqId":"6c82d4df-c7f9-425c-9d56-60dddfe6074a","res":{"statusCode":200},"responseTime":6.210011999999551,"msg":"request completed"}
+matching-service-2-1  | {"level":30,"time":1794990755640,"service":"matching-service","instanceId":"matching-service-2","operation":"MESSAGE_RECEIVED","queue":"matching.commands","eventId":"95a2cae5-a5c4-4aa2-81f8-5c21b95cfc31","type":"matching.find_driver"}
+matching-service-2-1  | {"level":30,"time":1794990755655,"service":"matching-service","instanceId":"matching-service-2","operation":"MESSAGE_PROCESSED","queue":"matching.commands","eventId":"95a2cae5-a5c4-4aa2-81f8-5c21b95cfc31"}
+matching-service-2-1  | {"level":30,"time":1794990756550,"service":"matching-service","instanceId":"matching-service-2","operation":"OUTBOX_PUBLISHED","eventId":"2e9ae256-35e4-4eca-b107-7ddb682d036a","exchange":"ride.commands","routingKey":"trip.replies"}
+matching-service-2-1  | {"level":30,"time":1794990757564,"service":"matching-service","instanceId":"matching-service-2","operation":"OUTBOX_PUBLISHED","eventId":"bf46d5b1-e428-43b1-8d14-5591a66573e5","exchange":"ride.commands","routingKey":"trip.replies"}
+driver-db-1           | 
+driver-db-1           | PostgreSQL Database directory appears to contain a database; Skipping initialization
+driver-db-1           | 
+driver-db-1           | 2026-11-18 08:31:32.228 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+driver-db-1           | 2026-11-18 08:31:32.229 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+driver-db-1           | 2026-11-18 08:31:32.229 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+driver-db-1           | 2026-11-18 08:31:32.256 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+driver-db-1           | 2026-11-18 08:31:32.293 UTC [29] LOG:  database system was shut down at 2026-11-17 13:55:42 UTC
+driver-db-1           | 2026-11-18 08:31:32.334 UTC [1] LOG:  database system is ready to accept connections
+api-gateway-1         | 
+api-gateway-1         | > start
+api-gateway-1         | > tsx src/main.ts
+api-gateway-1           | 
+api-gateway-1           | {"level":30,"time":1794990734826,"service":"api-gateway","instanceId":"api-gateway","msg":"Server listening at http://127.0.0.1:8080"}
+api-gateway-1           | {"level":30,"time":1794990734827,"service":"api-gateway","instanceId":"api-gateway","msg":"Server listening at http://172.21.0.17:8080"}
+api-gateway-1           | {"level":30,"time":1794990735826,"service":"api-gateway","instanceId":"api-gateway","reqId":"188db719-a914-42c0-a8b8-6a798ec880fb","req":{"method":"GET","url":"/ready","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":55076},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990735837,"service":"api-gateway","instanceId":"api-gateway","reqId":"188db719-a914-42c0-a8b8-6a798ec880fb","res":{"statusCode":200},"responseTime":9.548776999999973,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990736868,"service":"api-gateway","instanceId":"api-gateway","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","req":{"method":"POST","url":"/auth/register","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45112},"msg":"incoming request"}
+notification-service-1  | 
+notification-service-1  | > start
+notification-service-1  | > tsx src/main.ts
+notification-service-1  | 
+notification-service-1  | {"level":30,"time":1794990727056,"service":"notification-service","instanceId":"notification-service","msg":"Server listening at http://127.0.0.1:8086"}
+notification-service-1  | {"level":30,"time":1794990727057,"service":"notification-service","instanceId":"notification-service","msg":"Server listening at http://172.21.0.14:8086"}
+notification-service-1  | {"level":30,"time":1794990729628,"service":"notification-service","instanceId":"notification-service","reqId":"d02d59de-4b16-42ad-9b40-cf73bcbaa1da","req":{"method":"GET","url":"/ready","host":"localhost:8086","remoteAddress":"127.0.0.1","remotePort":38648},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990729684,"service":"notification-service","instanceId":"notification-service","reqId":"d02d59de-4b16-42ad-9b40-cf73bcbaa1da","res":{"statusCode":200},"responseTime":53.565183000000616,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990740523,"service":"notification-service","instanceId":"notification-service","reqId":"f3b52456-d899-4366-a959-aeb150c9e998","req":{"method":"GET","url":"/ready","host":"localhost:8086","remoteAddress":"127.0.0.1","remotePort":55054},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990740607,"service":"notification-service","instanceId":"notification-service","reqId":"f3b52456-d899-4366-a959-aeb150c9e998","res":{"statusCode":200},"responseTime":83.15921900000103,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990742936,"service":"notification-service","instanceId":"notification-service","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","req":{"method":"GET","url":"/notifications/me","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990743000,"service":"notification-service","instanceId":"notification-service","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","res":{"statusCode":200},"responseTime":62.96615600000223,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990743070,"service":"notification-service","instanceId":"notification-service","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","req":{"method":"GET","url":"/notifications/me?since=wrong","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990743081,"service":"notification-service","instanceId":"notification-service","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","res":{"statusCode":400},"responseTime":10.837239000000409,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990748251,"service":"notification-service","instanceId":"notification-service","eventId":"8266879e-41d5-4568-8c0d-49b20a891267","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990749410,"service":"notification-service","instanceId":"notification-service","eventId":"3a240146-5149-448e-b2c9-f65cd49b8eca","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990749466,"service":"notification-service","instanceId":"notification-service","eventId":"c44d953e-f292-4c4d-91b5-3c984236d742","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990749591,"service":"notification-service","instanceId":"notification-service","eventId":"70dfd10f-c8db-4bd8-adca-96e46920a8a6","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990749729,"service":"notification-service","instanceId":"notification-service","eventId":"e926eb59-0240-4002-939d-660bcbdce46b","tripId":"c8f29f72-5eef-4ca1-aedd-63adface35b0","correlationId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990750656,"service":"notification-service","instanceId":"notification-service","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","req":{"method":"GET","url":"/notifications/me","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990750672,"service":"notification-service","instanceId":"notification-service","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","res":{"statusCode":200},"responseTime":15.760451000001922,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990750689,"service":"notification-service","instanceId":"notification-service","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","req":{"method":"GET","url":"/notifications/me","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990750697,"service":"notification-service","instanceId":"notification-service","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","res":{"statusCode":200},"responseTime":7.359285000002274,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990751223,"service":"notification-service","instanceId":"notification-service","reqId":"f6609f93-ebb5-4ca9-b4ed-555463008417","req":{"method":"GET","url":"/ready","host":"localhost:8086","remoteAddress":"127.0.0.1","remotePort":33070},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990751229,"service":"notification-service","instanceId":"notification-service","reqId":"f6609f93-ebb5-4ca9-b4ed-555463008417","res":{"statusCode":200},"responseTime":5.662488000001758,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990755540,"service":"notification-service","instanceId":"notification-service","eventId":"85105053-1229-4929-92a3-42f4d0b2f5d2","tripId":"f42e941c-e386-491c-b324-623441695ceb","correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990757612,"service":"notification-service","instanceId":"notification-service","eventId":"04af1552-a8d8-4636-9045-0d496337244c","tripId":"f42e941c-e386-491c-b324-623441695ceb","correlationId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","operation":"NOTIFICATION_SAVED"}
+notification-service-1  | {"level":30,"time":1794990757700,"service":"notification-service","instanceId":"notification-service","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","req":{"method":"GET","url":"/notifications/me","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990757706,"service":"notification-service","instanceId":"notification-service","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","res":{"statusCode":200},"responseTime":5.94065099999716,"msg":"request completed"}
+notification-service-1  | {"level":30,"time":1794990757714,"service":"notification-service","instanceId":"notification-service","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","req":{"method":"GET","url":"/notifications/me","host":"notification-service:8086","remoteAddress":"172.21.0.17","remotePort":46228},"msg":"incoming request"}
+notification-service-1  | {"level":30,"time":1794990757722,"service":"notification-service","instanceId":"notification-service","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","res":{"statusCode":200},"responseTime":6.9174740000016754,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990736891,"service":"api-gateway","instanceId":"api-gateway","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","source":"/auth/register","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990737329,"service":"api-gateway","instanceId":"api-gateway","reqId":"ec0fe8b0-715f-4aba-853b-deb8a9050965","req":{"method":"GET","url":"/health","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45118},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990737331,"service":"api-gateway","instanceId":"api-gateway","reqId":"ec0fe8b0-715f-4aba-853b-deb8a9050965","res":{"statusCode":200},"responseTime":1.7860000000000582,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990737887,"service":"api-gateway","instanceId":"api-gateway","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990737892,"service":"api-gateway","instanceId":"api-gateway","reqId":"6bcf44a0-32f1-45d9-a1d1-7de3c840d48f","res":{"statusCode":409},"responseTime":1023.2186159999992,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990737913,"service":"api-gateway","instanceId":"api-gateway","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","req":{"method":"POST","url":"/auth/register","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45128},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990737915,"service":"api-gateway","instanceId":"api-gateway","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","source":"/auth/register","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990738742,"service":"api-gateway","instanceId":"api-gateway","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990738744,"service":"api-gateway","instanceId":"api-gateway","reqId":"6d53685a-6c5e-42a8-a95a-1d4ea75c1aa9","res":{"statusCode":409},"responseTime":831.202875,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990738751,"service":"api-gateway","instanceId":"api-gateway","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","req":{"method":"POST","url":"/auth/register","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45112},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990738753,"service":"api-gateway","instanceId":"api-gateway","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","source":"/auth/register","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990739666,"service":"api-gateway","instanceId":"api-gateway","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990739668,"service":"api-gateway","instanceId":"api-gateway","reqId":"1cf24097-667b-44c8-88d0-489f1ab59986","res":{"statusCode":409},"responseTime":916.3055379999996,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990741590,"service":"api-gateway","instanceId":"api-gateway","reqId":"5de2b3ce-d2a0-44cb-9261-1ad0e59696cb","req":{"method":"GET","url":"/health","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45138},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990741593,"service":"api-gateway","instanceId":"api-gateway","reqId":"5de2b3ce-d2a0-44cb-9261-1ad0e59696cb","res":{"statusCode":200},"responseTime":2.1976159999994707,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990741647,"service":"api-gateway","instanceId":"api-gateway","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","req":{"method":"POST","url":"/auth/login","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45154},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990741648,"service":"api-gateway","instanceId":"api-gateway","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","source":"/auth/login","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990742879,"service":"api-gateway","instanceId":"api-gateway","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990742881,"service":"api-gateway","instanceId":"api-gateway","reqId":"f1bebedd-e671-4798-8dd6-5be0c92dd591","res":{"statusCode":200},"responseTime":1234.4887579999995,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990742888,"service":"api-gateway","instanceId":"api-gateway","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","req":{"method":"GET","url":"/users/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45138},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990742903,"service":"api-gateway","instanceId":"api-gateway","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","source":"/users/me","msg":"fetching from remote server"}
+trip-db-1               | 
+trip-db-1               | PostgreSQL Database directory appears to contain a database; Skipping initialization
+trip-db-1               | 
+trip-db-1               | 2026-11-18 08:31:31.176 UTC [1] LOG:  starting PostgreSQL 16.13 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+trip-db-1               | 2026-11-18 08:31:31.176 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+trip-db-1               | 2026-11-18 08:31:31.176 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+trip-db-1               | 2026-11-18 08:31:31.200 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+trip-db-1               | 2026-11-18 08:31:31.272 UTC [28] LOG:  database system was shut down at 2026-11-17 13:55:42 UTC
+trip-db-1               | 2026-11-18 08:31:31.304 UTC [1] LOG:  database system is ready to accept connections
+api-gateway-1           | {"level":30,"time":1794990742920,"service":"api-gateway","instanceId":"api-gateway","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990742923,"service":"api-gateway","instanceId":"api-gateway","reqId":"b7343d9c-f4d6-4ca4-9c33-347c5b8bc7d7","res":{"statusCode":200},"responseTime":34.24610299999949,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990742927,"service":"api-gateway","instanceId":"api-gateway","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","req":{"method":"GET","url":"/notifications/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45154},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990742930,"service":"api-gateway","instanceId":"api-gateway","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990743000,"service":"api-gateway","instanceId":"api-gateway","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990743003,"service":"api-gateway","instanceId":"api-gateway","reqId":"56c14c78-7cd7-47b6-9bde-0e5a921ebbd0","res":{"statusCode":200},"responseTime":75.50787300000047,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743010,"service":"api-gateway","instanceId":"api-gateway","reqId":"06930e13-96fb-4551-aaa6-50fcba64cd66","req":{"method":"GET","url":"/users/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45138},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990743015,"service":"api-gateway","instanceId":"api-gateway","reqId":"06930e13-96fb-4551-aaa6-50fcba64cd66","res":{"statusCode":401},"responseTime":3.7992659999999887,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743019,"service":"api-gateway","instanceId":"api-gateway","reqId":"26d57b80-9325-4d59-91cf-25047f6f7332","req":{"method":"GET","url":"/users/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45154},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990743024,"service":"api-gateway","instanceId":"api-gateway","reqId":"26d57b80-9325-4d59-91cf-25047f6f7332","res":{"statusCode":401},"responseTime":4.700718000000052,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743031,"service":"api-gateway","instanceId":"api-gateway","reqId":"65cca866-bb9e-4d55-835b-13ba8b21a552","req":{"method":"GET","url":"/drivers/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45138},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990743033,"service":"api-gateway","instanceId":"api-gateway","reqId":"65cca866-bb9e-4d55-835b-13ba8b21a552","res":{"statusCode":403},"responseTime":1.8710250000003725,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743050,"service":"api-gateway","instanceId":"api-gateway","reqId":"9cf2faae-4f00-44d5-a8c4-b550a552f56f","req":{"method":"GET","url":"/internal/drivers/available","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45154},"msg":"incoming request"}
+trip-service-1          | 
+trip-service-1          | > start
+trip-service-1          | > tsx src/main.ts
+trip-service-1          | 
+trip-service-1          | {"level":30,"time":1794990727028,"service":"trip-service","instanceId":"trip-service","msg":"Server listening at http://127.0.0.1:8083"}
+trip-service-1          | {"level":30,"time":1794990727029,"service":"trip-service","instanceId":"trip-service","msg":"Server listening at http://172.21.0.12:8083"}
+trip-service-1          | {"level":30,"time":1794990729391,"service":"trip-service","instanceId":"trip-service","reqId":"f8372cc2-40e1-445b-9b0e-c30bfe4daba8","req":{"method":"GET","url":"/ready","host":"localhost:8083","remoteAddress":"127.0.0.1","remotePort":56614},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990729425,"service":"trip-service","instanceId":"trip-service","reqId":"f8372cc2-40e1-445b-9b0e-c30bfe4daba8","res":{"statusCode":200},"responseTime":28.38253900000018,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990740260,"service":"trip-service","instanceId":"trip-service","reqId":"452696e8-1fa6-4556-8e8a-c6243c780b59","req":{"method":"GET","url":"/ready","host":"localhost:8083","remoteAddress":"127.0.0.1","remotePort":51546},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990740276,"service":"trip-service","instanceId":"trip-service","reqId":"452696e8-1fa6-4556-8e8a-c6243c780b59","res":{"statusCode":200},"responseTime":14.574687000000267,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990747988,"service":"trip-service","instanceId":"trip-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","req":{"method":"POST","url":"/trips","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990748151,"service":"trip-service","instanceId":"trip-service","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","res":{"statusCode":201},"responseTime":162.67617999999857,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743052,"service":"api-gateway","instanceId":"api-gateway","reqId":"9cf2faae-4f00-44d5-a8c4-b550a552f56f","res":{"statusCode":403},"responseTime":1.0542960000002495,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990743063,"service":"api-gateway","instanceId":"api-gateway","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","req":{"method":"GET","url":"/notifications/me?since=wrong","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45138},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990743067,"service":"api-gateway","instanceId":"api-gateway","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990743081,"service":"api-gateway","instanceId":"api-gateway","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990743084,"service":"api-gateway","instanceId":"api-gateway","reqId":"c2dbc8bf-4869-4bcd-9428-2dc1aea728b8","res":{"statusCode":400},"responseTime":19.922687000000224,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990745703,"service":"api-gateway","instanceId":"api-gateway","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","req":{"method":"POST","url":"/auth/login","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990745705,"service":"api-gateway","instanceId":"api-gateway","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","source":"/auth/login","msg":"fetching from remote server"}
+trip-service-1          | {"level":30,"time":1794990748177,"service":"trip-service","instanceId":"trip-service","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990748191,"service":"trip-service","instanceId":"trip-service","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","res":{"statusCode":200},"responseTime":13.403715000000375,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990748203,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"bbb3ec5e-0453-49aa-b375-cd624623355b","exchange":"ride.commands","routingKey":"payment.authorize"}
+trip-service-1          | {"level":30,"time":1794990748214,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"8266879e-41d5-4568-8c0d-49b20a891267","exchange":"ride.events","routingKey":"trip.requested"}
+trip-service-1          | {"level":30,"time":1794990748391,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"08adc948-14d7-497f-8f7e-6efd74828502","exchange":"ride.commands","routingKey":"matching.find_driver"}
+api-gateway-1           | {"level":30,"time":1794990746417,"service":"api-gateway","instanceId":"api-gateway","reqId":"b56d14fa-16b2-44aa-bd0d-1800ef5b60d1","req":{"method":"GET","url":"/ready","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":33800},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990746421,"service":"api-gateway","instanceId":"api-gateway","reqId":"b56d14fa-16b2-44aa-bd0d-1800ef5b60d1","res":{"statusCode":200},"responseTime":4.128512999999657,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990746827,"service":"api-gateway","instanceId":"api-gateway","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990746830,"service":"api-gateway","instanceId":"api-gateway","reqId":"527f87c2-876e-4143-9fe1-7580a11f35c2","res":{"statusCode":200},"responseTime":1126.469653,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990746859,"service":"api-gateway","instanceId":"api-gateway","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","req":{"method":"POST","url":"/auth/login","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990746861,"service":"api-gateway","instanceId":"api-gateway","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","source":"/auth/login","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990747852,"service":"api-gateway","instanceId":"api-gateway","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","msg":"response received"}
+trip-service-1          | {"level":30,"time":1794990749216,"service":"trip-service","instanceId":"trip-service","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749221,"service":"trip-service","instanceId":"trip-service","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","res":{"statusCode":200},"responseTime":4.162421999997605,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990747853,"service":"api-gateway","instanceId":"api-gateway","reqId":"453a38fe-44f4-4346-afb7-8b566ab5b79e","res":{"statusCode":200},"responseTime":993.7707579999988,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990747866,"service":"api-gateway","instanceId":"api-gateway","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","req":{"method":"PUT","url":"/drivers/me/location","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990747874,"service":"api-gateway","instanceId":"api-gateway","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","source":"/drivers/me/location","msg":"fetching from remote server"}
+trip-service-1          | {"level":30,"time":1794990749230,"service":"trip-service","instanceId":"trip-service","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/accept","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749390,"service":"trip-service","instanceId":"trip-service","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","res":{"statusCode":200},"responseTime":159.66126700000314,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990747926,"service":"api-gateway","instanceId":"api-gateway","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","msg":"response received"}
+trip-service-1          | {"level":30,"time":1794990749407,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"3a240146-5149-448e-b2c9-f65cd49b8eca","exchange":"ride.events","routingKey":"trip.accepted"}
+trip-service-1          | {"level":30,"time":1794990749410,"service":"trip-service","instanceId":"trip-service","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749417,"service":"trip-service","instanceId":"trip-service","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","res":{"statusCode":200},"responseTime":6.415331000000151,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749431,"service":"trip-service","instanceId":"trip-service","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/start","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749445,"service":"trip-service","instanceId":"trip-service","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","res":{"statusCode":200},"responseTime":13.650381999999809,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749456,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"c44d953e-f292-4c4d-91b5-3c984236d742","exchange":"ride.events","routingKey":"trip.started"}
+trip-service-1          | {"level":30,"time":1794990749460,"service":"trip-service","instanceId":"trip-service","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990747929,"service":"api-gateway","instanceId":"api-gateway","reqId":"d5d2d564-e725-480d-8e47-29bb6ed498ca","res":{"statusCode":200},"responseTime":62.47685300000012,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749469,"service":"trip-service","instanceId":"trip-service","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","res":{"statusCode":200},"responseTime":7.044000000001688,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749487,"service":"trip-service","instanceId":"trip-service","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/complete","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749516,"service":"trip-service","instanceId":"trip-service","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","res":{"statusCode":200},"responseTime":28.48058200000014,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990747940,"service":"api-gateway","instanceId":"api-gateway","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","req":{"method":"PUT","url":"/drivers/me/status","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990747942,"service":"api-gateway","instanceId":"api-gateway","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","source":"/drivers/me/status","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990747966,"service":"api-gateway","instanceId":"api-gateway","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","msg":"response received"}
+trip-service-1          | {"level":30,"time":1794990749538,"service":"trip-service","instanceId":"trip-service","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990749558,"service":"trip-service","instanceId":"trip-service","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","res":{"statusCode":200},"responseTime":19.519164999997884,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749559,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"ba39755b-c822-47b6-8c1e-8975d43f90da","exchange":"ride.commands","routingKey":"payment.capture"}
+api-gateway-1           | {"level":30,"time":1794990747968,"service":"api-gateway","instanceId":"api-gateway","reqId":"773b422a-a078-410d-9aaf-74ac2ac1a7ea","res":{"statusCode":200},"responseTime":27.705673000000388,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990749577,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"70dfd10f-c8db-4bd8-adca-96e46920a8a6","exchange":"ride.events","routingKey":"trip.completed"}
+trip-service-1          | {"level":30,"time":1794990749719,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"e926eb59-0240-4002-939d-660bcbdce46b","exchange":"ride.events","routingKey":"trip.paid"}
+trip-service-1          | {"level":30,"time":1794990750581,"service":"trip-service","instanceId":"trip-service","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990747975,"service":"api-gateway","instanceId":"api-gateway","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","req":{"method":"POST","url":"/trips","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990747977,"service":"api-gateway","instanceId":"api-gateway","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","source":"/trips","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990748151,"service":"api-gateway","instanceId":"api-gateway","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","msg":"response received"}
+trip-service-1          | {"level":30,"time":1794990750598,"service":"trip-service","instanceId":"trip-service","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","res":{"statusCode":200},"responseTime":17.346778999999515,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990750832,"service":"trip-service","instanceId":"trip-service","reqId":"435c5700-9286-434a-98e7-339681937a90","req":{"method":"GET","url":"/ready","host":"localhost:8083","remoteAddress":"127.0.0.1","remotePort":56386},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990750837,"service":"trip-service","instanceId":"trip-service","reqId":"435c5700-9286-434a-98e7-339681937a90","res":{"statusCode":200},"responseTime":4.1239129999994475,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990755489,"service":"trip-service","instanceId":"trip-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","req":{"method":"POST","url":"/trips","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990755512,"service":"trip-service","instanceId":"trip-service","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","res":{"statusCode":201},"responseTime":22.682559000000765,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990755522,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"2669ea48-1f7a-41b6-9b9e-517d15604a9f","exchange":"ride.commands","routingKey":"payment.authorize"}
+trip-service-1          | {"level":30,"time":1794990755537,"service":"trip-service","instanceId":"trip-service","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990755541,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"85105053-1229-4929-92a3-42f4d0b2f5d2","exchange":"ride.events","routingKey":"trip.requested"}
+trip-service-1          | {"level":30,"time":1794990755546,"service":"trip-service","instanceId":"trip-service","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","res":{"statusCode":200},"responseTime":9.210794999999052,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990755629,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"95a2cae5-a5c4-4aa2-81f8-5c21b95cfc31","exchange":"ride.commands","routingKey":"matching.find_driver"}
+trip-service-1          | {"level":30,"time":1794990756564,"service":"trip-service","instanceId":"trip-service","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990756568,"service":"trip-service","instanceId":"trip-service","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","res":{"statusCode":200},"responseTime":4.192553000000771,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990756580,"service":"trip-service","instanceId":"trip-service","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","req":{"method":"POST","url":"/trips/f42e941c-e386-491c-b324-623441695ceb/cancel","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990756593,"service":"trip-service","instanceId":"trip-service","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","res":{"statusCode":200},"responseTime":13.22320700000273,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990756602,"service":"trip-service","instanceId":"trip-service","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990756605,"service":"trip-service","instanceId":"trip-service","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","res":{"statusCode":200},"responseTime":2.5647830000016256,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990756612,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"afc16473-5e28-46d8-8364-8c675573becb","exchange":"ride.commands","routingKey":"matching.cancel_attempt"}
+api-gateway-1           | {"level":30,"time":1794990748156,"service":"api-gateway","instanceId":"api-gateway","reqId":"7398aba3-4550-4dcf-8ec0-476ed43859e4","res":{"statusCode":201},"responseTime":180.6373249999997,"msg":"request completed"}
+trip-service-1          | {"level":30,"time":1794990756618,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"452c6208-eee5-4c70-894c-f4c163b1f527","exchange":"ride.commands","routingKey":"driver.release"}
+trip-service-1          | {"level":30,"time":1794990756630,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"a970e08a-048c-47a4-8f94-1c5c02637482","exchange":"ride.commands","routingKey":"payment.void"}
+trip-service-1          | {"level":30,"time":1794990757602,"service":"trip-service","instanceId":"trip-service","operation":"OUTBOX_PUBLISHED","eventId":"04af1552-a8d8-4636-9045-0d496337244c","exchange":"ride.events","routingKey":"trip.cancelled"}
+trip-service-1          | {"level":30,"time":1794990757637,"service":"trip-service","instanceId":"trip-service","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"trip-service:8083","remoteAddress":"172.21.0.17","remotePort":43260},"msg":"incoming request"}
+trip-service-1          | {"level":30,"time":1794990757645,"service":"trip-service","instanceId":"trip-service","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","res":{"statusCode":200},"responseTime":8.27968300000066,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990748172,"service":"api-gateway","instanceId":"api-gateway","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990748174,"service":"api-gateway","instanceId":"api-gateway","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990748191,"service":"api-gateway","instanceId":"api-gateway","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990748192,"service":"api-gateway","instanceId":"api-gateway","reqId":"52ed3ed3-7441-4ca8-91eb-06673648e4e7","res":{"statusCode":200},"responseTime":19.936577999998917,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749212,"service":"api-gateway","instanceId":"api-gateway","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749214,"service":"api-gateway","instanceId":"api-gateway","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749220,"service":"api-gateway","instanceId":"api-gateway","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749222,"service":"api-gateway","instanceId":"api-gateway","reqId":"6b6a4c06-4bdd-471b-b688-c3fc6bb21eaf","res":{"statusCode":200},"responseTime":8.889097999999649,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749227,"service":"api-gateway","instanceId":"api-gateway","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/accept","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749229,"service":"api-gateway","instanceId":"api-gateway","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/accept","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749390,"service":"api-gateway","instanceId":"api-gateway","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749393,"service":"api-gateway","instanceId":"api-gateway","reqId":"8ad9eb0c-2d11-4efa-bb64-fa6cb721a02c","res":{"statusCode":200},"responseTime":165.66088500000114,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749400,"service":"api-gateway","instanceId":"api-gateway","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749406,"service":"api-gateway","instanceId":"api-gateway","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749417,"service":"api-gateway","instanceId":"api-gateway","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749419,"service":"api-gateway","instanceId":"api-gateway","reqId":"07847f78-ca61-44ea-9545-eac0ae14b6aa","res":{"statusCode":200},"responseTime":18.08187700000053,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749426,"service":"api-gateway","instanceId":"api-gateway","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/start","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749429,"service":"api-gateway","instanceId":"api-gateway","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/start","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749444,"service":"api-gateway","instanceId":"api-gateway","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749448,"service":"api-gateway","instanceId":"api-gateway","reqId":"429f40a1-e054-4659-8fab-c2da32df5f90","res":{"statusCode":200},"responseTime":21.450386000000435,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749457,"service":"api-gateway","instanceId":"api-gateway","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749459,"service":"api-gateway","instanceId":"api-gateway","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749469,"service":"api-gateway","instanceId":"api-gateway","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749472,"service":"api-gateway","instanceId":"api-gateway","reqId":"adc3a6be-8afb-441f-953f-15a0df9ceb5c","res":{"statusCode":200},"responseTime":14.72327199999927,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749479,"service":"api-gateway","instanceId":"api-gateway","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","req":{"method":"POST","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/complete","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749483,"service":"api-gateway","instanceId":"api-gateway","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0/complete","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749516,"service":"api-gateway","instanceId":"api-gateway","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749518,"service":"api-gateway","instanceId":"api-gateway","reqId":"8dcc4ded-5c26-4f81-a121-ee70c427b873","res":{"statusCode":200},"responseTime":37.82260200000019,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990749529,"service":"api-gateway","instanceId":"api-gateway","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990749531,"service":"api-gateway","instanceId":"api-gateway","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990749552,"service":"api-gateway","instanceId":"api-gateway","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990749556,"service":"api-gateway","instanceId":"api-gateway","reqId":"0e6466eb-78b6-46ea-838a-5b31889cb14a","res":{"statusCode":200},"responseTime":25.805161000000226,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990750576,"service":"api-gateway","instanceId":"api-gateway","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","req":{"method":"GET","url":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990750577,"service":"api-gateway","instanceId":"api-gateway","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","source":"/trips/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990750590,"service":"api-gateway","instanceId":"api-gateway","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990750602,"service":"api-gateway","instanceId":"api-gateway","reqId":"45d98712-5ef4-45b1-914a-d8e78c2ea682","res":{"statusCode":200},"responseTime":25.998613000003388,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990750607,"service":"api-gateway","instanceId":"api-gateway","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","req":{"method":"GET","url":"/payments/c8f29f72-5eef-4ca1-aedd-63adface35b0","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990750608,"service":"api-gateway","instanceId":"api-gateway","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","source":"/payments/c8f29f72-5eef-4ca1-aedd-63adface35b0","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990750642,"service":"api-gateway","instanceId":"api-gateway","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990750650,"service":"api-gateway","instanceId":"api-gateway","reqId":"228becf2-1fde-47ad-ab62-d6b9c3012925","res":{"statusCode":200},"responseTime":42.61679499999809,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990750651,"service":"api-gateway","instanceId":"api-gateway","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","req":{"method":"GET","url":"/notifications/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":45158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990750652,"service":"api-gateway","instanceId":"api-gateway","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990750671,"service":"api-gateway","instanceId":"api-gateway","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990750676,"service":"api-gateway","instanceId":"api-gateway","reqId":"ba0d513a-6a9e-468c-ac07-99b2ce062dae","res":{"statusCode":200},"responseTime":24.78868700000021,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990750684,"service":"api-gateway","instanceId":"api-gateway","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","req":{"method":"GET","url":"/notifications/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43150},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990750686,"service":"api-gateway","instanceId":"api-gateway","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990750698,"service":"api-gateway","instanceId":"api-gateway","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990750700,"service":"api-gateway","instanceId":"api-gateway","reqId":"8a59198e-c643-4c85-8a09-cf4ea82ad03e","res":{"statusCode":200},"responseTime":14.907422000000224,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990753463,"service":"api-gateway","instanceId":"api-gateway","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","req":{"method":"POST","url":"/auth/login","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990753464,"service":"api-gateway","instanceId":"api-gateway","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","source":"/auth/login","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990754312,"service":"api-gateway","instanceId":"api-gateway","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990754313,"service":"api-gateway","instanceId":"api-gateway","reqId":"9119238a-c7c6-4241-8cf7-ca52f4ce5223","res":{"statusCode":200},"responseTime":850.0480210000023,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990754337,"service":"api-gateway","instanceId":"api-gateway","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","req":{"method":"POST","url":"/auth/login","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990754338,"service":"api-gateway","instanceId":"api-gateway","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","source":"/auth/login","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990755429,"service":"api-gateway","instanceId":"api-gateway","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990755430,"service":"api-gateway","instanceId":"api-gateway","reqId":"cb2e44d1-846a-4aff-9a51-57ac82979cf0","res":{"statusCode":200},"responseTime":1100.8570599999985,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990755438,"service":"api-gateway","instanceId":"api-gateway","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","req":{"method":"PUT","url":"/drivers/me/location","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990755439,"service":"api-gateway","instanceId":"api-gateway","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","source":"/drivers/me/location","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990755451,"service":"api-gateway","instanceId":"api-gateway","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990755453,"service":"api-gateway","instanceId":"api-gateway","reqId":"2845603e-1759-4d6f-ad3f-1a7c8115b5b7","res":{"statusCode":200},"responseTime":14.420779000000039,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990755461,"service":"api-gateway","instanceId":"api-gateway","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","req":{"method":"PUT","url":"/drivers/me/status","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990755463,"service":"api-gateway","instanceId":"api-gateway","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","source":"/drivers/me/status","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990755477,"service":"api-gateway","instanceId":"api-gateway","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990755480,"service":"api-gateway","instanceId":"api-gateway","reqId":"e0e26f36-38fd-454c-b074-74f11ecbe03c","res":{"statusCode":200},"responseTime":18.23454700000002,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990755486,"service":"api-gateway","instanceId":"api-gateway","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","req":{"method":"POST","url":"/trips","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990755488,"service":"api-gateway","instanceId":"api-gateway","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","source":"/trips","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990755512,"service":"api-gateway","instanceId":"api-gateway","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990755513,"service":"api-gateway","instanceId":"api-gateway","reqId":"607c250b-c8f6-432c-9ae9-fcb87d9c5a1d","res":{"statusCode":201},"responseTime":26.87571200000093,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990755520,"service":"api-gateway","instanceId":"api-gateway","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990755522,"service":"api-gateway","instanceId":"api-gateway","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","source":"/trips/f42e941c-e386-491c-b324-623441695ceb","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990755543,"service":"api-gateway","instanceId":"api-gateway","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990755545,"service":"api-gateway","instanceId":"api-gateway","reqId":"6ea20d8b-8901-42b4-9a8d-2facbac734ff","res":{"statusCode":200},"responseTime":24.262217999999848,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990756561,"service":"api-gateway","instanceId":"api-gateway","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990756562,"service":"api-gateway","instanceId":"api-gateway","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","source":"/trips/f42e941c-e386-491c-b324-623441695ceb","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990756569,"service":"api-gateway","instanceId":"api-gateway","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990756570,"service":"api-gateway","instanceId":"api-gateway","reqId":"2576762e-cd1e-4aea-9b94-41a4fedcdc80","res":{"statusCode":200},"responseTime":8.636264999997366,"msg":"request completed"}
+rabbitmq-1              | 2026-11-18 08:31:45.417149+00:00 [notice] <0.45.0> Application syslog exited with reason: stopped
+rabbitmq-1              | 2026-11-18 08:31:45.436329+00:00 [notice] <0.209.0> Logging: switching to configured handler(s); following messages may not be visible in this log output
+rabbitmq-1              | 2026-11-18 08:31:45.438089+00:00 [notice] <0.209.0> Logging: configured log handlers are now ACTIVE
+rabbitmq-1              | 2026-11-18 08:31:45.467834+00:00 [info] <0.209.0> ra: starting system coordination
+rabbitmq-1              | 2026-11-18 08:31:45.468088+00:00 [info] <0.209.0> starting Ra system: coordination in directory: /var/lib/rabbitmq/mnesia/rabbit@7040a9f24e27/coordination/rabbit@7040a9f24e27
+rabbitmq-1              | 2026-11-18 08:31:45.494257+00:00 [info] <0.220.0> ra_coordination_log_ets: in system coordination initialising. Mem table opts: [set,{write_concurrency,auto},public,{compressed,false}]
+rabbitmq-1              | 2026-11-18 08:31:45.678512+00:00 [info] <0.226.0> ra system 'coordination' running pre init for 1 registered servers
+rabbitmq-1              | 2026-11-18 08:31:45.749893+00:00 [info] <0.227.0> ra: meta data store initialised for system coordination. 1 record(s) recovered
+rabbitmq-1              | 2026-11-18 08:31:45.798645+00:00 [notice] <0.232.0> WAL: ra_coordination_log_wal init, mem-tables table name: ra_coordination_log_open_mem_tables
+rabbitmq-1              | 2026-11-18 08:31:45.950644+00:00 [info] <0.209.0> ra: starting system quorum_queues
+rabbitmq-1              | 2026-11-18 08:31:45.950750+00:00 [info] <0.209.0> starting Ra system: quorum_queues in directory: /var/lib/rabbitmq/mnesia/rabbit@7040a9f24e27/quorum/rabbit@7040a9f24e27
+rabbitmq-1              | 2026-11-18 08:31:45.951730+00:00 [info] <0.237.0> ra_log_ets: in system quorum_queues initialising. Mem table opts: [set,{write_concurrency,auto},public,{compressed,true}]
+rabbitmq-1              | 2026-11-18 08:31:45.957110+00:00 [info] <0.241.0> ra system 'quorum_queues' running pre init for 0 registered servers
+rabbitmq-1              | 2026-11-18 08:31:45.965272+00:00 [info] <0.242.0> ra: meta data store initialised for system quorum_queues. 0 record(s) recovered
+rabbitmq-1              | 2026-11-18 08:31:45.966466+00:00 [notice] <0.247.0> WAL: ra_log_wal init, mem-tables table name: ra_log_open_mem_tables
+rabbitmq-1              | 2026-11-18 08:31:45.991739+00:00 [info] <0.249.0> ra_system_recover: ra system 'quorum_queues' server recovery strategy rabbit_quorum_queue:system_recover
+rabbitmq-1              | 2026-11-18 08:31:45.992502+00:00 [info] <0.249.0> [rabbit_quorum_queue:system_recover/1] rabbit not booted, skipping queue recovery
+rabbitmq-1              | 2026-11-18 08:31:45.993069+00:00 [info] <0.209.0> ra: starting system coordination
+rabbitmq-1              | 2026-11-18 08:31:45.993146+00:00 [info] <0.209.0> starting Ra system: coordination in directory: /var/lib/rabbitmq/mnesia/rabbit@7040a9f24e27/coordination/rabbit@7040a9f24e27
+rabbitmq-1              | 2026-11-18 08:31:46.922688+00:00 [notice] <0.251.0> RabbitMQ metadata store: candidate -> leader in term: 3 machine version: 1, last applied 3
+api-gateway-1           | {"level":30,"time":1794990756577,"service":"api-gateway","instanceId":"api-gateway","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","req":{"method":"POST","url":"/trips/f42e941c-e386-491c-b324-623441695ceb/cancel","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990756578,"service":"api-gateway","instanceId":"api-gateway","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","source":"/trips/f42e941c-e386-491c-b324-623441695ceb/cancel","msg":"fetching from remote server"}
+rabbitmq-1              | 2026-11-18 08:31:47.911119+00:00 [info] <0.209.0> 
+api-gateway-1           | {"level":30,"time":1794990756593,"service":"api-gateway","instanceId":"api-gateway","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","msg":"response received"}
+rabbitmq-1              | 2026-11-18 08:31:47.911119+00:00 [info] <0.209.0>  Starting RabbitMQ 4.1.4 on Erlang 27.3.4.3 [jit]
+api-gateway-1           | {"level":30,"time":1794990756594,"service":"api-gateway","instanceId":"api-gateway","reqId":"7abcd6f4-034c-4fff-9934-5431d9065bb6","res":{"statusCode":200},"responseTime":17.29073199999766,"msg":"request completed"}
+rabbitmq-1              | 2026-11-18 08:31:47.911119+00:00 [info] <0.209.0>  Copyright (c) 2007-2025 Broadcom Inc and/or its subsidiaries
+rabbitmq-1              | 2026-11-18 08:31:47.911119+00:00 [info] <0.209.0>  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+rabbitmq-1              | 
+rabbitmq-1              |   ##  ##      RabbitMQ 4.1.4
+rabbitmq-1              |   ##  ##
+rabbitmq-1              |   ##########  Copyright (c) 2007-2025 Broadcom Inc and/or its subsidiaries
+api-gateway-1           | {"level":30,"time":1794990756599,"service":"api-gateway","instanceId":"api-gateway","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990756600,"service":"api-gateway","instanceId":"api-gateway","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","source":"/trips/f42e941c-e386-491c-b324-623441695ceb","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990756605,"service":"api-gateway","instanceId":"api-gateway","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990756606,"service":"api-gateway","instanceId":"api-gateway","reqId":"a62c27b3-5ddb-45d4-aba4-210f6005e240","res":{"statusCode":200},"responseTime":6.63850900000034,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990756775,"service":"api-gateway","instanceId":"api-gateway","reqId":"3fe7c4a9-472f-4b9f-a1ea-ae7d3553f12f","req":{"method":"GET","url":"/ready","host":"localhost:8080","remoteAddress":"127.0.0.1","remotePort":53660},"msg":"incoming request"}
+rabbitmq-1              |   ######  ##
+api-gateway-1           | {"level":30,"time":1794990756776,"service":"api-gateway","instanceId":"api-gateway","reqId":"3fe7c4a9-472f-4b9f-a1ea-ae7d3553f12f","res":{"statusCode":200},"responseTime":0.7603729999973439,"msg":"request completed"}
+rabbitmq-1              |   ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+rabbitmq-1              | 
+rabbitmq-1              |   Erlang:      27.3.4.3 [jit]
+rabbitmq-1              |   TLS Library: OpenSSL - OpenSSL 3.3.5 30 Sep 2025
+rabbitmq-1              |   Release series support status: see https://www.rabbitmq.com/release-information
+rabbitmq-1              | 
+rabbitmq-1              |   Doc guides:  https://www.rabbitmq.com/docs
+rabbitmq-1              |   Support:     https://www.rabbitmq.com/docs/contact
+rabbitmq-1              |   Tutorials:   https://www.rabbitmq.com/tutorials
+rabbitmq-1              |   Monitoring:  https://www.rabbitmq.com/docs/monitoring
+rabbitmq-1              |   Upgrading:   https://www.rabbitmq.com/docs/upgrade
+rabbitmq-1              | 
+rabbitmq-1              |   Logs: <stdout>
+rabbitmq-1              | 
+rabbitmq-1              |   Config file(s): /etc/rabbitmq/conf.d/10-defaults.conf
+rabbitmq-1              | 
+rabbitmq-1              |   Starting broker...2026-11-18 08:31:47.914928+00:00 [info] <0.209.0> 
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  node           : rabbit@7040a9f24e27
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  home dir       : /var/lib/rabbitmq
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  config file(s) : /etc/rabbitmq/conf.d/10-defaults.conf
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  cookie hash    : ZIwBvm2uPV+FWZdM1NRpLw==
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  log(s)         : <stdout>
+rabbitmq-1              | 2026-11-18 08:31:47.914928+00:00 [info] <0.209.0>  data dir       : /var/lib/rabbitmq/mnesia/rabbit@7040a9f24e27
+rabbitmq-1              | 2026-11-18 08:31:49.036772+00:00 [info] <0.209.0> Running boot step pre_boot defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.037043+00:00 [info] <0.209.0> Running boot step rabbit_global_counters defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.038953+00:00 [info] <0.209.0> Running boot step rabbit_osiris_metrics defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.039314+00:00 [info] <0.209.0> Running boot step rabbit_core_metrics defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.041617+00:00 [info] <0.209.0> Running boot step rabbit_alarm defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.090116+00:00 [info] <0.346.0> Memory high watermark set to 4696 MiB (4925089382 bytes) of 7828 MiB (8208482304 bytes) total
+rabbitmq-1              | 2026-11-18 08:31:49.102409+00:00 [info] <0.348.0> Enabling free disk space monitoring (disk free space: 1015905628160, total memory: 8208482304)
+rabbitmq-1              | 2026-11-18 08:31:49.102577+00:00 [info] <0.348.0> Disk free limit set to 50MB
+rabbitmq-1              | 2026-11-18 08:31:49.109957+00:00 [info] <0.209.0> Running boot step code_server_cache defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.110208+00:00 [info] <0.209.0> Running boot step file_handle_cache defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.138541+00:00 [info] <0.351.0> Limiting to approx 1048479 file handles (943629 sockets)
+rabbitmq-1              | 2026-11-18 08:31:49.138975+00:00 [info] <0.352.0> FHC read buffering: OFF
+rabbitmq-1              | 2026-11-18 08:31:49.139084+00:00 [info] <0.352.0> FHC write buffering: ON
+rabbitmq-1              | 2026-11-18 08:31:49.140649+00:00 [info] <0.209.0> Running boot step worker_pool defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.140898+00:00 [info] <0.293.0> Will use 8 processes for default worker pool
+rabbitmq-1              | 2026-11-18 08:31:49.141000+00:00 [info] <0.293.0> Starting worker pool 'worker_pool' with 8 processes in it
+rabbitmq-1              | 2026-11-18 08:31:49.142532+00:00 [info] <0.209.0> Running boot step rabbit_registry defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.143041+00:00 [info] <0.209.0> Running boot step database defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.144682+00:00 [info] <0.209.0> Peer discovery: configured backend: rabbit_peer_discovery_classic_config
+rabbitmq-1              | 2026-11-18 08:31:49.153578+00:00 [info] <0.209.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+rabbitmq-1              | 2026-11-18 08:31:49.165487+00:00 [info] <0.209.0> Successfully synced tables from a peer
+rabbitmq-1              | 2026-11-18 08:31:49.186686+00:00 [info] <0.209.0> Waiting for Mnesia tables for 30000 ms, 9 retries left
+rabbitmq-1              | 2026-11-18 08:31:49.187259+00:00 [info] <0.209.0> Successfully synced tables from a peer
+rabbitmq-1              | 2026-11-18 08:31:49.187937+00:00 [info] <0.209.0> Running boot step tracking_metadata_store defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.188630+00:00 [info] <0.375.0> Setting up a table for connection tracking on this node: tracked_connection
+api-gateway-1           | {"level":30,"time":1794990757631,"service":"api-gateway","instanceId":"api-gateway","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","req":{"method":"GET","url":"/trips/f42e941c-e386-491c-b324-623441695ceb","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990757634,"service":"api-gateway","instanceId":"api-gateway","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","source":"/trips/f42e941c-e386-491c-b324-623441695ceb","msg":"fetching from remote server"}
+rabbitmq-1              | 2026-11-18 08:31:49.188775+00:00 [info] <0.375.0> Setting up a table for per-vhost connection counting on this node: tracked_connection_per_vhost
+rabbitmq-1              | 2026-11-18 08:31:49.189373+00:00 [info] <0.375.0> Setting up a table for per-user connection counting on this node: tracked_connection_per_user
+rabbitmq-1              | 2026-11-18 08:31:49.189844+00:00 [info] <0.375.0> Setting up a table for channel tracking on this node: tracked_channel
+rabbitmq-1              | 2026-11-18 08:31:49.190054+00:00 [info] <0.375.0> Setting up a table for channel tracking on this node: tracked_channel_per_user
+rabbitmq-1              | 2026-11-18 08:31:49.190541+00:00 [info] <0.209.0> Running boot step networking_metadata_store defined by app rabbit
+api-gateway-1           | {"level":30,"time":1794990757646,"service":"api-gateway","instanceId":"api-gateway","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990757649,"service":"api-gateway","instanceId":"api-gateway","reqId":"ca099aa3-934b-4df8-8b38-63a695cca8c6","res":{"statusCode":200},"responseTime":16.70600000000195,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990757659,"service":"api-gateway","instanceId":"api-gateway","reqId":"09e3298a-6414-4880-9388-ccf82870f993","req":{"method":"GET","url":"/drivers/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990757661,"service":"api-gateway","instanceId":"api-gateway","reqId":"09e3298a-6414-4880-9388-ccf82870f993","source":"/drivers/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990757672,"service":"api-gateway","instanceId":"api-gateway","reqId":"09e3298a-6414-4880-9388-ccf82870f993","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990757675,"service":"api-gateway","instanceId":"api-gateway","reqId":"09e3298a-6414-4880-9388-ccf82870f993","res":{"statusCode":200},"responseTime":15.424308000001474,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990757683,"service":"api-gateway","instanceId":"api-gateway","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","req":{"method":"GET","url":"/payments/f42e941c-e386-491c-b324-623441695ceb","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+rabbitmq-1              | 2026-11-18 08:31:49.190935+00:00 [info] <0.209.0> Running boot step feature_flags defined by app rabbit
+api-gateway-1           | {"level":30,"time":1794990757685,"service":"api-gateway","instanceId":"api-gateway","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","source":"/payments/f42e941c-e386-491c-b324-623441695ceb","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990757692,"service":"api-gateway","instanceId":"api-gateway","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990757693,"service":"api-gateway","instanceId":"api-gateway","reqId":"06fdf652-e2f1-4347-ab9d-aaee048ebf65","res":{"statusCode":200},"responseTime":9.425443000000087,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990757697,"service":"api-gateway","instanceId":"api-gateway","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","req":{"method":"GET","url":"/notifications/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43160},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990757698,"service":"api-gateway","instanceId":"api-gateway","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990757706,"service":"api-gateway","instanceId":"api-gateway","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990757707,"service":"api-gateway","instanceId":"api-gateway","reqId":"a0f1ada4-6035-4349-97a0-4a199e45996f","res":{"statusCode":200},"responseTime":9.730013000000326,"msg":"request completed"}
+api-gateway-1           | {"level":30,"time":1794990757712,"service":"api-gateway","instanceId":"api-gateway","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","req":{"method":"GET","url":"/notifications/me","host":"localhost:8080","remoteAddress":"172.21.0.1","remotePort":43158},"msg":"incoming request"}
+api-gateway-1           | {"level":30,"time":1794990757713,"service":"api-gateway","instanceId":"api-gateway","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","source":"/notifications/me","msg":"fetching from remote server"}
+api-gateway-1           | {"level":30,"time":1794990757721,"service":"api-gateway","instanceId":"api-gateway","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","msg":"response received"}
+api-gateway-1           | {"level":30,"time":1794990757723,"service":"api-gateway","instanceId":"api-gateway","reqId":"a802798d-6ed2-4fd9-aeef-f14cd0d7c068","res":{"statusCode":200},"responseTime":10.408567000002222,"msg":"request completed"}
+rabbitmq-1              | 2026-11-18 08:31:49.191561+00:00 [info] <0.209.0> Running boot step auth_backend_plugins_check defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.191719+00:00 [info] <0.209.0> Running boot step codec_correctness_check defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.191854+00:00 [info] <0.209.0> Running boot step external_infrastructure defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.191961+00:00 [info] <0.209.0> Running boot step rabbit_event defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.192220+00:00 [info] <0.209.0> Running boot step rabbit_auth_mechanism_amqplain defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.192490+00:00 [info] <0.209.0> Running boot step rabbit_auth_mechanism_anonymous defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.192751+00:00 [info] <0.209.0> Running boot step rabbit_auth_mechanism_cr_demo defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.193072+00:00 [info] <0.209.0> Running boot step rabbit_auth_mechanism_plain defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.193303+00:00 [info] <0.209.0> Running boot step rabbit_exchange_type_direct defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.193634+00:00 [info] <0.209.0> Running boot step rabbit_exchange_type_fanout defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.193773+00:00 [info] <0.209.0> Running boot step rabbit_exchange_type_headers defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.193911+00:00 [info] <0.209.0> Running boot step rabbit_exchange_type_local_random defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.194078+00:00 [info] <0.209.0> Running boot step rabbit_exchange_type_topic defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.194267+00:00 [info] <0.209.0> Running boot step rabbit_priority_queue defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.194353+00:00 [info] <0.209.0> Priority queues enabled, real BQ is rabbit_variable_queue
+rabbitmq-1              | 2026-11-18 08:31:49.194698+00:00 [info] <0.209.0> Running boot step kernel_ready defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.194779+00:00 [info] <0.209.0> Running boot step pg_local_amqp_connection defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.224842+00:00 [info] <0.209.0> Running boot step pg_local_amqp_session defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.225438+00:00 [info] <0.209.0> Running boot step rabbit_sysmon_minder defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.225924+00:00 [info] <0.209.0> Running boot step rabbit_epmd_monitor defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.228808+00:00 [info] <0.384.0> epmd monitor knows us, inter-node communication (distribution) port: 25672
+rabbitmq-1              | 2026-11-18 08:31:49.229273+00:00 [info] <0.209.0> Running boot step guid_generator defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.240568+00:00 [info] <0.209.0> Running boot step rabbit_node_monitor defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.241447+00:00 [info] <0.388.0> Starting rabbit_node_monitor (in ignore mode)
+rabbitmq-1              | 2026-11-18 08:31:49.241913+00:00 [info] <0.209.0> Running boot step delegate_sup defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.245201+00:00 [info] <0.209.0> Running boot step rabbit_fifo_dlx_sup defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.246829+00:00 [info] <0.209.0> Running boot step core_initialized defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.247424+00:00 [info] <0.209.0> Running boot step rabbit_channel_tracking_handler defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.247597+00:00 [info] <0.209.0> Running boot step rabbit_classic_queue defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.247981+00:00 [info] <0.209.0> Running boot step rabbit_connection_tracking_handler defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.248193+00:00 [info] <0.209.0> Running boot step rabbit_definitions_hashing defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.249003+00:00 [info] <0.209.0> Running boot step rabbit_exchange_parameters defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.310893+00:00 [info] <0.209.0> Running boot step rabbit_policies defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.314985+00:00 [info] <0.209.0> Running boot step rabbit_policy defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.315283+00:00 [info] <0.209.0> Running boot step rabbit_quorum_memory_manager defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.315438+00:00 [info] <0.209.0> Running boot step rabbit_quorum_queue defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.316517+00:00 [info] <0.209.0> Running boot step rabbit_stream_coordinator defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.317085+00:00 [info] <0.209.0> Running boot step rabbit_vhost_limit defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.317316+00:00 [info] <0.209.0> Running boot step rabbit_mgmt_reset_handler defined by app rabbitmq_management
+rabbitmq-1              | 2026-11-18 08:31:49.317505+00:00 [info] <0.209.0> Running boot step rabbit_mgmt_db_handler defined by app rabbitmq_management_agent
+rabbitmq-1              | 2026-11-18 08:31:49.317687+00:00 [info] <0.209.0> Management plugin: using rates mode 'basic'
+rabbitmq-1              | 2026-11-18 08:31:49.319365+00:00 [info] <0.209.0> Running boot step recovery defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.434890+00:00 [info] <0.420.0> Making sure data directory '/var/lib/rabbitmq/mnesia/rabbit@7040a9f24e27/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L' for vhost '/' exists
+rabbitmq-1              | 2026-11-18 08:31:49.486626+00:00 [info] <0.420.0> Starting message stores for vhost '/'
+rabbitmq-1              | 2026-11-18 08:31:49.495128+00:00 [info] <0.420.0> Started message store of type transient for vhost '/'
+rabbitmq-1              | 2026-11-18 08:31:49.510595+00:00 [info] <0.420.0> Started message store of type persistent for vhost '/'
+rabbitmq-1              | 2026-11-18 08:31:49.560843+00:00 [info] <0.420.0> Recovering 35 queues of type rabbit_classic_queue took 121ms
+rabbitmq-1              | 2026-11-18 08:31:49.561034+00:00 [info] <0.420.0> Recovering 0 queues of type rabbit_quorum_queue took 0ms
+rabbitmq-1              | 2026-11-18 08:31:49.561493+00:00 [info] <0.420.0> Recovering 0 queues of type rabbit_stream_queue took 0ms
+rabbitmq-1              | 2026-11-18 08:31:49.595374+00:00 [info] <0.209.0> Running boot step prevent_startup_if_node_was_reset defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.595566+00:00 [info] <0.209.0> Running boot step empty_db_check defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.595692+00:00 [info] <0.209.0> Will not seed default virtual host and user: have definitions to load...
+rabbitmq-1              | 2026-11-18 08:31:49.596055+00:00 [info] <0.209.0> Running boot step rabbit_observer_cli defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.596438+00:00 [info] <0.209.0> Running boot step rabbit_core_metrics_gc defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.596868+00:00 [info] <0.209.0> Running boot step background_gc defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.597728+00:00 [info] <0.209.0> Running boot step routing_ready defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.597816+00:00 [info] <0.209.0> Running boot step pre_flight defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.597969+00:00 [info] <0.209.0> Running boot step notify_cluster defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.598087+00:00 [info] <0.209.0> Running boot step networking defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.598296+00:00 [info] <0.209.0> Running boot step rabbit_quorum_queue_periodic_membership_reconciliation defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.598698+00:00 [info] <0.209.0> Running boot step definition_import_worker_pool defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.598901+00:00 [info] <0.293.0> Starting worker pool 'definition_import_pool' with 8 processes in it
+rabbitmq-1              | 2026-11-18 08:31:49.600539+00:00 [info] <0.209.0> Running boot step cluster_name defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.600689+00:00 [info] <0.209.0> Running boot step virtual_host_reconciliation defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.601001+00:00 [info] <0.209.0> Running boot step direct_client defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.601223+00:00 [info] <0.209.0> Running boot step cluster_tags defined by app rabbit
+rabbitmq-1              | 2026-11-18 08:31:49.606289+00:00 [info] <0.209.0> Running boot step rabbit_management_load_definitions defined by app rabbitmq_management
+rabbitmq-1              | 2026-11-18 08:31:49.606772+00:00 [info] <0.625.0> Resetting node maintenance status
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0> Deprecated features: `management_metrics_collection`: Feature `management_metrics_collection` is deprecated.
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0> By default, this feature can still be used for now.
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0> Its use will not be permitted by default in a future minor RabbitMQ version and the feature will be removed from a future major RabbitMQ version; actual versions to be determined.
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0> To continue using this feature when it is not permitted by default, set the following parameter in your configuration:
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0>     "deprecated_features.permit.management_metrics_collection = true"
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0> To test RabbitMQ as if the feature was removed, set this in your configuration:
+rabbitmq-1              | 2026-11-18 08:31:50.208444+00:00 [warning] <0.647.0>     "deprecated_features.permit.management_metrics_collection = false"
+rabbitmq-1              | 2026-11-18 08:31:50.386898+00:00 [info] <0.683.0> Management plugin: HTTP (non-TLS) listener started on port 15672
+rabbitmq-1              | 2026-11-18 08:31:50.387544+00:00 [info] <0.711.0> Statistics database started.
+rabbitmq-1              | 2026-11-18 08:31:50.387868+00:00 [info] <0.710.0> Starting worker pool 'management_worker_pool' with 3 processes in it
+rabbitmq-1              | 2026-11-18 08:31:50.432518+00:00 [info] <0.722.0> Prometheus metrics: HTTP (non-TLS) listener started on port 15692
+rabbitmq-1              | 2026-11-18 08:31:50.432752+00:00 [info] <0.625.0> Ready to start client connection listeners
+rabbitmq-1              | 2026-11-18 08:31:50.436846+00:00 [info] <0.766.0> started TCP listener on [::]:5672
+rabbitmq-1              |  completed with 4 plugins.
+rabbitmq-1              | 2026-11-18 08:31:50.776383+00:00 [info] <0.625.0> Server startup complete; 4 plugins started.
+rabbitmq-1              | 2026-11-18 08:31:50.776383+00:00 [info] <0.625.0>  * rabbitmq_prometheus
+rabbitmq-1              | 2026-11-18 08:31:50.776383+00:00 [info] <0.625.0>  * rabbitmq_management
+rabbitmq-1              | 2026-11-18 08:31:50.776383+00:00 [info] <0.625.0>  * rabbitmq_management_agent
+rabbitmq-1              | 2026-11-18 08:31:50.776383+00:00 [info] <0.625.0>  * rabbitmq_web_dispatch
+rabbitmq-1              | 2026-11-18 08:31:50.812491+00:00 [info] <0.10.0> Time to start RabbitMQ: 17316 ms
+rabbitmq-1              | 2026-11-18 08:32:06.987990+00:00 [info] <0.779.0> accepting AMQP connection 172.21.0.15:43546 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:06.989472+00:00 [info] <0.783.0> accepting AMQP connection 172.21.0.16:34628 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:07.017426+00:00 [info] <0.788.0> accepting AMQP connection 172.21.0.10:56216 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:07.019665+00:00 [info] <0.792.0> accepting AMQP connection 172.21.0.13:47262 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:07.035513+00:00 [info] <0.796.0> accepting AMQP connection 172.21.0.12:43340 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:07.060825+00:00 [info] <0.815.0> accepting AMQP connection 172.21.0.14:58952 -> 172.21.0.4:5672
+rabbitmq-1              | 2026-11-18 08:32:07.099038+00:00 [info] <0.792.0> connection 172.21.0.13:47262 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'
+rabbitmq-1              | 2026-11-18 08:32:07.099087+00:00 [info] <0.783.0> connection 172.21.0.16:34628 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'
+rabbitmq-1              | 2026-11-18 08:32:07.099323+00:00 [info] <0.788.0> connection 172.21.0.10:56216 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'
+rabbitmq-1              | 2026-11-18 08:32:07.099737+00:00 [info] <0.779.0> connection 172.21.0.15:43546 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'
+rabbitmq-1              | 2026-11-18 08:32:07.102816+00:00 [info] <0.796.0> connection 172.21.0.12:43340 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'
+rabbitmq-1              | 2026-11-18 08:32:07.116380+00:00 [info] <0.815.0> connection 172.21.0.14:58952 -> 172.21.0.4:5672: user 'ride' authenticated and granted access to vhost '/'

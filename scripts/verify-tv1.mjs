@@ -1,14 +1,49 @@
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync, readdirSync, statSync, copyFileSync, existsSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync, readdirSync, mkdtempSync, copyFileSync, existsSync, rmSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import os from 'node:os';
 
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 const deploymentOnly = process.argv.includes('--deployment-only');
 const full = process.argv.includes('--full') || deploymentOnly;
-const id = new Date().toISOString().replace(/[:.]/g, '-');
-const directory = `docs/evidence/tv1/${id}`;
-mkdirSync(directory, { recursive: true });
+// Use npm's JS entrypoint to avoid Windows .cmd shell quoting.
+const npmCli = process.env.npm_execpath;
+if (!npmCli) throw new Error('Run using npm run verify:tv1');
+
+const artifactsByCheck = {
+  TYPECHECK: [], BUILD: [], UNIT: ['unit.json'], DOCKER: [], 'TEST-INFRA': [],
+  'INTEGRATION-TV1': ['integration.json'], 'UI-TV1': ['ui/results.json', 'ui/5.png', 'ui/8.png'],
+  STARTUP: [], SMOKE: ['smoke.json'],
+  E01: ['E01.json', 'E01-containers.log'], E02: ['E02.json', 'E02-containers.log'],
+  E03: ['E03.json', 'E03-containers.log'], E04: ['E04.json', 'E04-containers.log'],
+  'UI-BUSINESS': ['results.json', 'passenger.png', 'driver.png', 'passenger-trip.png', 'driver-trip.png']
+    .map(file => `ui-business/${file}`),
+  CONCURRENCY: ['c01.json', 'c02.json'], P01: ['p01.json'], REDEPLOY: [],
+};
+const evidenceRoot = 'docs/evidence/kiem-thu-du-an-ds03';
+mkdirSync(evidenceRoot, { recursive: true });
+let runNumber = readdirSync(evidenceRoot)
+  .map(name => /^lan-chay-(\d+)$/.exec(name))
+  .reduce((highest, match) => match ? Math.max(highest, Number(match[1])) : highest, 0);
+let directory;
+while (true) {
+  directory = `${evidenceRoot}/lan-chay-${String(++runNumber).padStart(2, '0')}`;
+  try {
+    mkdirSync(directory);
+    break;
+  } catch (error) {
+    if (error.code !== 'EEXIST') throw error;
+  }
+}
+const detailDirectory = `${directory}/evidence`;
+mkdirSync(detailDirectory);
+mkdirSync('artifacts', { recursive: true });
+const artifactRoot = resolve('artifacts');
+const artifactDirectory = mkdtempSync(resolve(artifactRoot, 'verify-tv1-'));
+process.on('exit', () => {
+  if (dirname(artifactDirectory) === artifactRoot) rmSync(artifactDirectory, { recursive: true, force: true });
+});
 const secretValues = ['DemoPass123!', ...Object.entries(process.env).filter(([key]) => /TOKEN|SECRET|PASSWORD/i.test(key)).map(([, value]) => value)];
 try {
   for (const line of readFileSync('.env', 'utf8').split(/\r?\n/)) {
@@ -24,36 +59,30 @@ function redact(value) {
 }
 const git = (...args) => spawnSync('git', args, { encoding: 'utf8' }).stdout?.trim();
 const report = {
-  owner: 'TV1', startedAt: new Date().toISOString(), commit: git('rev-parse', 'HEAD'),
+  owner: 'TV1', evidenceDirectory: 'evidence', startedAt: new Date().toISOString(), commit: git('rev-parse', 'HEAD'),
   workingTree: git('status', '--short'), mode: deploymentOnly ? 'deployment-only' : full ? 'full' : 'local',
   environment: { node: process.version, platform: process.platform, release: os.release(), arch: os.arch(), cpus: os.cpus().length, memoryBytes: os.totalmem() },
   checks: []
 };
-if (deploymentOnly && existsSync('docs/evidence/tv1/latest.json')) {
-  report.previousEvidence = JSON.parse(readFileSync('docs/evidence/tv1/latest.json', 'utf8')).directory;
+const latest = `${evidenceRoot}/latest.json`;
+if (deploymentOnly && existsSync(latest)) {
+  report.previousEvidence = JSON.parse(readFileSync(latest, 'utf8')).directory;
 }
 function run(testId, command, args, expected, dependency = false) {
   const startedAt = new Date().toISOString();
-  const result = spawnSync(command, args, { encoding: 'utf8', timeout: 240000, maxBuffer: 8 * 1024 * 1024, env: { ...process.env, NO_COLOR: '1' } });
+  const result = spawnSync(command, args, { encoding: 'utf8', timeout: 240000, maxBuffer: 8 * 1024 * 1024,
+    env: { ...process.env, NO_COLOR: '1', DS03_ARTIFACT_DIR: artifactDirectory } });
   const status = result.status === 0 ? 'PASS' : dependency ? 'BLOCKED' : 'FAIL';
   const output = redact(`${result.stdout ?? ''}\n${result.stderr ?? ''}\n${result.error?.message ?? ''}`);
   const log = `${testId}.txt`;
-  writeFileSync(`${directory}/${log}`, output);
+  writeFileSync(`${detailDirectory}/${log}`, output);
   const evidenceFiles = [];
-  const candidates = testId === 'CONCURRENCY' ? ['artifacts/c01.json','artifacts/c02.json'] : testId === 'P01' ? ['artifacts/p01.json'] : testId === 'UI-TV1' ? ['artifacts/ui/results.json', 'artifacts/ui/5.png', 'artifacts/ui/8.png'] : testId === 'UNIT' ? ['artifacts/unit.json'] : testId === 'INTEGRATION-TV1' ? ['artifacts/integration.json'] : testId === 'SMOKE' ? ['artifacts/smoke.json'] : /^E0[1234]$/.test(testId) ? [`artifacts/${testId}.json`, `artifacts/${testId}-containers.log`] : [];
-  if (testId === 'UI-BUSINESS' && existsSync('artifacts/ui-business')) {
-    for (const entry of readdirSync('artifacts/ui-business')) {
-      const folder = `artifacts/ui-business/${entry}`;
-      if (statSync(folder).isDirectory() && statSync(folder).mtimeMs >= Date.parse(startedAt)) {
-        for (const file of readdirSync(folder)) if (/^(results\.json|passenger(?:-trip)?\.png|driver(?:-trip)?\.png)$/.test(file)) candidates.push(`${folder}/${file}`);
-      }
-    }
-  }
-  for (const source of candidates) {
-    if (!existsSync(source) || statSync(source).mtimeMs < Date.parse(startedAt)) continue;
+  for (const artifact of artifactsByCheck[testId]) {
+    const source = `${artifactDirectory}/${artifact}`;
+    if (!existsSync(source)) continue;
     const filename = `${testId}-${source.split('/').pop()}`;
-    if (source.endsWith('.png')) copyFileSync(source, `${directory}/${filename}`);
-    else writeFileSync(`${directory}/${filename}`, redact(readFileSync(source, 'utf8')));
+    if (source.endsWith('.png')) copyFileSync(source, `${detailDirectory}/${filename}`);
+    else writeFileSync(`${detailDirectory}/${filename}`, redact(readFileSync(source, 'utf8')));
     evidenceFiles.push(filename);
   }
   report.checks.push({ testId, owner: 'TV1', command: [command, ...args].join(' '), expected,
@@ -61,9 +90,6 @@ function run(testId, command, args, expected, dependency = false) {
   console.log(`${testId}: ${status}`);
   return status === 'PASS';
 }
-// Use npm's JS entrypoint to avoid Windows .cmd shell quoting.
-const npmCli = process.env.npm_execpath;
-if (!npmCli) throw new Error('Run using npm run verify:tv1');
 const npm = (testId, args, expected) => run(testId, process.execPath, [npmCli, ...args], expected);
 if (!deploymentOnly) {
   npm('TYPECHECK', ['run', 'typecheck'], 'Backend, tools and UI typecheck exit 0');
@@ -95,16 +121,28 @@ if (full && dockerReady) {
     }
   }
 }
-for (const testId of runtimeCases) {
-  if (!report.checks.some(check => check.testId === testId)) report.checks.push({
-    testId, owner: 'TV1', status: 'BLOCKED', expected: 'Executed with evidence on the integrated system',
-    actual: !dockerReady ? 'Docker Engine unavailable' : !full ? 'Not requested in local mode; run with --full' : 'Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass'
+for (const testId of Object.keys(artifactsByCheck)) {
+  if (report.checks.some(check => check.testId === testId)) continue;
+  const inScope = runtimeCases.includes(testId) || (!deploymentOnly && testId === 'TEST-INFRA');
+  report.checks.push({
+    testId, owner: 'TV1', status: inScope ? 'BLOCKED' : 'SKIPPED',
+    expected: 'Executed with evidence on the integrated system',
+    actual: !inScope ? 'Outside the selected mode' : !dockerReady ? 'Docker Engine unavailable'
+      : !full ? 'Not requested in local mode; run with --full'
+      : 'Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass'
   });
+}
+for (const check of report.checks) {
+  const { testId } = check;
+  check.evidenceFiles ??= [];
+  check.missingEvidenceFiles = artifactsByCheck[testId]
+    .map(source => `${testId}-${source.split('/').pop()}`)
+    .filter(filename => !check.evidenceFiles.includes(filename));
 }
 report.endedAt = new Date().toISOString();
 report.acceptance = report.checks.some(check => check.status === 'FAIL') ? 'FAIL' : report.checks.some(check => check.status === 'BLOCKED') ? 'BLOCKED' : 'PASS';
 writeFileSync(`${directory}/results.json`, JSON.stringify(report, null, 2) + '\n');
-writeFileSync('docs/evidence/tv1/latest.json', JSON.stringify({ directory, acceptance: report.acceptance, endedAt: report.endedAt }, null, 2) + '\n');
+writeFileSync(latest, JSON.stringify({ directory, acceptance: report.acceptance, endedAt: report.endedAt }, null, 2) + '\n');
 console.log(`Evidence: ${directory}/results.json; overall ${report.acceptance}`);
 await import('./check-summary.mjs');
 if (report.acceptance !== 'PASS') process.exitCode = 1;

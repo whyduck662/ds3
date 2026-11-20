@@ -1,0 +1,22 @@
+{
+  "scenario": "E04",
+  "time": "2026-11-18T08:34:23.491Z",
+  "evidence": [
+    {
+      "tripId": "a89e89f8-55a1-41ae-87f0-24282dbab765",
+      "correlationId": "eed87310-54b8-494d-be5c-838d6dd02c0a",
+      "quotedFare": 23000
+    },
+    {
+      "operation": "DRIVER_REJECTED",
+      "expected": "With only the rejected driver online, rematch must cancel rather than assign that driver again"
+    },
+    {
+      "cleanup": "driver released, payment voided"
+    },
+    {
+      "result": "PASS",
+      "finalNotification": "trip.cancelled"
+    }
+  ]
+}

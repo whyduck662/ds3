@@ -11,6 +11,8 @@ import { notificationApp } from '../src/services/notification-service/src/app.js
 import { gatewayApp } from '../src/services/api-gateway/src/app.js';
 import { consumeNotifications } from '../src/services/notification-service/src/consumer.js';
 
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
+
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'ui-test-only-secret-at-least-32-characters';
 process.env.RABBITMQ_URL = 'amqp://tv1:local-test-only@127.0.0.1:5673';
@@ -26,7 +28,7 @@ let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined;
 let vite: Awaited<ReturnType<typeof createServer>> | undefined;
 let consumer: ReturnType<typeof consumeNotifications> | undefined;
 let mq: Awaited<ReturnType<typeof amqp.connect>> | undefined;
-await mkdir('artifacts/ui', { recursive: true });
+await mkdir(`${artifactDirectory}/ui`, { recursive: true });
 try {
   await migrate(identityDB, new URL('../src/services/identity-service/migrations/', import.meta.url));
   await migrate(notificationDB, new URL('../src/services/notification-service/migrations/', import.meta.url));
@@ -52,7 +54,7 @@ try {
   async function check(name: string, work: () => Promise<void>) {
     try { await work(); results.push({ name, status: 'PASS' }); }
     catch (error) { results.push({ name, status: 'FAIL', detail: String(error) }); }
-    await page.screenshot({ path: `artifacts/ui/${results.length}.png`, fullPage: true });
+    await page.screenshot({ path: `${artifactDirectory}/ui/${results.length}.png`, fullPage: true });
   }
   await page.goto(uiOrigin);
   const email = `ui-${randomUUID()}@test.local`, password = 'BrowserTest123!';
@@ -123,7 +125,7 @@ try {
 } catch (error) {
   results.push({ name: 'Môi trường kiểm thử', status: 'FAIL', detail: String(error) });
 } finally {
-  await writeFile('artifacts/ui/results.json', JSON.stringify({ timestamp: new Date().toISOString(), browser: 'Microsoft Edge headless', results }, null, 2));
+  await writeFile(`${artifactDirectory}/ui/results.json`, JSON.stringify({ timestamp: new Date().toISOString(), browser: 'Microsoft Edge headless', results }, null, 2));
   await browser?.close(); await vite?.close(); await consumer?.close(); await mq?.close();
   await Promise.all(apps.map(app => app.close()));
   await Promise.all([identityDB.end(), notificationDB.end()]);

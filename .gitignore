@@ -18,6 +18,7 @@ artifacts/
 test-results/
 playwright-report/
 *.log
+!/docs/evidence/kiem-thu-du-an-ds03/lan-chay-*/evidence/E0[1-4]-E0[1-4]-containers.log
 
 # Personal editor and operating-system files
 .idea/
@@ -32,3 +33,9 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.temp
+
+# Personal DS03 study and reference documents
+/Distributed_Systems_3.md
+/\[studocu.com\]*
+/tai-lieu-bao-cao-ds03.docx
+/docs/demo-ds03.md

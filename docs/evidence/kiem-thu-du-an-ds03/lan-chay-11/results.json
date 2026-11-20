@@ -1,0 +1,179 @@
+{
+  "mode": "archived-evidence",
+  "acceptance": "UNRECORDED",
+  "note": "Inventory of archived files. No original verification report was available.",
+  "checks": [
+    {
+      "testId": "TYPECHECK",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "TYPECHECK.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "BUILD",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "BUILD.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UNIT",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "UNIT.txt",
+      "evidenceFiles": [
+        "UNIT-unit.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "DOCKER",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "DOCKER.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "TEST-INFRA",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "TEST-INFRA.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "INTEGRATION-TV1",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "INTEGRATION-TV1.txt",
+      "evidenceFiles": [
+        "INTEGRATION-TV1-integration.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UI-TV1",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "UI-TV1.txt",
+      "evidenceFiles": [
+        "UI-TV1-results.json",
+        "UI-TV1-5.png",
+        "UI-TV1-8.png"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "STARTUP",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "STARTUP.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "SMOKE",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "SMOKE.txt",
+      "evidenceFiles": [
+        "SMOKE-smoke.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E01",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "E01.txt",
+      "evidenceFiles": [
+        "E01-E01.json",
+        "E01-E01-containers.log"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E02",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "E02.txt",
+      "evidenceFiles": [
+        "E02-E02.json",
+        "E02-E02-containers.log"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E03",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "E03.txt",
+      "evidenceFiles": [
+        "E03-E03.json"
+      ],
+      "missingEvidenceFiles": [
+        "E03-E03-containers.log"
+      ]
+    },
+    {
+      "testId": "E04",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "E04.txt",
+      "evidenceFiles": [
+        "E04-E04.json"
+      ],
+      "missingEvidenceFiles": [
+        "E04-E04-containers.log"
+      ]
+    },
+    {
+      "testId": "UI-BUSINESS",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "UI-BUSINESS.txt",
+      "evidenceFiles": [
+        "UI-BUSINESS-results.json"
+      ],
+      "missingEvidenceFiles": [
+        "UI-BUSINESS-passenger.png",
+        "UI-BUSINESS-driver.png",
+        "UI-BUSINESS-passenger-trip.png",
+        "UI-BUSINESS-driver-trip.png"
+      ]
+    },
+    {
+      "testId": "CONCURRENCY",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "CONCURRENCY.txt",
+      "evidenceFiles": [
+        "CONCURRENCY-c01.json",
+        "CONCURRENCY-c02.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "P01",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "log": "P01.txt",
+      "evidenceFiles": [
+        "P01-p01.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "REDEPLOY",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    }
+  ],
+  "evidenceDirectory": "evidence"
+}

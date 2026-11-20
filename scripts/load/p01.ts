@@ -4,6 +4,8 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { api, base } from '../demo/api.js';
 
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
+
 // Reproducible read-path experiment; does not claim booking/matching throughput.
 const evidence: Record<string, unknown> = { testId: 'P01', startedAt: new Date().toISOString(),
   workload: 'Authenticated GET /notifications/me, 100 requests at concurrency 1/5/10; distinct user for each stage',
@@ -36,7 +38,7 @@ try {
   }
   evidence.stages = stages; evidence.status = process.exitCode ? 'FAIL' : 'PASS';
 } catch (error) { evidence.status = 'FAIL'; evidence.error = String(error); process.exitCode = 1; }
-await mkdir('artifacts', { recursive: true });
+await mkdir(artifactDirectory, { recursive: true });
 evidence.endedAt = new Date().toISOString();
-await writeFile('artifacts/p01.json', JSON.stringify(evidence, null, 2));
-console.log(`P01: ${evidence.status}; artifacts/p01.json`);
+await writeFile(`${artifactDirectory}/p01.json`, JSON.stringify(evidence, null, 2));
+console.log(`P01: ${evidence.status}; ${artifactDirectory}/p01.json`);

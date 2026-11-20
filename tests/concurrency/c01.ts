@@ -3,6 +3,8 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { api, base, login } from '../../scripts/demo/api.js';
 
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
+
 /**
  * C01 Concurrency Test:
  * 2 Passengers simultaneously request a ride with only 1 Driver available.
@@ -30,7 +32,7 @@ async function runC01() {
   console.log('=== Running C01 Concurrency Test ===');
   console.log(`Target API Gateway: ${base}`);
 
-  await mkdir('artifacts', { recursive: true });
+  await mkdir(artifactDirectory, { recursive: true });
   const evidence: any = {
     test: 'C01',
     description: '2 Passengers concurrent booking with 1 Driver',
@@ -136,15 +138,15 @@ async function runC01() {
     evidence.winner = t1Won ? trip1.id : trip2.id;
     evidence.endedAt = new Date().toISOString();
 
-    await writeFile('artifacts/c01.json', JSON.stringify(evidence, null, 2));
-    console.log('>>> C01 PASSED! Evidence saved to artifacts/c01.json');
+    await writeFile(`${artifactDirectory}/c01.json`, JSON.stringify(evidence, null, 2));
+    console.log(`>>> C01 PASSED! Evidence saved to ${artifactDirectory}/c01.json`);
     process.exit(0);
   } catch (err: any) {
     console.error('>>> C01 FAILED:', err.message);
     evidence.passed = false;
     evidence.error = err.message;
     evidence.endedAt = new Date().toISOString();
-    await writeFile('artifacts/c01.json', JSON.stringify(evidence, null, 2)).catch(() => {});
+    await writeFile(`${artifactDirectory}/c01.json`, JSON.stringify(evidence, null, 2)).catch(() => {});
     process.exit(1);
   }
 }

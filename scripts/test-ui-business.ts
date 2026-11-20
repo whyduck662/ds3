@@ -5,7 +5,9 @@ import { execFileSync } from 'node:child_process';
 import { accounts } from './demo/api.js';
 
 const ui = process.env.UI_URL ?? 'http://localhost:3000';
-const directory = `artifacts/ui-business/${new Date().toISOString().replace(/[:.]/g, '-')}`;
+const directory = process.env.DS03_ARTIFACT_DIR
+  ? `${process.env.DS03_ARTIFACT_DIR}/ui-business`
+  : `artifacts/ui-business/${new Date().toISOString().replace(/[:.]/g, '-')}`;
 await mkdir(directory, { recursive: true });
 const report: { testId: string; owner: string; commit: string; startedAt: string; expected: string; status: string; steps: string[]; actual?: string } = {
   testId: 'UI-BUSINESS', owner: 'TV1', commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),

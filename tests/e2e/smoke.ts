@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { api, base, login } from '../../scripts/demo/api.js';
+
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
 const evidence: unknown[] = [];
 try {
   assert.equal((await api('/health')).status, 'ok');
@@ -20,6 +22,6 @@ try {
     evidence.push({ test: id, path, status, result: 'PASS' });
   }
 } catch (error) { evidence.push({ result: 'FAIL', error: String(error) }); process.exitCode = 1; }
-await mkdir('artifacts', { recursive: true });
-await writeFile('artifacts/smoke.json', JSON.stringify({ time: new Date().toISOString(), evidence }, null, 2));
+await mkdir(artifactDirectory, { recursive: true });
+await writeFile(`${artifactDirectory}/smoke.json`, JSON.stringify({ time: new Date().toISOString(), evidence }, null, 2));
 console.log(evidence);

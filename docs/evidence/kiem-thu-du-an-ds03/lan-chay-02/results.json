@@ -1,0 +1,210 @@
+{
+  "owner": "TV1",
+  "startedAt": "2026-11-17T09:20:44.300Z",
+  "commit": "52bbb2af714b843a13eaf62ccd6cea1ac3ab7e62",
+  "workingTree": "M .env.example\n M .github/workflows/ci.yml\n D General_Requirements_and_DS03_English.md\n M README.md\n M compose.yaml\n M docs/demo.md\n M docs/member-1.md\n M docs/report/tv1.md\n M docs/requirements-review.md\n M docs/testing.md\n M package.json\n M scripts/create-compose.mjs\n M scripts/init-env.ps1\n M scripts/start.mjs\n?? \"COURSE PROJECT SPECIFICATION.md\"\n?? docs/evidence/kiem-thu-du-an-ds03/\n?? docs/redeploy.md\n?? docs/report.pdf\n?? docs/report/preview.html\n?? docs/report/project.md\n?? docs/submission-checklist.md\n?? scripts/build-report.mjs\n?? scripts/env.mjs\n?? scripts/test-ui-business.ts\n?? scripts/verify-tv1.mjs",
+  "mode": "full",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "arch": "x64",
+    "cpus": 8,
+    "memoryBytes": 16942211072
+  },
+  "checks": [
+    {
+      "testId": "TYPECHECK",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+      "expected": "Backend, tools and UI typecheck exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:20:44.573Z",
+      "endedAt": "2026-11-17T09:21:02.111Z",
+      "log": "TYPECHECK.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "BUILD",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run build",
+      "expected": "TypeScript and production UI build exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:21:02.116Z",
+      "endedAt": "2026-11-17T09:21:14.270Z",
+      "log": "BUILD.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UNIT",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js test",
+      "expected": "All unit tests pass; see test counts in log",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:21:14.270Z",
+      "endedAt": "2026-11-17T09:21:19.993Z",
+      "log": "UNIT.txt",
+      "evidenceFiles": [
+        "UNIT-unit.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "DOCKER",
+      "owner": "TV1",
+      "command": "docker info --format {{.ServerVersion}}",
+      "expected": "Docker Engine responds",
+      "actual": "exit=1; BLOCKED",
+      "status": "BLOCKED",
+      "startedAt": "2026-11-17T09:21:19.993Z",
+      "endedAt": "2026-11-17T09:21:20.575Z",
+      "log": "DOCKER.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "INTEGRATION-TV1",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "INTEGRATION-TV1-integration.json"
+      ]
+    },
+    {
+      "testId": "SMOKE",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "SMOKE-smoke.json"
+      ]
+    },
+    {
+      "testId": "E01",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "E01-E01.json",
+        "E01-E01-containers.log"
+      ]
+    },
+    {
+      "testId": "E02",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "E02-E02.json",
+        "E02-E02-containers.log"
+      ]
+    },
+    {
+      "testId": "E03",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "E03-E03.json",
+        "E03-E03-containers.log"
+      ]
+    },
+    {
+      "testId": "UI-BUSINESS",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "UI-BUSINESS-results.json",
+        "UI-BUSINESS-passenger.png",
+        "UI-BUSINESS-driver.png",
+        "UI-BUSINESS-passenger-trip.png",
+        "UI-BUSINESS-driver-trip.png"
+      ]
+    },
+    {
+      "testId": "REDEPLOY",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Docker Engine unavailable",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "TEST-INFRA",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UI-TV1",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "UI-TV1-results.json",
+        "UI-TV1-5.png",
+        "UI-TV1-8.png"
+      ]
+    },
+    {
+      "testId": "STARTUP",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E04",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "E04-E04.json",
+        "E04-E04-containers.log"
+      ]
+    },
+    {
+      "testId": "CONCURRENCY",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "CONCURRENCY-c01.json",
+        "CONCURRENCY-c02.json"
+      ]
+    },
+    {
+      "testId": "P01",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "P01-p01.json"
+      ]
+    }
+  ],
+  "endedAt": "2026-11-17T09:21:20.575Z",
+  "acceptance": "BLOCKED",
+  "evidenceDirectory": "evidence"
+}

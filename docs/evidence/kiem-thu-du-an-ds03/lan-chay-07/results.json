@@ -1,0 +1,253 @@
+{
+  "owner": "TV1",
+  "startedAt": "2026-11-17T09:57:57.354Z",
+  "commit": "52bbb2af714b843a13eaf62ccd6cea1ac3ab7e62",
+  "workingTree": "M .env.example\n M .github/workflows/ci.yml\n D General_Requirements_and_DS03_English.md\n M README.md\n M compose.yaml\n M deploy/compose.test.yaml\n D docs/demo.md\n D docs/member-1.md\n D docs/report/tv1.md\n D docs/requirements-review.md\n D docs/testing.md\n M package.json\n M plan_DS03_v5.md\n M scripts/create-compose.mjs\n M scripts/demo/run.ts\n M scripts/init-env.ps1\n M scripts/start.mjs\n M scripts/test-ui.ts\n M src/common/src/consumer.ts\n M src/common/src/migrate.ts\n M src/common/src/rabbit.ts\n M src/services/api-gateway/src/app.ts\n M src/services/matching-service/src/consumer.ts\n M src/services/payment-service/src/consumer.ts\n M src/services/trip-service/src/app.ts\n M src/services/trip-service/src/consumer.ts\n M tests/platform.test.ts\n?? \"COURSE PROJECT SPECIFICATION.md\"\n?? docs/TV1.md\n?? docs/evidence/kiem-thu-du-an-ds03/\n?? docs/report.docx\n?? docs/report.md\n?? docs/report.pdf\n?? scripts/build-report.mjs\n?? scripts/build-report.py\n?? scripts/env.mjs\n?? scripts/test-ui-business.ts\n?? scripts/verify-tv1.mjs\n?? tests/messaging.test.ts\n?? tests/migrate.test.ts",
+  "mode": "full",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "arch": "x64",
+    "cpus": 8,
+    "memoryBytes": 16942211072
+  },
+  "checks": [
+    {
+      "testId": "TYPECHECK",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run typecheck",
+      "expected": "Backend, tools and UI typecheck exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:57:57.603Z",
+      "endedAt": "2026-11-17T09:58:18.361Z",
+      "log": "TYPECHECK.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "BUILD",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run build",
+      "expected": "TypeScript and production UI build exit 0",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:58:18.367Z",
+      "endedAt": "2026-11-17T09:58:32.326Z",
+      "log": "BUILD.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UNIT",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js test",
+      "expected": "All unit tests pass; see test counts in log",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:58:32.326Z",
+      "endedAt": "2026-11-17T09:58:40.037Z",
+      "log": "UNIT.txt",
+      "evidenceFiles": [
+        "UNIT-unit.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "DOCKER",
+      "owner": "TV1",
+      "command": "docker info --format {{.ServerVersion}}",
+      "expected": "Docker Engine responds",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:58:40.037Z",
+      "endedAt": "2026-11-17T09:58:40.947Z",
+      "log": "DOCKER.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "TEST-INFRA",
+      "owner": "TV1",
+      "command": "docker compose -f deploy/compose.test.yaml up -d --wait",
+      "expected": "Dedicated test DB/MQ healthy",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:58:40.947Z",
+      "endedAt": "2026-11-17T09:58:42.197Z",
+      "log": "TEST-INFRA.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "INTEGRATION-TV1",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run test:integration",
+      "expected": "Identity/Notification integration suite passes with real test DB/MQ",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:58:42.197Z",
+      "endedAt": "2026-11-17T09:59:16.989Z",
+      "log": "INTEGRATION-TV1.txt",
+      "evidenceFiles": [
+        "INTEGRATION-TV1-integration.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UI-TV1",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run test:ui",
+      "expected": "TV1 browser checks pass with real test DB/MQ, fixture events, isolated ports",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:59:16.989Z",
+      "endedAt": "2026-11-17T09:59:38.047Z",
+      "log": "UI-TV1.txt",
+      "evidenceFiles": [
+        "UI-TV1-results.json",
+        "UI-TV1-5.png",
+        "UI-TV1-8.png"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "STARTUP",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run up",
+      "expected": "Build/start deployment and seed through HTTP",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T09:59:38.048Z",
+      "endedAt": "2026-11-17T10:01:39.874Z",
+      "log": "STARTUP.txt",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "SMOKE",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run smoke",
+      "expected": "Gateway smoke suite passes",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T10:01:39.874Z",
+      "endedAt": "2026-11-17T10:01:43.352Z",
+      "log": "SMOKE.txt",
+      "evidenceFiles": [
+        "SMOKE-smoke.json"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E01",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run e2e -- E01",
+      "expected": "Complete scenario and all API/notification assertions pass",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T10:01:43.352Z",
+      "endedAt": "2026-11-17T10:01:50.497Z",
+      "log": "E01.txt",
+      "evidenceFiles": [
+        "E01-E01.json",
+        "E01-E01-containers.log"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E02",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run e2e -- E02",
+      "expected": "Complete scenario and all API/notification assertions pass",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T10:01:50.497Z",
+      "endedAt": "2026-11-17T10:01:57.320Z",
+      "log": "E02.txt",
+      "evidenceFiles": [
+        "E02-E02.json",
+        "E02-E02-containers.log"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E03",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run e2e -- E03",
+      "expected": "Complete scenario and all API/notification assertions pass",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T10:01:57.320Z",
+      "endedAt": "2026-11-17T10:02:10.550Z",
+      "log": "E03.txt",
+      "evidenceFiles": [
+        "E03-E03.json",
+        "E03-E03-containers.log"
+      ],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "UI-BUSINESS",
+      "owner": "TV1",
+      "command": "D:\\node\\node.exe D:\\node\\node_modules\\npm\\bin\\npm-cli.js run test:ui:business",
+      "expected": "Real browser heartbeat/booking/accept/start/complete/payment/notifications pass",
+      "actual": "exit=0; PASS",
+      "status": "PASS",
+      "startedAt": "2026-11-17T10:02:10.550Z",
+      "endedAt": "2026-11-17T10:03:48.090Z",
+      "log": "UI-BUSINESS.txt",
+      "evidenceFiles": [
+        "UI-BUSINESS-driver.png",
+        "UI-BUSINESS-passenger.png",
+        "UI-BUSINESS-results.json"
+      ],
+      "missingEvidenceFiles": [
+        "UI-BUSINESS-passenger-trip.png",
+        "UI-BUSINESS-driver-trip.png"
+      ]
+    },
+    {
+      "testId": "REDEPLOY",
+      "owner": "TV1",
+      "status": "BLOCKED",
+      "expected": "Executed with evidence on the integrated system",
+      "actual": "Requires browser business-flow verification, clean-machine verification, or preceding runtime check to pass",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": []
+    },
+    {
+      "testId": "E04",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "E04-E04.json",
+        "E04-E04-containers.log"
+      ]
+    },
+    {
+      "testId": "CONCURRENCY",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "CONCURRENCY-c01.json",
+        "CONCURRENCY-c02.json"
+      ]
+    },
+    {
+      "testId": "P01",
+      "status": "UNRECORDED",
+      "actual": "No check status was recorded in the original verification report.",
+      "evidenceFiles": [],
+      "missingEvidenceFiles": [
+        "P01-p01.json"
+      ]
+    }
+  ],
+  "endedAt": "2026-11-17T10:03:48.091Z",
+  "acceptance": "BLOCKED",
+  "evidenceDirectory": "evidence"
+}

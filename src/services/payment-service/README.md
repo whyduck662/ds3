@@ -1,6 +1,6 @@
 # payment-service
 
-Owner: TV2. Đã có authorize/capture/void giả lập, inbox/outbox, tombstone và API ownership/internal authentication. Capture sai state/amount trả rejection, không phát success giả. Xem docs/report.md và docs/TV1.md ở gốc repository.
+Owner: TV2. Đã có authorize/capture/void giả lập, inbox/outbox, tombstone và API ownership/internal authentication. Capture sai state/amount trả rejection, không phát success giả. Xem docs/report.docx và docs/member-1-identity-gateway-notification-web-ui.md ở gốc repository.
 
 - Mã nguồn: `src/`
 - Migration: SQL versioned trong `migrations/`, chạy tự động khi startup.

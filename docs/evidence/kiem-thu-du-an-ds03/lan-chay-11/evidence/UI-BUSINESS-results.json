@@ -1,0 +1,18 @@
+{
+  "testId": "UI-BUSINESS",
+  "owner": "TV1",
+  "commit": "6c60652333fc09f0ad34e905930c314a070cfbe3",
+  "startedAt": "2026-11-18T08:34:27.339Z",
+  "expected": "Two real browser sessions complete and pay a trip; real notifications reach both users",
+  "status": "PASS",
+  "steps": [
+    "Passenger and Driver logged in through real UI",
+    "Driver online API returned AVAILABLE",
+    "Seven successful location heartbeats, Driver remains AVAILABLE",
+    "Trip 70b0b0b0-b09e-4319-b498-99451355d26c: accepted, started, paid; CAPTURED shown; one paid notification per user; no pageerror"
+  ],
+  "actual": "All real UI business assertions passed",
+  "endedAt": "2026-11-18T08:35:22.048Z",
+  "browser": "Playwright Chromium/Edge",
+  "ui": "http://localhost:3000"
+}

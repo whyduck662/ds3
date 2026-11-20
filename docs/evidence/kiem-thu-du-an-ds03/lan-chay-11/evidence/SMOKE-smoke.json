@@ -1,0 +1,39 @@
+{
+  "time": "2026-11-18T08:32:23.087Z",
+  "evidence": [
+    {
+      "test": "F02/F10 (login/me/notification API)",
+      "result": "PASS"
+    },
+    {
+      "test": "S01",
+      "path": "/users/me",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "test": "S01",
+      "path": "/users/me",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "test": "S02",
+      "path": "/drivers/me",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "test": "S05",
+      "path": "/internal/drivers/available",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "test": "S03",
+      "path": "/notifications/me?since=wrong",
+      "status": 400,
+      "result": "PASS"
+    }
+  ]
+}

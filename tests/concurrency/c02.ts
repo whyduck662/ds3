@@ -3,6 +3,8 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { api } from '../../scripts/demo/api.js';
 
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
+
 // Conflict test: 10 distinct bookings for ONE passenger; exactly one active trip.
 const evidence: Record<string, unknown> = { test: 'C02', startedAt: new Date().toISOString(),
   description: '10 parallel bookings for one passenger, exactly one success and nine HTTP 409 conflicts' };
@@ -34,8 +36,8 @@ finally {
       await api(`/trips/${tripId}/cancel`, { method: 'POST', body: '{}' }, token).catch(error => { evidence.cleanupError = String(error); process.exitCode = 1; });
     }
   }
-  await mkdir('artifacts', { recursive: true });
+  await mkdir(artifactDirectory, { recursive: true });
   evidence.endedAt = new Date().toISOString();
-  await writeFile('artifacts/c02.json', JSON.stringify(evidence, null, 2));
+  await writeFile(`${artifactDirectory}/c02.json`, JSON.stringify(evidence, null, 2));
   console.log(`C02: ${evidence.passed ? 'PASS' : 'FAIL'}`);
 }

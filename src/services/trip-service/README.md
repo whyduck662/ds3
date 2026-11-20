@@ -1,6 +1,6 @@
 # trip-service
 
-Owner: TV2. Đã có booking/idempotency, lifecycle, pricing, Saga và compensation/reconciler. Confirm không chắc chắn giữ reservation để bù trừ; PAID yêu cầu payment status/amount hợp lệ. Xem docs/report.md và docs/TV1.md ở gốc repository.
+Owner: TV2. Đã có booking/idempotency, lifecycle, pricing, Saga và compensation/reconciler. Confirm không chắc chắn giữ reservation để bù trừ; PAID yêu cầu payment status/amount hợp lệ. Xem docs/report.docx và docs/member-1-identity-gateway-notification-web-ui.md ở gốc repository.
 
 - Mã nguồn: `src/`
 - Migration: SQL versioned trong `migrations/`, chạy tự động khi startup.

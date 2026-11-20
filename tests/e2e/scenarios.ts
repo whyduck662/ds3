@@ -4,6 +4,8 @@ import { execFileSync } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { api, base, login } from '../../scripts/demo/api.js';
 
+const artifactDirectory = process.env.DS03_ARTIFACT_DIR ?? 'artifacts';
+
 const scenario = process.argv[2] ?? 'E01';
 if (!['E01', 'E02', 'E03', 'E04'].includes(scenario)) throw new Error('Dùng E01 (happy path), E02 (cancel), E03 (capture recovery), E04 (reject/rematch)');
 const evidence: unknown[] = [];
@@ -20,7 +22,7 @@ async function waitFor(path: string, token: string, predicate: (value: any) => b
 let heartbeat: ReturnType<typeof setInterval> | undefined;
 let stoppedPayment = false;
 let id: string | undefined;
-await mkdir('artifacts', { recursive: true });
+await mkdir(artifactDirectory, { recursive: true });
 try {
   if (scenario === 'E03' && base !== 'http://localhost:8080') throw new Error('E03 chỉ điều khiển Compose local qua API mặc định http://localhost:8080');
   const passenger = await login(0), driver = await login(2);
@@ -81,8 +83,8 @@ finally {
     try { compose('up', '-d', 'payment-service'); }
     catch (error) { evidence.push({ operation: 'RESTORE_FAILED', error: String(error) }); process.exitCode = 1; }
   }
-  try { await writeFile(`artifacts/${scenario}-containers.log`, compose('logs', '--no-color', '--since', '10m')); }
+  try { await writeFile(`${artifactDirectory}/${scenario}-containers.log`, compose('logs', '--no-color', '--since', '10m')); }
   catch (error) { evidence.push({ operation: 'LOG_COLLECTION_FAILED', error: String(error) }); }
-  await writeFile(`artifacts/${scenario}.json`, JSON.stringify({ scenario, time: new Date().toISOString(), evidence }, null, 2));
+  await writeFile(`${artifactDirectory}/${scenario}.json`, JSON.stringify({ scenario, time: new Date().toISOString(), evidence }, null, 2));
   console.log(evidence);
 }
